@@ -13,8 +13,25 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+
+/* Left trapezoid: angled on right side */
+.clip-left {
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+}
+
+/* Middle red: angled on both sides */
+.clip-middle {
+  clip-path: polygon(2.5% 0, 100% 0, 97.5% 100%, 0% 100%);
+}
+
+/* Right trapezoid: angled on left side */
+.clip-right {
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
 }

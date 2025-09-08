@@ -12,7 +12,7 @@ function VisionMission() {
     }, []);
 
     return (
-        <section className="py-16 sm:py-20 px-4 sm:px-6 md:px-8 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 overflow-hidden">
+        <section className="py-16 bg-blue-900/50 sm:py-20 px-4 sm:px-6 md:px-8 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 overflow-hidden">
             {/* Vision */}
             <motion.div
                 initial={isMobile ? { opacity: 0, y: 50 } : { opacity: 0, x: -50 }}
