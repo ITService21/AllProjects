@@ -35,3 +35,22 @@
 .clip-right {
   clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
 }
+
+/* Default (desktop / large) */
+.clip-middle {
+  clip-path: polygon(2.5% 0, 100% 0, 97.5% 100%, 0% 100%);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .clip-middle {
+    clip-path: polygon(4% 0, 100% 0, 96% 100%, 0% 100%);
+  }
+}
+
+/* Small mobile (phones <480px) */
+@media (max-width: 480px) {
+  .clip-middle {
+    clip-path: polygon(28% 0, 100% 0%, 75% 100%, 0% 100%);
+  }
+}

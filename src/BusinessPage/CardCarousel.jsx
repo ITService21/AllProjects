@@ -9,37 +9,37 @@ const AutoCardCarousel = () => {
       id: 1,
       title: '🚀 Launch',
       description: 'Prepare for takeoff!',
-      image: 'https://source.unsplash.com/random/800x600?startup',
+      image: './image/banner1.jpg',
     },
     {
       id: 2,
       title: '📦 Package',
       description: 'Shipping your product.',
-      image: 'https://source.unsplash.com/random/800x600?box',
+      image: './image/b1.jpg',
     },
     {
       id: 3,
       title: '💡 Idea',
       description: 'Innovate your workflow.',
-      image: 'https://source.unsplash.com/random/800x600?lightbulb',
+      image: './image/b2.jpg',
     },
     {
       id: 4,
       title: '🎯 Target',
       description: 'Focus on goals.',
-      image: 'https://source.unsplash.com/random/800x600?target',
+      image: './image/banner1.jpg',
     },
     {
       id: 5,
       title: '📈 Growth',
       description: 'Grow your audience.',
-      image: 'https://source.unsplash.com/random/800x600?growth',
+      image: './image/b1.jpg',
     },
     {
       id: 6,
       title: '🔒 Secure',
       description: 'Your data is safe.',
-      image: 'https://source.unsplash.com/random/800x600?security',
+      image: './image/b2.jpg',
     },
   ];
 
@@ -78,7 +78,7 @@ const AutoCardCarousel = () => {
   const visible = getVisibleCards();
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-blue-100 px-4 pt-[60px]">
+    <div className="flex justify-center items-center h-full bg-gradient-to-br from-gray-100 to-blue-300 px-4 pt-[100px] p-10">
       <div className="flex gap-4 sm:gap-6 transition-all duration-700 ease-in-out">
         {visible.map((card, index) => {
           const isCenter = index === Math.floor(visibleCards / 2);
@@ -90,7 +90,7 @@ const AutoCardCarousel = () => {
                 relative group overflow-hidden rounded-2xl bg-center bg-cover shadow-lg 
                 transition-transform duration-700 ease-in-out transform border border-gray-200 
                 w-[250px] sm:w-[280px] md:w-[220px] lg:w-[220px] xl:w-[240px] h-[340px] sm:h-[400px]
-                ${isCenter ? 'scale-110 shadow-2xl z-10' : 'scale-95 opacity-80'}
+                ${isCenter ? 'scale-110 shadow-2xl z-10' : 'scale-75 opacity-70'}
               `}
               style={{
                 backgroundImage: `url(${card.image})`,
