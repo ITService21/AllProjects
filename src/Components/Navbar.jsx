@@ -23,7 +23,7 @@ function Navbar() {
       </div>
 
       {/* Actual Navbar */}
-      <nav className="flex items-center h-[60px] px-3 m-0 md:px-4 bg-gray-900 fixed w-[100vw]">
+      <nav className="fixed top-0 left-0 flex items-center h-[60px] px-3 m-0 md:px-4 bg-gray-900 w-full z-50">
         <div className="flex items-center justify-between w-full md:mx-4 lg:mx-8 2xl:w-[80em] 2xl:mx-auto relative">
           {/* Logo Centered on Mobile */}
           <div className="md:hidden absolute left-1/2 transform -translate-x-1/2 md:relative md:left-0 md:transform-none">
