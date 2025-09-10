@@ -232,8 +232,7 @@ export default function BlogPage({ initialPosts = null }) {
                     </div>
                 )}
 
-                {/* footer small */}
-                <div className="mt-12 text-center text-sm text-slate-500">© {new Date().getFullYear()} Your Company — Insights</div>
+                
             </div>
 
             {/* Article modal / reader */}
