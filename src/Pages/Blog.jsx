@@ -75,7 +75,7 @@ export default function BlogPage({ initialPosts = null }) {
     const cardAnim = { hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } };
 
     return (
-        <div className="bg-slate-50 min-h-screen">
+        <div className="bg-slate-50 min-h-screen pt-[75px]">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 {/* Header */}
                 <header className="mb-8 text-center">
