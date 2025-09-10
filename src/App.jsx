@@ -9,6 +9,8 @@ import CompanyVisionMission from "./Pages/MissionAndMission";
 import CompanyOverview from "./Pages/CompanyOverview";
 import SimpleTeamPage from "./Pages/WorkerTeam";
 import Certifications from "./Pages/Certifications";
+import ServicesPage from "./Pages/Services";
+import BlogPage from "./Pages/Blog";
 
 
 
@@ -25,8 +27,10 @@ function App() {
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/about-us/mission-vision" element={<CompanyVisionMission />} />
             <Route path="/about-us/overview" element={<CompanyOverview />} />
-             <Route path="/about-us/ourteam" element={<SimpleTeamPage />} />
-             <Route path="/about-us/certifications" element={<Certifications />} />
+            <Route path="/about-us/ourteam" element={<SimpleTeamPage />} />
+            <Route path="/about-us/certifications" element={<Certifications />} />
+            <Route path="/service" element={<ServicesPage />} />
+            <Route path="/blog" element={<BlogPage />} />
           </Routes>
         </main>
       

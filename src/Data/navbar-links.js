@@ -94,6 +94,23 @@ export const NavbarLinks = [
     icon: FaEnvelope,
     subLinks: [],
   },
+
+   {
+    name: "SERVICE",
+    link: "/service",
+    class: "",
+    icon: FaEnvelope,
+    subLinks: [],
+  },
+
+   {
+    name: "BLOG",
+    link: "/blog",
+    class: "",
+    icon: FaEnvelope,
+    subLinks: [],
+  },
+
 ];
 
 export default NavbarLinks;
