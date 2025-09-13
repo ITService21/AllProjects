@@ -1,15 +1,9 @@
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  ChevronRightIcon,
-  PlusIcon,
-  MinusIcon,
-} from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 
-export const MobileMenu = ({ menuLinks }) => {
-  const navigate = useNavigate();
+export const MobileMenu = ({ menuLinks, onClose }) => {
   const [expandedLinkId, setExpandedLinkId] = useState(null);
 
   const onMenuItemClick = (index) => {
@@ -21,101 +15,153 @@ export const MobileMenu = ({ menuLinks }) => {
   };
 
   return (
-    <div className="absolute w-[calc(100vw-2.1em)] top-14 left-5 bg-[#f0e4c3] pb-[20px] ">
-      <div className="flex flex-col h-[calc(100%-4em)] m-8 overflow-auto ">
-        <ul>
+    <motion.div 
+      className="absolute top-full left-0 right-0 mt-2 mx-4 bg-white/95 backdrop-blur-md shadow-2xl rounded-2xl border border-white/20 overflow-hidden"
+      initial={{ opacity: 0, y: -20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -20, scale: 0.95 }}
+      transition={{ duration: 0.3, ease: [0.68, -0.55, 0.265, 1.55] }}
+    >
+      {/* Header */}
+      <div className="px-6 py-4 bg-gradient-to-r from-orange-500/10 to-red-500/10 border-b border-gray-200/50">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-800">Menu</h3>
+          <motion.button
+            onClick={onClose}
+            className="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-600 transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            ×
+          </motion.button>
+        </div>
+      </div>
+
+      {/* Menu Items */}
+      <div className="max-h-96 overflow-y-auto">
+        <ul className="py-2">
           {menuLinks?.map((record, index) => {
-            console.log("front1", record);
             const Icon1 = record?.icon;
+            const hasSubLinks = Array.isArray(record?.subLinks) && record?.subLinks?.length > 0;
+            
             return (
-              <>
-                <div className="relative group " key={record.name}>
-                  <li
-                    className="py-3 font-semibold rounded-lg cursor-pointer lg:px-4"
-                    onClick={() => onMenuItemClick(index)}
+              <motion.div
+                key={record.name}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+              >
+                <motion.li
+                  className="mx-2 my-1"
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <motion.div
+                    className="p-4 rounded-xl cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-orange-50 hover:to-red-50"
+                    onClick={() => hasSubLinks && onMenuItemClick(index)}
                   >
-                    <div className="flex justify-between text-[#9d7914]">
-                      {record?.link ? (
-                        <Link
-                          to={record?.link}
-                          className="text-[16px] font-bold flex justify-center items-center gap-2"
-                        >
-                          <div className="">
-                            <Icon1 />
-                          </div>{" "}
-                          <div>{record?.name}</div>
-                        </Link>
-                      ) : (
-                        <p className="text-[16px] font-bold flex justify-center items-center gap-2">
-                          <div className="">
-                            <Icon1 />
-                          </div>
-                          <div>{record?.name}</div>
-                        </p>
-                      )}
-                      {Array.isArray(record?.subLinks) &&
-                        record?.subLinks?.length !== 0 && (
-                          <div className="w-8 h-8 p-1 font-bold">
-                            {expandedLinkId === index ? (
-                              <MinusIcon
-                                className="w-5 h-5 text-[#9d7914] font-bold"
-                                strokeWidth={3}
-                              />
-                            ) : (
-                              <PlusIcon
-                                className="w-5 h-5 text-[#9d7914] font-bold"
-                                strokeWidth={3}
-                              />
-                            )}
-                          </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        {Icon1 && (
+                          <motion.div
+                            className="w-8 h-8 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-lg flex items-center justify-center"
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <Icon1 className="w-5 h-5 text-orange-600" />
+                          </motion.div>
                         )}
+                        
+                        {record?.link ? (
+                          <Link
+                            to={record?.link}
+                            className="text-gray-800 font-semibold hover:text-orange-600 transition-colors"
+                            onClick={onClose}
+                          >
+                            {record?.name}
+                          </Link>
+                        ) : (
+                          <span className="text-gray-800 font-semibold">
+                            {record?.name}
+                          </span>
+                        )}
+                      </div>
+                      
+                      {hasSubLinks && (
+                        <motion.div
+                          animate={{ rotate: expandedLinkId === index ? 180 : 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <ChevronDownIcon className="w-5 h-5 text-gray-500" />
+                        </motion.div>
+                      )}
                     </div>
-                    {expandedLinkId === index && (
-                      <div className="w-full h-full">
-                        <ul className="transition-all duration-500">
-                          {record?.subLinks?.map((subLink) => {
+                  </motion.div>
+
+                  {/* Sub Links */}
+                  <AnimatePresence>
+                    {expandedLinkId === index && hasSubLinks && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="ml-6 mt-2 space-y-1">
+                          {record?.subLinks?.map((subLink, subIndex) => {
                             const Icon2 = subLink?.icon;
                             return (
-                              <li
-                                className="pl-1 py-1 text-[#9d7914] cursor-pointer"
+                              <motion.div
                                 key={subLink?.name}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.2, delay: subIndex * 0.05 }}
                               >
                                 <Link
                                   to={subLink?.link}
-                                  className="flex items-center"
+                                  className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gradient-to-r hover:from-orange-50 hover:to-red-50 transition-all duration-300 group"
+                                  onClick={onClose}
                                 >
-                                  <div className="flex flex-col ml-1 py-2">
-                                    <p className="font-bold flex justify-center items-center gap-2">
-                                      <div className="">
-                                        <Icon2 />
-                                      </div>{" "}
-                                      <div className="text-nowrap">
-                                        <div>{subLink?.name}</div>
-                                      </div>
-                                    </p>
-                                    <p className="text-xs text-gray-500">
-                                      {subLink?.description}
-                                    </p>
-                                  </div>
+                                  {Icon2 && (
+                                    <motion.div
+                                      className="w-6 h-6 bg-gray-100 group-hover:bg-orange-100 rounded-md flex items-center justify-center transition-colors"
+                                      whileHover={{ scale: 1.1 }}
+                                      transition={{ duration: 0.2 }}
+                                    >
+                                      <Icon2 className="w-4 h-4 text-gray-600 group-hover:text-orange-600" />
+                                    </motion.div>
+                                  )}
+                                  <span className="text-sm font-medium text-gray-700 group-hover:text-orange-600 transition-colors">
+                                    {subLink?.name}
+                                  </span>
                                 </Link>
-                              </li>
+                              </motion.div>
                             );
                           })}
-                        </ul>
-                      </div>
+                        </div>
+                      </motion.div>
                     )}
-                  </li>
-                </div>
-                <div className="w-full my-2">
-                  <div className="border-t border-[#9d7914]"></div>
-                  {/* <div className="border-t-1 border-[#9d7914] mt-[1px]"></div> */}
-                </div>
-              </>
+                  </AnimatePresence>
+                </motion.li>
+              </motion.div>
             );
           })}
-          <div></div>
         </ul>
       </div>
-    </div>
+
+      {/* Footer CTA */}
+      <div className="px-6 py-4 bg-gradient-to-r from-orange-500/10 to-red-500/10 border-t border-gray-200/50">
+        <motion.a
+          href="/contact-us"
+          className="block w-full text-center py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-xl hover:from-orange-600 hover:to-red-600 transition-all duration-300"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={onClose}
+        >
+          Get Started
+        </motion.a>
+      </div>
+    </motion.div>
   );
 };

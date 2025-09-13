@@ -1,26 +1,17 @@
 import {
   FaHome,
   FaInfoCircle,
-  FaBoxOpen,
-  FaCheckCircle,
-  FaUsers,
   FaImages,
   FaEnvelope,
   FaBuilding,
-  FaBullseye,
-  FaTools,
   FaCertificate,
-  FaPlane,
-  FaShieldAlt,
-  FaBoxes,
-  FaSearch,
-  FaBalanceScale,
-  FaClipboardCheck,
-  FaWarehouse,
-  FaHandshake,
-  FaUserFriends,
-  FaPhotoVideo,
   FaVideo,
+  FaMoneyBillWave,
+  FaAward,
+  FaChartLine,
+  FaGavel,
+  FaCogs,
+  FaHandshake,
 } from "react-icons/fa";
 
 export const NavbarLinks = [
@@ -37,9 +28,8 @@ export const NavbarLinks = [
     icon: FaInfoCircle,
     subLinks: [
       { name: "Company Overview", link: "/about-us/overview", icon: FaBuilding },
-      { name: "Mission & Vision", link: "/about-us/mission-vision", icon: FaBullseye },
-      { name: "Our Team", link: "/about-us/ourteam", icon: FaTools },
       { name: "Certifications", link: "/about-us/certifications", icon: FaCertificate },
+      { name: "Our Partners", link: "/about-us/partners", icon: FaHandshake },
     ],
   },
   // {
@@ -77,35 +67,41 @@ export const NavbarLinks = [
   //     { name: "Our Partners", link: "/clients-partners/partners", icon: FaHandshake },
   //   ],
   // },
+
+   {
+    name: "SERVICES",
+    // link: "/services",
+    class: "",
+    icon: FaCogs,
+    subLinks: [
+      { name: "All Services", link: "/services/all", icon: FaCogs },
+      { name: "Funding Consultant", link: "/services/funding", icon: FaMoneyBillWave },
+      { name: "Certificate Consultant", link: "/services/certificate", icon: FaAward },
+      { name: "Marketing Services", link: "/services/marketing", icon: FaChartLine },
+      { name: "Legal Services", link: "/services/legal", icon: FaGavel },
+    ],
+  },
   {
     name: "GALLERY",
     link: null,
     class: "",
     icon: FaImages,
     subLinks: [
-      { name: "Album", link: "/gallery/album", icon: FaPhotoVideo },
+      { name: "Photo Albums", link: "/gallery/albums", icon: FaImages },
       { name: "Videos", link: "/gallery/videos", icon: FaVideo },
     ],
-  },
-  {
-    name: "CONTACT US",
-    link: "/contact-us",
-    class: "",
-    icon: FaEnvelope,
-    subLinks: [],
-  },
-
-   {
-    name: "SERVICE",
-    link: "/service",
-    class: "",
-    icon: FaEnvelope,
-    subLinks: [],
   },
 
    {
     name: "BLOG",
     link: "/blog",
+    class: "",
+    icon: FaEnvelope,
+    subLinks: [],
+  },
+  {
+    name: "CONTACT US",
+    link: "/contact-us",
     class: "",
     icon: FaEnvelope,
     subLinks: [],

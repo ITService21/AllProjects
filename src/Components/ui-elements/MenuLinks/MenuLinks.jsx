@@ -1,58 +1,122 @@
 import { SubLinksBox } from "./LinkSubItems";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+
 export const MenuLinks = ({ menuLinks }) => {
   const navigate = useNavigate();
-  console.log("MenuLinks1", menuLinks);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const menuRef = useRef(null);
+  
+  const handleDropdownToggle = (index) => {
+    setActiveDropdown(activeDropdown === index ? null : index);
+  };
+  
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setActiveDropdown(null);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+  
   return (
-    <ul className="flex px-1 lg:px-4">
-      {menuLinks?.map((menuLink) => (
-        <div className="relative group " key={menuLink?.name}>
-          <li className="">
-            <Link
-              to={menuLink?.link}
-              className={`flex dark:hover:bg-slate-800 p-2 font-semibold cursor-pointer md:px-2 lg:px-3 text-[#ffffff] font-roboto hover:bg-slate-200 md:text-[1.2vw] lg:text-[1.0vw] ${menuLink?.class}`}
+    <ul ref={menuRef} className="flex items-center space-x-1">
+      {menuLinks?.map((menuLink, index) => (
+        <motion.div 
+          className="relative group" 
+          key={menuLink?.name}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: index * 0.1 }}
+        >
+          <motion.li 
+            className="relative"
+            whileHover={{ y: -2 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div
+              className={`relative flex items-center px-4 py-3 text-sm font-semibold text-white transition-all duration-200 rounded-lg cursor-pointer ${
+                activeDropdown === index ? 'text-orange-300 bg-white/10' : 'group-hover:text-orange-300'
+              } ${menuLink?.link ? 'hover:bg-white/10' : ''}`}
+              onClick={() => {
+                if (Array.isArray(menuLink?.subLinks) && menuLink?.subLinks?.length > 0) {
+                  handleDropdownToggle(index);
+                } else if (menuLink?.link) {
+                  navigate(menuLink.link);
+                }
+              }}
             >
-              {menuLink?.name}
-              {Array?.isArray(menuLink?.subLinks) &&
-                menuLink?.subLinks?.length !== 0 && (
-                  <div className="w-4 my-auto mx-1">
-                    <ChevronDownIcon />
-                  </div>
-                )}
-            </Link>
-          </li>
+              {/* Animated Background */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-lg"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ 
+                  scale: activeDropdown === index ? 1 : 0.8, 
+                  opacity: activeDropdown === index ? 1 : 0 
+                }}
+                whileHover={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.2 }}
+              />
+              
+              {/* Text Content */}
+              <span className="relative z-10 flex items-center">
+                {menuLink?.name}
+                {Array?.isArray(menuLink?.subLinks) &&
+                  menuLink?.subLinks?.length !== 0 && (
+                    <motion.div 
+                      className="ml-2"
+                      animate={{ rotate: activeDropdown === index ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronDownIcon className="w-4 h-4" />
+                    </motion.div>
+                  )}
+              </span>
+              
+              {/* Animated Underline */}
+              <motion.div
+                className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-orange-500 to-red-500"
+                initial={{ width: 0 }}
+                animate={{ width: activeDropdown === index ? "100%" : 0 }}
+                whileHover={{ width: "100%" }}
+                transition={{ duration: 0.2 }}
+              />
+            </div>
+          </motion.li>
+          
+          {/* Dropdown Menu */}
           {Array.isArray(menuLink?.subLinks) &&
             menuLink?.subLinks?.length !== 0 && (
-              <div className="hidden group-hover:block">
-                <SubLinksBox subLinks={menuLink?.subLinks} />
-              </div>
+              <motion.div
+                className="absolute top-full left-0"
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ 
+                  opacity: activeDropdown === index ? 1 : 0,
+                  y: activeDropdown === index ? 0 : 10,
+                  scale: activeDropdown === index ? 1 : 0.95
+                }}
+                transition={{ duration: 0.2 }}
+                style={{ 
+                  visibility: activeDropdown === index ? 'visible' : 'hidden',
+                  pointerEvents: activeDropdown === index ? 'auto' : 'none'
+                }}
+              >
+                <SubLinksBox 
+                  subLinks={menuLink?.subLinks} 
+                  onLinkClick={() => setActiveDropdown(null)}
+                />
+              </motion.div>
             )}
-        </div>
+        </motion.div>
       ))}
-      {/* <div>
-        {localStorage?.getItem("isAdmin") ? (
-          <button
-            className="md:text-[12px] lg:text-[16px] ml-2 bg-[#ff601c] hover:opacity-[0.8] text-white font- py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-            onClick={(e) => {
-              navigate("/admin-logout");
-            }}
-          >
-            S.K.S (Admin)
-          </button>
-        ) : (
-          <button
-            className="md:text-[12px] lg:text-[16px] ml-2 bg-[#ff0077] hover:opacity-[0.8] text-white font- py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-            onClick={(e) => {
-              navigate("/admin-panel");
-            }}
-          >
-              Admin Panel
-          </button>
-        )}
-      </div> */}
     </ul>
   );
 };

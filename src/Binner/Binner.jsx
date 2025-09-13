@@ -11,6 +11,8 @@ import ScrollingText from "../BusinessPage/ScrollingText";
 import BusinessPage from "../BusinessPage/BusinessPage";
 import CounterSection from "../Components/CounterSection";
 import AutoCardCarousel from "../BusinessPage/CardCarousel";
+import ServicePage from "../BusinessPage/ServicePage";
+import Overview from "../BusinessPage/Overview";
 
 const banners = [
   {
@@ -56,8 +58,10 @@ function AnimatedBanner() {
     <>
       <AutoCardCarousel />
       <ScrollingText />
+      <Overview/>
+      <ServicePage />
       <BusinessPage />
-      <CounterSection />
+      {/* <CounterSection /> */}
     </>
   );
 }
