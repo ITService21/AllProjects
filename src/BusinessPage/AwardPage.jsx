@@ -13,7 +13,7 @@ const AwardPage = () => {
                     <div className="flex flex-col items-center md:flex-row">
                         {/* Left Image */}
                         <img
-                            src="./image/award.jpg"
+                            src="https://images.pexels.com/photos/3184294/pexels-photo-3184294.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
                             alt="Award 1"
                             className="w-full md:w-1/2 h-72 object-cover"
                         />
@@ -40,7 +40,7 @@ const AwardPage = () => {
                     <div className="flex flex-col items-center md:flex-row">
                         {/* Left Image */}
                         <img
-                            src="./image/award.jpg"
+                            src="https://images.pexels.com/photos/3184294/pexels-photo-3184294.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
                             alt="Award 2"
                             className="w-full md:w-1/2 h-72 object-cover"
                         />

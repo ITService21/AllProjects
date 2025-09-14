@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 
 // Albums data with comprehensive content
@@ -10,20 +10,20 @@ const albumsData = [
         description: "Inspiring journeys of entrepreneurs who built successful businesses with our guidance and support.",
         category: "Success Stories",
         imageCount: 24,
-        coverImage: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=600&fit=crop",
+        coverImage: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
         images: [
-            "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=300&fit=crop"
+            "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184294/pexels-photo-3184294.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184295/pexels-photo-3184295.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184297/pexels-photo-3184297.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184299/pexels-photo-3184299.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184300/pexels-photo-3184300.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184301/pexels-photo-3184301.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
         ],
         date: "2024-01-15",
         featured: true
@@ -34,17 +34,17 @@ const albumsData = [
         description: "Documenting our MSME registration workshops, seminars, and training sessions across Gujarat.",
         category: "Events",
         imageCount: 18,
-        coverImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=600&fit=crop",
+        coverImage: "https://images.pexels.com/photos/3184466/pexels-photo-3184466.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
         images: [
-            "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop"
+            "https://images.pexels.com/photos/3184466/pexels-photo-3184466.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184467/pexels-photo-3184467.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184468/pexels-photo-3184468.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184469/pexels-photo-3184469.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184470/pexels-photo-3184470.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184471/pexels-photo-3184471.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184472/pexels-photo-3184472.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184473/pexels-photo-3184473.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184474/pexels-photo-3184474.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
         ],
         date: "2024-01-10",
         featured: false
@@ -55,15 +55,15 @@ const albumsData = [
         description: "Behind-the-scenes look at our funding consultation sessions and client meetings.",
         category: "Consultations",
         imageCount: 15,
-        coverImage: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop",
+        coverImage: "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop",
         images: [
-            "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop"
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop"
         ],
         date: "2024-01-08",
         featured: false
@@ -74,16 +74,16 @@ const albumsData = [
         description: "Celebrating our clients' achievements as they receive their MSME certificates and awards.",
         category: "Awards",
         imageCount: 20,
-        coverImage: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&h=600&fit=crop",
+        coverImage: "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1582213782179-e0d53f98f2ca?w=800&h=600&fit=crop",
         images: [
-            "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop"
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop"
         ],
         date: "2024-01-05",
         featured: true
@@ -94,16 +94,16 @@ const albumsData = [
         description: "Our team's journey, training sessions, and team building activities that strengthen our bond.",
         category: "Team",
         imageCount: 16,
-        coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+        coverImage: "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
         images: [
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=300&fit=crop"
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1559136555-9303baea8ebd?w=400&h=300&fit=crop"
         ],
         date: "2024-01-03",
         featured: false
@@ -114,14 +114,14 @@ const albumsData = [
         description: "A glimpse into our modern office space, meeting rooms, and work environment in Ahmedabad.",
         category: "Office",
         imageCount: 12,
-        coverImage: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
+        coverImage: "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
         images: [
-            "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
-            "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop"
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
+            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop"
         ],
         date: "2024-01-01",
         featured: false
@@ -129,18 +129,18 @@ const albumsData = [
 ];
 
 // Custom hook for visibility
-const useAlwaysVisible = () => {
-    const [isVisible, setIsVisible] = useState(true);
-    
-    useEffect(() => {
-        setIsVisible(true);
-    }, []);
-    
-    return isVisible;
-};
+// const useAlwaysVisible = () => {
+//     const [isVisible, setIsVisible] = useState(true);
+//     
+//     useEffect(() => {
+//         setIsVisible(true);
+//     }, []);
+//     
+//     return isVisible;
+// };
 
 export default function Albums({ className = "" }) {
-    const alwaysVisible = useAlwaysVisible();
+    // const alwaysVisible = useAlwaysVisible();
     const [selectedAlbum, setSelectedAlbum] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
 
@@ -260,7 +260,7 @@ export default function Albums({ className = "" }) {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         viewport={{ once: true, amount: 0.1 }}
                     >
-                        Explore our collection of photos showcasing our journey, success stories, events, and the vibrant MSME ecosystem we're building in Gujarat.
+                        Explore our collection of photos showcasing our journey, success stories, events, and the vibrant MSME ecosystem we&apos;re building in Gujarat.
                     </motion.p>
                 </motion.div>
             </div>

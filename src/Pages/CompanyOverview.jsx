@@ -20,7 +20,7 @@ const myData = {
         name: "Grow Startup Consultancy",
         tagline: "Empowering MSMEs and Startups for Sustainable Growth",
         description: "We are Gujarat's premier MSME consultancy firm, providing comprehensive business solutions from startup inception to expansion. Based in Ahmedabad, we serve entrepreneurs across India with expert guidance, funding assistance, compliance management, and strategic business growth consulting.",
-        heroImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=",
+        heroImage: "https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=1400&h=800&fit=crop1507003211169-0a1dd7228f2d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=",
         email: "info@growstartup.com",
         website: "https://growstartup.com",
         founded: "2010",

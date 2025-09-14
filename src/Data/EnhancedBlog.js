@@ -9,7 +9,7 @@ export default [
         date: "2024-01-15",
         category: "Business Setup",
         tags: ["MSME", "Registration", "Business Setup", "Entrepreneurship"],
-        image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop"
     },
     {
         id: 2,
@@ -20,7 +20,7 @@ export default [
         date: "2024-01-12",
         category: "Business Setup",
         tags: ["MSME", "Udyam", "Registration", "Compliance"],
-        image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop"
     },
     {
         id: 3,
@@ -31,7 +31,7 @@ export default [
         date: "2024-01-08",
         category: "Business Setup",
         tags: ["Business Plan", "Strategy", "Planning", "MSME"],
-        image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop"
     },
 
     // Funding Category
@@ -44,7 +44,7 @@ export default [
         date: "2024-01-10",
         category: "Funding",
         tags: ["Funding", "Startups", "Investment", "Loans"],
-        image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop"
     },
     {
         id: 5,
@@ -55,7 +55,7 @@ export default [
         date: "2024-01-05",
         category: "Funding",
         tags: ["Government", "Funding", "Schemes", "MSME"],
-        image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop1582213782179-e0d53f98f2ca?w=800&h=400&fit=crop"
     },
     {
         id: 6,
@@ -66,7 +66,7 @@ export default [
         date: "2024-01-03",
         category: "Funding",
         tags: ["Venture Capital", "Angel Investment", "Startups", "Funding"],
-        image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop"
     },
 
     // Marketing Category
@@ -79,7 +79,7 @@ export default [
         date: "2024-01-20",
         category: "Marketing",
         tags: ["Digital Marketing", "SEO", "Social Media", "MSME"],
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop1460925895917-afdab827c52f?w=800&h=400&fit=crop"
     },
     {
         id: 8,
@@ -90,7 +90,7 @@ export default [
         date: "2024-01-18",
         category: "Marketing",
         tags: ["Social Media", "Marketing", "Content", "Engagement"],
-        image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop1611224923853-80b023f02d71?w=800&h=400&fit=crop"
     },
     {
         id: 9,
@@ -101,7 +101,7 @@ export default [
         date: "2024-01-16",
         category: "Marketing",
         tags: ["Content Marketing", "Strategy", "Authority", "Trust"],
-        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop1552664730-d307ca884978?w=800&h=400&fit=crop"
     },
 
     // Legal Category
@@ -114,7 +114,7 @@ export default [
         date: "2024-01-14",
         category: "Legal",
         tags: ["Legal", "Compliance", "Regulations", "MSME"],
-        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop1589829545856-d10d557cf95f?w=800&h=400&fit=crop"
     },
     {
         id: 11,
@@ -125,7 +125,7 @@ export default [
         date: "2024-01-11",
         category: "Legal",
         tags: ["Intellectual Property", "Trademarks", "Patents", "Copyright"],
-        image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop1582213782179-e0d53f98f2ca?w=800&h=400&fit=crop"
     },
     {
         id: 12,
@@ -136,7 +136,7 @@ export default [
         date: "2024-01-09",
         category: "Legal",
         tags: ["Contracts", "Management", "Negotiation", "Legal"],
-        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop1589829545856-d10d557cf95f?w=800&h=400&fit=crop"
     },
 
     // Technology Category
@@ -149,7 +149,7 @@ export default [
         date: "2024-01-07",
         category: "Technology",
         tags: ["Digital Transformation", "Technology", "Automation", "MSME"],
-        image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop1518709268805-4e9042af2176?w=800&h=400&fit=crop"
     },
     {
         id: 14,
@@ -160,7 +160,7 @@ export default [
         date: "2024-01-04",
         category: "Technology",
         tags: ["E-commerce", "Online Business", "Platform", "Digital"],
-        image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop1556742049-0cfed4f6a45d?w=800&h=400&fit=crop"
     },
     {
         id: 15,
@@ -171,7 +171,7 @@ export default [
         date: "2024-01-02",
         category: "Technology",
         tags: ["Cybersecurity", "Protection", "Security", "MSME"],
-        image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop1563013544-824ae1b704d3?w=800&h=400&fit=crop"
     },
 
     // Growth Category
@@ -184,7 +184,7 @@ export default [
         date: "2024-01-01",
         category: "Growth",
         tags: ["Scaling", "Growth", "Strategy", "MSME"],
-        image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop"
     },
     {
         id: 17,
@@ -195,7 +195,7 @@ export default [
         date: "2023-12-30",
         category: "Growth",
         tags: ["Export", "International", "Global", "MSME"],
-        image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop"
     },
     {
         id: 18,
@@ -206,6 +206,6 @@ export default [
         date: "2023-12-28",
         category: "Growth",
         tags: ["Innovation", "R&D", "Competitive", "Growth"],
-        image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=400&fit=crop"
+        image: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop"
     }
 ];

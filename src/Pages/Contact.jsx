@@ -25,7 +25,7 @@ function ContactUs() {
     };
 
     return (
-        <div className="mt-[40px]" style={{ backgroundColor: '#FFFFFF' }}>
+        <div className="mt-[80px]" style={{ backgroundColor: '#FFFFFF' }}>
             {/* Hero Section */}
             <div className="relative bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 py-20 overflow-hidden">
                 {/* Animated Background */}

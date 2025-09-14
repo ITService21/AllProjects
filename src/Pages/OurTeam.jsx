@@ -35,7 +35,7 @@ const TeamSection = () => {
                         whileHover={{ scale: 1.08 }}
                     >
                         <img
-                            src="./image/award.jpg"
+                            src="https://images.pexels.com/photos/3184295/pexels-photo-3184295.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
                             alt={role}
                             className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-blue-100 shadow-md"
                         />

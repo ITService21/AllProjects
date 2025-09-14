@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 
 // Videos data with comprehensive content
@@ -10,8 +10,8 @@ const videosData = [
         description: "Comprehensive step-by-step guide to MSME registration in India. Learn about Udyam registration, required documents, and benefits.",
         category: "Tutorial",
         duration: "15:30",
-        thumbnail: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=450&fit=crop",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace with actual video URL
+        thumbnail: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Sample video - replace with actual video URL
         views: "125K",
         likes: "2.3K",
         date: "2024-01-15",
@@ -24,8 +24,8 @@ const videosData = [
         description: "Explore various funding avenues available for Indian startups including government schemes, venture capital, and angel investors.",
         category: "Education",
         duration: "12:45",
-        thumbnail: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=450&fit=crop",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace with actual video URL
+        thumbnail: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Sample video - replace with actual video URL
         views: "89K",
         likes: "1.8K",
         date: "2024-01-12",
@@ -38,8 +38,8 @@ const videosData = [
         description: "Inspiring journey of a startup that grew from a small idea to a successful IPO with our guidance and support.",
         category: "Success Story",
         duration: "18:20",
-        thumbnail: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=450&fit=crop",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace with actual video URL
+        thumbnail: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Sample video - replace with actual video URL
         views: "156K",
         likes: "3.2K",
         date: "2024-01-10",
@@ -52,8 +52,8 @@ const videosData = [
         description: "Learn effective digital marketing strategies specifically designed for small and medium enterprises to boost online presence.",
         category: "Marketing",
         duration: "14:15",
-        thumbnail: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&h=450&fit=crop",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace with actual video URL
+        thumbnail: "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Sample video - replace with actual video URL
         views: "67K",
         likes: "1.4K",
         date: "2024-01-08",
@@ -66,8 +66,8 @@ const videosData = [
         description: "Essential legal requirements and compliance procedures that every startup must know to operate smoothly in India.",
         category: "Legal",
         duration: "16:30",
-        thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace with actual video URL
+        thumbnail: "https://images.pexels.com/photos/3184294/pexels-photo-3184294.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Sample video - replace with actual video URL
         views: "43K",
         likes: "980",
         date: "2024-01-05",
@@ -80,8 +80,8 @@ const videosData = [
         description: "Discover global market opportunities and learn how to expand your MSME business internationally with proper guidance.",
         category: "Business Growth",
         duration: "13:45",
-        thumbnail: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=450&fit=crop",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace with actual video URL
+        thumbnail: "https://images.pexels.com/photos/3184295/pexels-photo-3184295.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Sample video - replace with actual video URL
         views: "78K",
         likes: "1.6K",
         date: "2024-01-03",
@@ -94,8 +94,8 @@ const videosData = [
         description: "How small businesses can leverage technology to improve efficiency, reduce costs, and scale operations effectively.",
         category: "Technology",
         duration: "11:20",
-        thumbnail: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=450&fit=crop",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace with actual video URL
+        thumbnail: "https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Sample video - replace with actual video URL
         views: "52K",
         likes: "1.1K",
         date: "2024-01-01",
@@ -108,8 +108,8 @@ const videosData = [
         description: "Hear from our satisfied clients about their experience working with us and how we helped them achieve their business goals.",
         category: "Testimonials",
         duration: "9:30",
-        thumbnail: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=450&fit=crop",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace with actual video URL
+        thumbnail: "https://images.pexels.com/photos/3184297/pexels-photo-3184297.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Sample video - replace with actual video URL
         views: "34K",
         likes: "720",
         date: "2023-12-30",
@@ -122,8 +122,8 @@ const videosData = [
         description: "Highlights from our recent MSME certification workshop where we helped 50+ businesses get their certificates.",
         category: "Workshop",
         duration: "7:45",
-        thumbnail: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=450&fit=crop",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace with actual video URL
+        thumbnail: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Sample video - replace with actual video URL
         views: "28K",
         likes: "650",
         date: "2023-12-28",
@@ -133,18 +133,18 @@ const videosData = [
 ];
 
 // Custom hook for visibility
-const useAlwaysVisible = () => {
-    const [isVisible, setIsVisible] = useState(true);
-    
-    useEffect(() => {
-        setIsVisible(true);
-    }, []);
-    
-    return isVisible;
-};
+// const useAlwaysVisible = () => {
+//     const [isVisible, setIsVisible] = useState(true);
+//     
+//     useEffect(() => {
+//         setIsVisible(true);
+//     }, []);
+//     
+//     return isVisible;
+// };
 
 export default function Videos({ className = "" }) {
-    const alwaysVisible = useAlwaysVisible();
+    // const alwaysVisible = useAlwaysVisible();
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState("All");
 
