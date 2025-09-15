@@ -88,7 +88,7 @@ const AutoCardCarousel = () => {
       {/* Compact Header Section */}
       <div className="text-center mb-8 max-w-5xl mx-auto">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3" style={{color: '#000000', fontFamily: 'Poppins, sans-serif', fontWeight: '600'}}>
-          Empowering <span style={{color: '#F85710', fontWeight: '700'}}>MSMEs</span> for Success
+          Jahan <span style={{color: '#F85710', fontWeight: '700'}}>Soch</span> Banti Hai <span style={{color: '#F85710', fontWeight: '700'}}>Business</span>
         </h2>
         <p className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed mb-4" style={{fontFamily: 'Poppins, sans-serif', fontWeight: '400'}}>
           Comprehensive solutions for business growth and success

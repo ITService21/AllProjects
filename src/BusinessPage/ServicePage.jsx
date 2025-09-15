@@ -7,7 +7,7 @@ const ServicePage = () => {
   const serviceCategories = [
     {
       id: 0,
-      name: "NIDHI",
+      name: "ARTHA",
       title: "Funding & Grants",
       icon: "💰",
       color: "from-orange-500 to-orange-600",
@@ -46,7 +46,7 @@ const ServicePage = () => {
     },
     {
       id: 1,
-      name: "KAVACH",
+      name: "SURAKSHA",
       title: "Protection & Compliance",
       icon: "🛡️",
       color: "from-green-500 to-green-600",
@@ -85,7 +85,7 @@ const ServicePage = () => {
     },
     {
       id: 2,
-      name: "PRAMANIT",
+      name: "NISHTHA",
       title: "Certification & Recognition",
       icon: "🏆",
       color: "from-purple-500 to-purple-600",
@@ -124,7 +124,7 @@ const ServicePage = () => {
     },
     {
       id: 3,
-      name: "AARAMBH",
+      name: "UTTHAN",
       title: "Business Setup & Registration",
       icon: "🚀",
       color: "from-blue-500 to-blue-600",
@@ -164,7 +164,7 @@ const ServicePage = () => {
 
     {
       id: 4,
-      name: "VIKAS",
+      name: "PRAGATI",
       title: "Business Growth",
       icon: "📈",
       color: "from-red-500 to-red-600",
@@ -203,7 +203,7 @@ const ServicePage = () => {
     },
     {
       id: 5,
-      name: "VISTAR",
+      name: "DISHA",
       title: "Expansion & Marketing",
       icon: "🌐",
       color: "from-indigo-500 to-indigo-600",
