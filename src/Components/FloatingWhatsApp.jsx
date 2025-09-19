@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
+import { useState } from "react";
+import FormModal from "./FormModal";
 
 export default function FloatingWhatsApp() {
+    const [showFormModal, setShowFormModal] = useState(false);
+
     return (
         <>
             {/* Floating WhatsApp Icon - Left */}
@@ -20,8 +24,8 @@ export default function FloatingWhatsApp() {
             </motion.a>
 
             {/* Book Consultant Button - Right */}
-            <motion.a
-                href="/contact-us"
+            <motion.button
+                onClick={() => setShowFormModal(true)}
                 className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-base rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden"
                 initial={{ opacity: 1, scale: 1 }}
                 animate={{ 
@@ -142,7 +146,13 @@ export default function FloatingWhatsApp() {
                         →
                     </motion.span>
                 </span>
-            </motion.a>
+            </motion.button>
+
+            {/* Form Modal */}
+            <FormModal 
+                open={showFormModal} 
+                onClose={() => setShowFormModal(false)} 
+            />
         </>
     );
 }

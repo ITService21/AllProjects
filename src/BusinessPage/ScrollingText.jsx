@@ -25,43 +25,47 @@ const ScrollingText = () => {
 
   return (
     <motion.div
-      className="relative overflow-hidden bg-gradient-to-r from-[#111827] via-gray-800 to-[#111827] py-6"
+      className="relative overflow-hidden bg-gradient-to-r from-[#111827] via-gray-800 to-[#111827] py-3 sm:py-4 md:py-6"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
     >
-      {/* Animated Background */}
+      {/* Animated Background - Mobile Optimized */}
       <div className="absolute inset-0">
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-[#F85710]/20 via-orange-500/20 to-[#F85710]/20"
-          animate={{ opacity: [0.3, 0.6, 0.3] }}
+          className="absolute inset-0 bg-gradient-to-r from-[#F85710]/10 via-orange-500/10 to-[#F85710]/10 sm:from-[#F85710]/20 sm:via-orange-500/20 sm:to-[#F85710]/20"
+          animate={{ 
+            opacity: window.innerWidth < 640 ? [0.05, 0.15, 0.05] : [0.3, 0.6, 0.3]
+          }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         />
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-white/3 to-transparent sm:via-white/5"></div>
       </div>
 
-      {/* Enhanced Floating Particles */}
+      {/* Minimal Floating Particles - Mobile Optimized */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(4)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-[#F85710] rounded-full opacity-60"
+            className="absolute bg-[#F85710] rounded-full opacity-40 sm:opacity-60"
             animate={{
-              x: [0, 100, 0],
-              y: [0, -50, 0],
-              opacity: [0.6, 1, 0.6],
-              scale: [1, 1.5, 1],
+              x: [0, 80, 0],
+              y: [0, -40, 0],
+              opacity: [0.4, 0.8, 0.4],
+              scale: [1, 1.2, 1],
             }}
             transition={{
-              duration: 4 + i * 0.5,
+              duration: 5 + i * 0.5,
               repeat: Infinity,
-              delay: i * 0.3,
+              delay: i * 0.5,
               ease: "easeInOut",
             }}
             style={{
-              left: `${20 + i * 12}%`,
-              top: `${30 + i * 8}%`,
+              width: window.innerWidth < 640 ? '1px' : '2px',
+              height: window.innerWidth < 640 ? '1px' : '2px',
+              left: `${25 + i * 20}%`,
+              top: `${35 + i * 15}%`,
             }}
           />
         ))}
@@ -69,20 +73,20 @@ const ScrollingText = () => {
 
       {/* Content */}
       <div className="relative z-10">
-        {/* Header with Glow Effect */}
+        {/* Header with Glow Effect - Mobile Compact */}
         <motion.div
-          className="text-center mb-6"
+          className="text-center mb-3 sm:mb-4 md:mb-6"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           <motion.div
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-[#F85710] to-[#ff6b35] px-6 py-3 rounded-full shadow-2xl border border-[#F85710]/50"
+            className="inline-flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-[#F85710] to-[#ff6b35] px-3 py-2 sm:px-6 sm:py-3 rounded-full shadow-2xl border border-[#F85710]/50"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
             <motion.div
-              className="w-3 h-3 bg-white rounded-full"
+              className="w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [1, 0.7, 1],
@@ -93,13 +97,13 @@ const ScrollingText = () => {
               }}
             />
             <span
-              className="text-white font-bold text-sm tracking-wide"
+              className="text-white font-bold text-xs sm:text-sm tracking-wide"
               style={{ fontFamily: "Poppins, sans-serif" }}
             >
               🔥 LIVE UPDATES
             </span>
             <motion.div
-              className="w-2 h-2 bg-white rounded-full"
+              className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full"
               animate={{
                 scale: [1, 1.5, 1],
                 opacity: [1, 0.5, 1],
@@ -113,9 +117,9 @@ const ScrollingText = () => {
           </motion.div>
         </motion.div>
 
-        {/* Featured Item */}
+        {/* Featured Item - Mobile Compact */}
         <motion.div
-          className="text-center mb-6"
+          className="text-center mb-3 sm:mb-4 md:mb-6"
           key={currentIndex}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -123,7 +127,7 @@ const ScrollingText = () => {
           transition={{ duration: 0.5 }}
         >
           <motion.div
-            className="inline-flex items-center gap-4 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm px-8 py-4 rounded-2xl border border-white/20 shadow-xl"
+            className="inline-flex items-center gap-2 sm:gap-4 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm px-4 py-2 sm:px-8 sm:py-4 rounded-2xl border border-white/20 shadow-xl"
             whileHover={{
               scale: 1.05,
               boxShadow: "0 20px 40px rgba(253, 87, 16, 0.3)",
@@ -131,14 +135,14 @@ const ScrollingText = () => {
             transition={{ duration: 0.2 }}
           >
             <motion.div
-              className="text-2xl"
+              className="text-lg sm:text-2xl"
               animate={{ rotate: [0, 10, -10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               🚀
             </motion.div>
             <motion.span
-              className="text-white font-bold text-lg"
+              className="text-white font-bold text-sm sm:text-lg"
               style={{ fontFamily: "Poppins, sans-serif" }}
               animate={{
                 textShadow: [
@@ -152,7 +156,7 @@ const ScrollingText = () => {
               {items[currentIndex]}
             </motion.span>
             <motion.div
-              className="text-2xl"
+              className="text-lg sm:text-2xl"
               animate={{ rotate: [0, -10, 10, 0] }}
               transition={{ duration: 2, repeat: Infinity, delay: 1 }}
             >
@@ -161,7 +165,7 @@ const ScrollingText = () => {
           </motion.div>
         </motion.div>
 
-        {/* Scrolling Text with Enhanced Effects */}
+        {/* Scrolling Text with Enhanced Effects - Mobile Compact */}
         <div className="relative overflow-hidden">
           <motion.div
             className="flex whitespace-nowrap"
@@ -175,19 +179,19 @@ const ScrollingText = () => {
             {[...items, ...items, ...items].map((item, index) => (
               <motion.div
                 key={index}
-                className="flex items-center mx-6"
+                className="flex items-center mx-3 sm:mx-6"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
                 <motion.div
-                  className="flex items-center gap-3 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-sm px-5 py-3 rounded-full border border-white/30 shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="flex items-center gap-2 sm:gap-3 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-sm px-3 py-2 sm:px-5 sm:py-3 rounded-full border border-white/30 shadow-lg hover:shadow-xl transition-all duration-300"
                   whileHover={{
                     boxShadow: "0 10px 25px rgba(253, 87, 16, 0.3)",
                     borderColor: "rgba(253, 87, 16, 0.5)",
                   }}
                 >
                   <motion.div
-                    className="w-2 h-2 bg-gradient-to-r from-[#F85710] to-[#ff6b35] rounded-full"
+                    className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-[#F85710] to-[#ff6b35] rounded-full"
                     animate={{
                       scale: [1, 1.3, 1],
                       opacity: [0.8, 1, 0.8],
@@ -199,7 +203,7 @@ const ScrollingText = () => {
                     }}
                   />
                   <span
-                    className="text-white font-semibold text-sm whitespace-nowrap"
+                    className="text-white font-semibold text-xs sm:text-sm whitespace-nowrap"
                     style={{ fontFamily: "Poppins, sans-serif" }}
                   >
                     {item}
@@ -210,14 +214,14 @@ const ScrollingText = () => {
           </motion.div>
         </div>
 
-        {/* Bottom Glow Effect */}
+        {/* Bottom Glow Effect - Mobile Compact */}
         <motion.div
-          className="flex justify-center mt-6"
+          className="flex justify-center mt-3 sm:mt-4 md:mt-6"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3, repeat: Infinity }}
         >
           <motion.div
-            className="w-32 h-1 bg-gradient-to-r from-transparent via-[#F85710] to-transparent rounded-full shadow-lg"
+            className="w-20 h-0.5 sm:w-32 sm:h-1 bg-gradient-to-r from-transparent via-[#F85710] to-transparent rounded-full shadow-lg"
             animate={{
               scaleX: [1, 1.2, 1],
               opacity: [0.5, 1, 0.5],

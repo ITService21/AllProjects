@@ -7,10 +7,12 @@ import { HamburgerButton } from "./ui-elements/HamburgerButton/HamburgerButton";
 import { MenuLinks } from "./ui-elements/MenuLinks/MenuLinks";
 import { MobileMenu } from "./ui-elements/MobileMenu/MobileMenu";
 import { NavbarLinks } from "./../Data/navbar-links.js";
+import FormModal from "./FormModal";
 
 function Navbar() {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showFormModal, setShowFormModal] = useState(false);
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
@@ -89,8 +91,8 @@ function Navbar() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <motion.a
-                href="/contact-us"
+              <motion.button
+                onClick={() => setShowFormModal(true)}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-sm font-semibold rounded-full text-white bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl"
                 whileHover={{ 
                   scale: 1.05,
@@ -99,7 +101,7 @@ function Navbar() {
                 whileTap={{ scale: 0.95 }}
               >
                 Get Started
-              </motion.a>
+              </motion.button>
             </motion.div>
 
             {/* Mobile Menu Button */}
@@ -121,6 +123,12 @@ function Navbar() {
             />
           )}
         </AnimatePresence>
+
+        {/* Form Modal */}
+        <FormModal
+          open={showFormModal}
+          onClose={() => setShowFormModal(false)}
+        />
       </motion.nav>
     </div>
   );

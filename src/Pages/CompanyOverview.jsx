@@ -1,18 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import PropTypes from "prop-types";
+import FormModal from "../Components/FormModal";
 
-// Simple hook to ensure content is always visible
-const useAlwaysVisible = () => {
-    const [isVisible, setIsVisible] = useState(true); // Start as visible
-    
-    useEffect(() => {
-        // Ensure visibility after mount
-        setIsVisible(true);
-    }, []);
-    
-    return isVisible;
-};
 
 /* Comprehensive MSME and Startup Business Data */
 const myData = {
@@ -118,18 +108,11 @@ const myData = {
 };
 
 export default function CompanyOverview({ data = myData, onContactClick = null, className = "" }) {
-    // Use simple hook to ensure content is always visible
-    const alwaysVisible = useAlwaysVisible();
-
+    const [showFormModal, setShowFormModal] = useState(false);
+    
     // Simple animation variants - content is visible by default
     const fadeUp = { 
         visible: { opacity: 1, y: 0 }
-    };
-    const slideLeft = { 
-        visible: { opacity: 1, x: 0 }
-    };
-    const slideRight = { 
-        visible: { opacity: 1, x: 0 }
     };
 
     // Enhanced Stat subcomponent: animated counter with impressive design
@@ -241,8 +224,7 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
     // contact handler (prefers a provided handler)
     const handleContact = (e) => {
         if (typeof onContactClick === "function") return onContactClick(e);
-        const email = data?.company?.email || "hello@example.com";
-        window.location.href = `mailto:${email}?subject=${encodeURIComponent("Inquiry")}`;
+        setShowFormModal(true);
     };
 
     // safe array helper
@@ -264,111 +246,66 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
             className={`mt-[40px] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative overflow-hidden ${className}`} 
             style={{ backgroundColor: '#FFFFFF' }}
         >
-            {/* Animated Background */}
-            <div className="absolute inset-0 overflow-hidden">
-                {/* Floating Geometric Shapes */}
-                {[...Array(8)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className="absolute w-20 h-20 bg-gradient-to-r from-orange-200/30 to-red-200/30 rounded-full"
-                        animate={{
-                            x: [0, 100, -50, 0],
-                            y: [0, -80, 40, 0],
-                            scale: [0.5, 1.2, 0.8, 0.5],
-                            rotate: [0, 180, 360, 0],
-                        }}
-                        transition={{
-                            duration: 15 + i * 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 2,
-                        }}
-                        style={{
-                            left: `${10 + i * 12}%`,
-                            top: `${20 + i * 8}%`,
-                        }}
-                    />
-                ))}
-                
-                {/* Animated Lines */}
-                {[...Array(6)].map((_, i) => (
-                    <motion.div
-                        key={`line-${i}`}
-                        className="absolute h-1 bg-gradient-to-r from-orange-300/40 to-red-300/40"
-                        animate={{
-                            scaleX: [0, 1, 0],
-                            opacity: [0, 1, 0],
-                        }}
-                        transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 0.8,
-                        }}
-                        style={{
-                            width: `${200 + i * 50}px`,
-                            left: `${5 + i * 15}%`,
-                            top: `${30 + i * 10}%`,
-                            transform: `rotate(${i * 15}deg)`,
-                        }}
-                    />
-                ))}
-                
-                {/* Floating Dots */}
-                {[...Array(12)].map((_, i) => (
-                    <motion.div
-                        key={`dot-${i}`}
-                        className="absolute w-2 h-2 bg-gradient-to-r from-orange-400 to-red-400 rounded-full"
-                        animate={{
-                            y: [0, -30, 0],
-                            opacity: [0.3, 1, 0.3],
-                            scale: [0.5, 1, 0.5],
-                        }}
-                        transition={{
-                            duration: 3 + i * 0.5,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 0.3,
-                        }}
-                        style={{
-                            left: `${5 + i * 8}%`,
-                            top: `${10 + i * 7}%`,
-                        }}
-                    />
-                ))}
-            </div>
 
             {/* Hero Section */}
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-                {/* Left: text */}
+            <motion.div 
+                className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.15 }}
+            >
+                {/* Left: text - Slides from LEFT */}
                 <motion.div
-                    initial="visible"
-                    animate="visible"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={slideLeft}
-                    transition={{ duration: 0.6 }}
+                    initial={{ opacity: 0, x: -120, y: 30 }}
+                    whileInView={{ opacity: 1, x: 0, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    viewport={{ once: false, amount: 0.2 }}
                 >
                     <motion.h1 
                         className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4"
-                        initial={{ opacity: 1, y: 0 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: [0.68, -0.55, 0.265, 1.55] }}
-                        viewport={{ once: true, amount: 0.1 }}
+                        initial={{ opacity: 0, x: -80 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
-                        <span className="text-gray-900">Grow</span>
-                        <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"> Startup</span>
+                        <motion.span 
+                            className="text-gray-900"
+                            initial={{ opacity: 0, x: -60 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.4 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            Grow
+                        </motion.span>
+                        <motion.span 
+                            className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
+                            initial={{ opacity: 0, x: -40 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.5 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            {" "}Startup
+                        </motion.span>
                         <br />
-                        <span className="text-gray-900">Consultancy</span>
+                        <motion.span 
+                            className="text-gray-900"
+                            initial={{ opacity: 0, x: -60 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.6 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            Consultancy
+                        </motion.span>
                     </motion.h1>
 
                     {data.company.tagline && (
                         <motion.p 
                             className="mt-2 text-lg sm:text-xl text-gray-600 mb-4"
-                            initial={{ opacity: 1, y: 0 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            viewport={{ once: true, amount: 0.1 }}
+                            initial={{ opacity: 0, x: -60 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.7 }}
+                            viewport={{ once: false, amount: 0.3 }}
                         >
                             {data.company.tagline}
                         </motion.p>
@@ -377,70 +314,52 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
                     {data.company.description && (
                         <motion.p 
                             className="mt-4 text-base sm:text-lg text-gray-700 max-w-prose leading-relaxed mb-6"
-                            initial={{ opacity: 1, y: 0 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.4 }}
-                            viewport={{ once: true, amount: 0.1 }}
+                            initial={{ opacity: 0, x: -40 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.8 }}
+                            viewport={{ once: false, amount: 0.3 }}
                         >
                             {data.company.description}
                         </motion.p>
                     )}
 
                     {/* Enhanced Company Info Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <motion.div 
+                        className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         {[
                             { label: "Founded", value: data.company.founded, icon: "🏢" },
                             { label: "Location", value: data.company.location, icon: "📍" },
                             { label: "Team Size", value: data.company.teamSize, icon: "👥" }
-                        ].map((info, index) => (
-                            <motion.div 
-                                key={index}
-                                className="relative bg-gradient-to-br from-white via-orange-50 to-red-50 p-6 rounded-2xl border border-orange-100 shadow-lg overflow-hidden group"
-                                initial={{ opacity: 1, scale: 1, y: 0 }}
-                                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.1 * index, ease: [0.68, -0.55, 0.265, 1.55] }}
-                                whileHover={{ 
-                                    scale: 1.05, 
-                                    y: -5,
-                                    boxShadow: "0 20px 40px rgba(253, 87, 16, 0.15)",
-                                    transition: { duration: 0.3 }
-                                }}
-                                viewport={{ once: true, amount: 0.1 }}
-                            >
-                                {/* Animated Background */}
+                        ].map((info, index) => {
+                            const isEven = index % 2 === 0;
+                            return (
                                 <motion.div 
-                                    className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-red-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100"
-                                    animate={{
-                                        background: [
-                                            "linear-gradient(45deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)",
-                                            "linear-gradient(45deg, rgba(255,107,53,0.05) 0%, rgba(253,87,16,0.03) 50%, rgba(255,107,53,0.05) 100%)",
-                                            "linear-gradient(45deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)"
-                                        ]
+                                    key={index}
+                                    className="relative bg-gradient-to-br from-white via-orange-50 to-red-50 p-6 rounded-2xl border border-orange-100 shadow-lg overflow-hidden group"
+                                    initial={{ opacity: 0, x: isEven ? -80 : 80, y: 30 }}
+                                    whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                    whileHover={{ 
+                                        scale: 1.02, 
+                                        y: -3,
+                                        transition: { duration: 0.3 }
                                     }}
-                                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                />
-                                
+                                    viewport={{ once: false, amount: 0.3 }}
+                                >
                                 <div className="relative z-10">
-                                    <motion.div 
-                                        className="text-2xl mb-2"
-                                        animate={{ rotate: [0, 10, -10, 0] }}
-                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.5 }}
-                                    >
-                                        {info.icon}
-                                    </motion.div>
+                                    <div className="text-2xl mb-2">{info.icon}</div>
                                     <div className="text-sm font-semibold text-orange-600 mb-1">{info.label}</div>
                                     <div className="text-lg font-bold text-gray-800">{info.value}</div>
                                 </div>
-                                
-                                {/* Decorative Corner */}
-                                <motion.div 
-                                    className="absolute top-2 right-2 w-4 h-4 bg-gradient-to-br from-orange-400 to-red-400 rounded-full opacity-20"
-                                    animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.5, 0.2] }}
-                                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
-                                />
                             </motion.div>
-                        ))}
-                    </div>
+                        );
+                        })}
+                    </motion.div>
 
                     <div className="mt-5 flex flex-col sm:flex-row gap-3 sm:gap-4">
                         <button
@@ -466,14 +385,12 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
                     )}
                 </motion.div>
 
-                {/* Right: image + stats */}
+                {/* Right: image + stats - Slides from RIGHT */}
                 <motion.div
-                    initial="visible"
-                    animate="visible"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={slideRight}
-                    transition={{ duration: 0.6 }}
+                    initial={{ opacity: 0, x: 120, y: 30 }}
+                    whileInView={{ opacity: 1, x: 0, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    viewport={{ once: false, amount: 0.2 }}
                     className="space-y-6"
                 >
                     {data.company.heroImage ? (
@@ -496,505 +413,441 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
                         </div>
                     )}
                 </motion.div>
-            </div>
+            </motion.div>
 
             {/* Enhanced Vision & Mission Section */}
-            <div className="mb-20 relative">
+            <motion.div 
+                className="mb-20 relative"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.15 }}
+            >
                 {/* Section Background */}
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-50/50 via-red-50/30 to-orange-50/50 rounded-3xl"></div>
                 
                 <div className="relative z-10 p-8">
                     <motion.div
-                        initial="visible"
-                        animate="visible"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.1 }}
-                        variants={fadeUp}
-                        transition={{ duration: 0.6 }}
                         className="text-center mb-12"
+                        initial={{ opacity: 0, x: -100 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        viewport={{ once: false, amount: 0.2 }}
                     >
                         <motion.h2 
                             className="text-3xl sm:text-4xl font-bold mb-4"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, ease: [0.68, -0.55, 0.265, 1.55] }}
-                            viewport={{ once: true, amount: 0.1 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 0.3 }}
+                            viewport={{ once: false, amount: 0.3 }}
                         >
-                            <span className="text-gray-900">Our</span>
-                            <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"> Vision</span>
-                            <span className="text-gray-900"> & </span>
-                            <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent">Mission</span>
+                            <motion.span 
+                                className="text-gray-900"
+                                initial={{ opacity: 0, x: -60 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.4, delay: 0.4 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                            >
+                                Our
+                            </motion.span>
+                            <motion.span 
+                                className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
+                                initial={{ opacity: 0, x: 60 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.4, delay: 0.5 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                            >
+                                {" "}Vision
+                            </motion.span>
+                            <motion.span 
+                                className="text-gray-900"
+                                initial={{ opacity: 0, x: -40 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.4, delay: 0.6 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                            >
+                                {" "}&{" "}
+                            </motion.span>
+                            <motion.span 
+                                className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
+                                initial={{ opacity: 0, x: 40 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.4, delay: 0.7 }}
+                                viewport={{ once: false, amount: 0.3 }}
+                            >
+                                Mission
+                            </motion.span>
                         </motion.h2>
                         <motion.p 
                             className="text-lg text-gray-600 max-w-3xl mx-auto"
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            viewport={{ once: true, amount: 0.1 }}
+                            transition={{ duration: 0.4, delay: 0.8 }}
+                            viewport={{ once: false, amount: 0.3 }}
                         >
                             Guiding principles that drive our commitment to MSME and startup success
                         </motion.p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <motion.div 
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.15 }}
+                    >
                         {data.vision && (
                             <motion.div
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true, amount: 0.1 }}
-                                variants={slideLeft}
-                                transition={{ duration: 0.6 }}
+                                initial={{ opacity: 0, x: -120, y: 30 }}
+                                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                viewport={{ once: false, amount: 0.2 }}
                                 className="relative bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group"
                                 whileHover={{ 
                                     scale: 1.02,
-                                    y: -10,
-                                    rotateY: 5,
-                                    transition: { 
-                                        duration: 0.5, 
-                                        ease: [0.68, -0.55, 0.265, 1.55]
-                                    }
+                                    y: -5,
+                                    transition: { duration: 0.3 }
                                 }}
                             >
-                                {/* Animated Background */}
-                                <motion.div 
-                                    className="absolute inset-0 bg-gradient-to-br from-orange-50 via-red-50 to-orange-50 opacity-0 group-hover:opacity-100"
-                                    animate={{
-                                        background: [
-                                            "linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)",
-                                            "linear-gradient(135deg, rgba(255,107,53,0.05) 0%, rgba(253,87,16,0.03) 50%, rgba(255,107,53,0.05) 100%)",
-                                            "linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)"
-                                        ]
-                                    }}
-                                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                />
-                                
-                                {/* Floating Elements */}
-                                <motion.div 
-                                    className="absolute top-4 right-4 w-6 h-6 bg-gradient-to-r from-orange-400 to-red-400 rounded-full opacity-20"
-                                    animate={{ 
-                                        scale: [1, 1.5, 1],
-                                        rotate: [0, 180, 360],
-                                        opacity: [0.2, 0.5, 0.2]
-                                    }}
-                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                />
-                                
                                 <div className="relative z-10">
-                                    <motion.div 
-                                        className="text-5xl mb-6"
-                                        animate={{ 
-                                            rotate: [0, 10, -10, 0],
-                                            scale: [1, 1.1, 1]
-                                        }}
-                                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                    >
-                                        👁️
-                                    </motion.div>
+                                    <div className="text-5xl mb-6">👁️</div>
                                     <h3 className="text-2xl font-bold text-gray-800 mb-4">{data.vision.title || "Vision"}</h3>
                                     <p className="text-gray-700 leading-relaxed">{data.vision.text}</p>
                                 </div>
-                                
-                                {/* Decorative Border */}
-                                <motion.div 
-                                    className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-red-500"
-                                    initial={{ scaleX: 0 }}
-                                    whileInView={{ scaleX: 1 }}
-                                    transition={{ duration: 1, delay: 0.5 }}
-                                    viewport={{ once: true, amount: 0.1 }}
-                                />
                             </motion.div>
                         )}
 
                         {data.mission && (
                             <motion.div
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true, amount: 0.1 }}
-                                variants={slideRight}
-                                transition={{ duration: 0.6 }}
+                                initial={{ opacity: 0, x: 120, y: 30 }}
+                                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                viewport={{ once: false, amount: 0.2 }}
                                 className="relative bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group"
                                 whileHover={{ 
                                     scale: 1.02,
-                                    y: -10,
-                                    rotateY: -5,
-                                    transition: { 
-                                        duration: 0.5, 
-                                        ease: [0.68, -0.55, 0.265, 1.55]
-                                    }
+                                    y: -5,
+                                    transition: { duration: 0.3 }
                                 }}
                             >
-                                {/* Animated Background */}
-                                <motion.div 
-                                    className="absolute inset-0 bg-gradient-to-br from-red-50 via-orange-50 to-red-50 opacity-0 group-hover:opacity-100"
-                                    animate={{
-                                        background: [
-                                            "linear-gradient(135deg, rgba(255,107,53,0.05) 0%, rgba(253,87,16,0.03) 50%, rgba(255,107,53,0.05) 100%)",
-                                            "linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)",
-                                            "linear-gradient(135deg, rgba(255,107,53,0.05) 0%, rgba(253,87,16,0.03) 50%, rgba(255,107,53,0.05) 100%)"
-                                        ]
-                                    }}
-                                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                />
-                                
-                                {/* Floating Elements */}
-                                <motion.div 
-                                    className="absolute top-4 right-4 w-6 h-6 bg-gradient-to-r from-red-400 to-orange-400 rounded-full opacity-20"
-                                    animate={{ 
-                                        scale: [1, 1.5, 1],
-                                        rotate: [0, -180, -360],
-                                        opacity: [0.2, 0.5, 0.2]
-                                    }}
-                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                />
-                                
                                 <div className="relative z-10">
-                                    <motion.div 
-                                        className="text-5xl mb-6"
-                                        animate={{ 
-                                            rotate: [0, -10, 10, 0],
-                                            scale: [1, 1.1, 1]
-                                        }}
-                                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                    >
-                                        🎯
-                                    </motion.div>
+                                    <div className="text-5xl mb-6">🎯</div>
                                     <h3 className="text-2xl font-bold text-gray-800 mb-4">{data.mission.title || "Mission"}</h3>
                                     <p className="text-gray-700 leading-relaxed">{data.mission.text}</p>
                                 </div>
-                                
-                                {/* Decorative Border */}
-                                <motion.div 
-                                    className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 to-orange-500"
-                                    initial={{ scaleX: 0 }}
-                                    whileInView={{ scaleX: 1 }}
-                                    transition={{ duration: 1, delay: 0.5 }}
-                                    viewport={{ once: true, amount: 0.1 }}
-                                />
                             </motion.div>
                         )}
-                    </div>
+                    </motion.div>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Enhanced Services Section */}
             {data.services && (
-                <div className="mb-20 relative">
+                <motion.div 
+                    className="mb-20 relative"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    viewport={{ once: false, amount: 0.15 }}
+                >
                     {/* Section Background */}
                     <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-red-50/20 to-orange-50/30 rounded-3xl"></div>
                     
                     <div className="relative z-10 p-8">
                         <motion.div
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.1 }}
-                            variants={fadeUp}
-                            transition={{ duration: 0.6 }}
                             className="text-center mb-12"
+                            initial={{ opacity: 0, x: -100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            viewport={{ once: false, amount: 0.2 }}
                         >
                             <motion.h2 
                                 className="text-3xl sm:text-4xl font-bold mb-4"
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.8, ease: [0.68, -0.55, 0.265, 1.55] }}
-                                viewport={{ once: true, amount: 0.1 }}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.4, delay: 0.3 }}
+                                viewport={{ once: false, amount: 0.3 }}
                             >
-                                <span className="text-gray-900">Our</span>
-                                <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"> Comprehensive</span>
-                                <span className="text-gray-900"> Services</span>
+                                <motion.span 
+                                    className="text-gray-900"
+                                    initial={{ opacity: 0, x: -60 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.4 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                >
+                                    Our
+                                </motion.span>
+                                <motion.span 
+                                    className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
+                                    initial={{ opacity: 0, x: 60 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.5 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                >
+                                    {" "}Comprehensive
+                                </motion.span>
+                                <motion.span 
+                                    className="text-gray-900"
+                                    initial={{ opacity: 0, x: -40 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.6 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                >
+                                    {" "}Services
+                                </motion.span>
                             </motion.h2>
                             <motion.p 
                                 className="text-lg text-gray-600 max-w-3xl mx-auto"
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
-                                viewport={{ once: true, amount: 0.1 }}
+                                transition={{ duration: 0.4, delay: 0.7 }}
+                                viewport={{ once: false, amount: 0.3 }}
                             >
                                 End-to-end business solutions for MSMEs and startups
                             </motion.p>
                         </motion.div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {data.services.map((service, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true, amount: 0.1 }}
-                                    variants={fadeUp}
-                                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                                    className="relative bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group"
-                                    whileHover={{ 
-                                        scale: 1.05, 
-                                        y: -15,
-                                        rotateY: 5,
-                                        transition: { 
-                                            duration: 0.5, 
-                                            ease: [0.68, -0.55, 0.265, 1.55]
-                                        }
-                                    }}
-                                >
-                                    {/* Animated Background */}
-                                    <motion.div 
-                                        className="absolute inset-0 bg-gradient-to-br from-orange-50 via-red-50 to-orange-50 opacity-0 group-hover:opacity-100"
-                                        animate={{
-                                            background: [
-                                                "linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)",
-                                                "linear-gradient(135deg, rgba(255,107,53,0.05) 0%, rgba(253,87,16,0.03) 50%, rgba(255,107,53,0.05) 100%)",
-                                                "linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)"
-                                            ]
+                        <motion.div 
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{ duration: 0.4, delay: 0.3 }}
+                            viewport={{ once: false, amount: 0.15 }}
+                        >
+                            {data.services.map((service, index) => {
+                                const isEven = index % 2 === 0;
+                                return (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
+                                        whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                        transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                        viewport={{ once: false, amount: 0.2 }}
+                                        className="relative bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group"
+                                        whileHover={{ 
+                                            scale: 1.02, 
+                                            y: -5,
+                                            transition: { duration: 0.3 }
                                         }}
-                                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                    />
-                                    
-                                    {/* Floating Elements */}
-                                    <motion.div 
-                                        className="absolute top-4 right-4 w-6 h-6 bg-gradient-to-r from-orange-400 to-red-400 rounded-full opacity-20"
-                                        animate={{ 
-                                            scale: [1, 1.5, 1],
-                                            rotate: [0, 180, 360],
-                                            opacity: [0.2, 0.5, 0.2]
-                                        }}
-                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.5 }}
-                                    />
-                                    
+                                    >
                                     <div className="relative z-10">
-                                        <motion.div 
-                                            className="text-5xl mb-6"
-                                            animate={{ 
-                                                rotate: [0, 10, -10, 0],
-                                                scale: [1, 1.1, 1]
-                                            }}
-                                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
-                                        >
-                                            {service.icon}
-                                        </motion.div>
+                                        <div className="text-5xl mb-6">{service.icon}</div>
                                         <h3 className="text-xl font-bold text-gray-800 mb-4">{service.title}</h3>
                                         <p className="text-gray-600 leading-relaxed">{service.description}</p>
                                     </div>
-                                    
-                                    {/* Decorative Border */}
-                                    <motion.div 
-                                        className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-red-500"
-                                        initial={{ scaleX: 0 }}
-                                        whileInView={{ scaleX: 1 }}
-                                        transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-                                        viewport={{ once: true, amount: 0.1 }}
-                                    />
-                                    
-                                    {/* Corner Decoration */}
-                                    <motion.div 
-                                        className="absolute top-0 right-0 w-8 h-8 bg-gradient-to-bl from-orange-500 to-red-500 opacity-20 rounded-bl-3xl"
-                                        animate={{ scale: [1, 1.2, 1] }}
-                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
-                                    />
                                 </motion.div>
-                            ))}
-                        </div>
+                                );
+                            })}
+                        </motion.div>
                     </div>
-                </div>
+                </motion.div>
             )}
 
             {/* Enhanced Achievements Section */}
             {data.achievements && (
-                <div className="mb-20 relative">
+                <motion.div 
+                    className="mb-20 relative"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    viewport={{ once: false, amount: 0.15 }}
+                >
                     {/* Section Background */}
                     <div className="absolute inset-0 bg-gradient-to-r from-orange-50/40 via-red-50/30 to-orange-50/40 rounded-3xl"></div>
                     
                     <div className="relative z-10 p-8">
                         <motion.div
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.1 }}
-                            variants={fadeUp}
-                            transition={{ duration: 0.6 }}
                             className="text-center mb-12"
+                            initial={{ opacity: 0, x: -100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            viewport={{ once: false, amount: 0.2 }}
                         >
                             <motion.h2 
                                 className="text-3xl sm:text-4xl font-bold mb-4"
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.8, ease: [0.68, -0.55, 0.265, 1.55] }}
-                                viewport={{ once: true, amount: 0.1 }}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.4, delay: 0.3 }}
+                                viewport={{ once: false, amount: 0.3 }}
                             >
-                                <span className="text-gray-900">Our</span>
-                                <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"> Achievements</span>
-                                <span className="text-gray-900"> & </span>
-                                <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent">Recognition</span>
+                                <motion.span 
+                                    className="text-gray-900"
+                                    initial={{ opacity: 0, x: -60 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.4 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                >
+                                    Our
+                                </motion.span>
+                                <motion.span 
+                                    className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
+                                    initial={{ opacity: 0, x: 60 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.5 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                >
+                                    {" "}Achievements
+                                </motion.span>
+                                <motion.span 
+                                    className="text-gray-900"
+                                    initial={{ opacity: 0, x: -40 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.6 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                >
+                                    {" "}&{" "}
+                                </motion.span>
+                                <motion.span 
+                                    className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
+                                    initial={{ opacity: 0, x: 40 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.7 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                >
+                                    Recognition
+                                </motion.span>
                             </motion.h2>
                             <motion.p 
                                 className="text-lg text-gray-600 max-w-3xl mx-auto"
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
-                                viewport={{ once: true, amount: 0.1 }}
+                                transition={{ duration: 0.4, delay: 0.8 }}
+                                viewport={{ once: false, amount: 0.3 }}
                             >
                                 Proud milestones and industry recognition
                             </motion.p>
                         </motion.div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {data.achievements.map((achievement, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true, amount: 0.1 }}
-                                    variants={fadeUp}
-                                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                                    className="relative bg-white p-6 rounded-2xl border border-orange-100 shadow-xl overflow-hidden group"
-                                    whileHover={{ 
-                                        scale: 1.05, 
-                                        y: -10,
-                                        transition: { 
-                                            duration: 0.3, 
-                                            ease: [0.68, -0.55, 0.265, 1.55]
-                                        }
-                                    }}
-                                >
-                                    {/* Animated Background */}
-                                    <motion.div 
-                                        className="absolute inset-0 bg-gradient-to-r from-orange-50 to-red-50 opacity-0 group-hover:opacity-100"
-                                        animate={{
-                                            background: [
-                                                "linear-gradient(45deg, rgba(253,87,16,0.1) 0%, rgba(255,107,53,0.05) 50%, rgba(253,87,16,0.1) 100%)",
-                                                "linear-gradient(45deg, rgba(255,107,53,0.1) 0%, rgba(253,87,16,0.05) 50%, rgba(255,107,53,0.1) 100%)",
-                                                "linear-gradient(45deg, rgba(253,87,16,0.1) 0%, rgba(255,107,53,0.05) 50%, rgba(253,87,16,0.1) 100%)"
-                                            ]
+                        <motion.div 
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{ duration: 0.4, delay: 0.3 }}
+                            viewport={{ once: false, amount: 0.15 }}
+                        >
+                            {data.achievements.map((achievement, index) => {
+                                const isEven = index % 2 === 0;
+                                return (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
+                                        whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                        transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                        viewport={{ once: false, amount: 0.2 }}
+                                        className="relative bg-white p-6 rounded-2xl border border-orange-100 shadow-xl overflow-hidden group"
+                                        whileHover={{ 
+                                            scale: 1.02, 
+                                            y: -3,
+                                            transition: { duration: 0.3 }
                                         }}
-                                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                    />
-                                    
+                                    >
                                     <div className="relative z-10 flex items-start gap-4">
-                                        <motion.div 
-                                            className="text-3xl"
-                                            animate={{ 
-                                                rotate: [0, 15, -15, 0],
-                                                scale: [1, 1.1, 1]
-                                            }}
-                                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
-                                        >
-                                            🏆
-                                        </motion.div>
+                                        <div className="text-3xl">🏆</div>
                                         <p className="text-gray-700 font-medium leading-relaxed">{achievement}</p>
                                     </div>
-                                    
-                                    {/* Decorative Corner */}
-                                    <motion.div 
-                                        className="absolute top-2 right-2 w-4 h-4 bg-gradient-to-br from-orange-400 to-red-400 rounded-full opacity-20"
-                                        animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.5, 0.2] }}
-                                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
-                                    />
                                 </motion.div>
-                            ))}
-                        </div>
+                                );
+                            })}
+                        </motion.div>
                     </div>
-                </div>
+                </motion.div>
             )}
 
             {/* Enhanced Team Section */}
             {data.team && (
-                <div className="mb-20 relative">
+                <motion.div 
+                    className="mb-20 relative"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    viewport={{ once: false, amount: 0.15 }}
+                >
                     {/* Section Background */}
                     <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-red-50/20 to-orange-50/30 rounded-3xl"></div>
                     
                     <div className="relative z-10 p-8">
                         <motion.div
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.1 }}
-                            variants={fadeUp}
-                            transition={{ duration: 0.6 }}
                             className="text-center mb-12"
+                            initial={{ opacity: 0, x: -100 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            viewport={{ once: false, amount: 0.2 }}
                         >
                             <motion.h2 
                                 className="text-3xl sm:text-4xl font-bold mb-4"
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.8, ease: [0.68, -0.55, 0.265, 1.55] }}
-                                viewport={{ once: true, amount: 0.1 }}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.4, delay: 0.3 }}
+                                viewport={{ once: false, amount: 0.3 }}
                             >
-                                <span className="text-gray-900">Meet Our</span>
-                                <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"> Expert Team</span>
+                                <motion.span 
+                                    className="text-gray-900"
+                                    initial={{ opacity: 0, x: -60 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.4 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                >
+                                    Meet Our
+                                </motion.span>
+                                <motion.span 
+                                    className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
+                                    initial={{ opacity: 0, x: 60 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.4, delay: 0.5 }}
+                                    viewport={{ once: false, amount: 0.3 }}
+                                >
+                                    {" "}Expert Team
+                                </motion.span>
                             </motion.h2>
                             <motion.p 
                                 className="text-lg text-gray-600 max-w-3xl mx-auto"
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
-                                viewport={{ once: true, amount: 0.1 }}
+                                transition={{ duration: 0.4, delay: 0.6 }}
+                                viewport={{ once: false, amount: 0.3 }}
                             >
                                 Experienced professionals dedicated to your success
                             </motion.p>
                         </motion.div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            {data.team.map((member, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true, amount: 0.1 }}
-                                    variants={fadeUp}
-                                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                                    className="relative bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 text-center overflow-hidden group"
-                                    whileHover={{ 
-                                        scale: 1.05, 
-                                        y: -10,
-                                        transition: { 
-                                            duration: 0.3, 
-                                            ease: [0.68, -0.55, 0.265, 1.55]
-                                        }
-                                    }}
-                                >
-                                    {/* Animated Background */}
-                                    <motion.div 
-                                        className="absolute inset-0 bg-gradient-to-br from-orange-50 via-red-50 to-orange-50 opacity-0 group-hover:opacity-100"
-                                        animate={{
-                                            background: [
-                                                "linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)",
-                                                "linear-gradient(135deg, rgba(255,107,53,0.05) 0%, rgba(253,87,16,0.03) 50%, rgba(255,107,53,0.05) 100%)",
-                                                "linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)"
-                                            ]
+                        <motion.div 
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{ duration: 0.4, delay: 0.3 }}
+                            viewport={{ once: false, amount: 0.15 }}
+                        >
+                            {data.team.map((member, index) => {
+                                const isEven = index % 2 === 0;
+                                return (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
+                                        whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                        transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                        viewport={{ once: false, amount: 0.2 }}
+                                        className="relative bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 text-center overflow-hidden group"
+                                        whileHover={{ 
+                                            scale: 1.02, 
+                                            y: -3,
+                                            transition: { duration: 0.3 }
                                         }}
-                                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                    />
-                                    
+                                    >
                                     <div className="relative z-10">
-                                        <motion.div 
-                                            className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold shadow-lg"
-                                            animate={{ 
-                                                rotate: [0, 5, -5, 0],
-                                                scale: [1, 1.05, 1]
-                                            }}
-                                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
-                                        >
+                                        <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
                                             {member.name.split(' ').map(n => n[0]).join('')}
-                                        </motion.div>
+                                        </div>
                                         <h3 className="text-lg font-bold text-gray-800 mb-2">{member.name}</h3>
                                         <p className="text-orange-600 font-semibold mb-2">{member.position}</p>
                                         <p className="text-sm text-gray-600 mb-2">{member.experience}</p>
                                         <p className="text-sm text-gray-500">{member.expertise}</p>
                                     </div>
-                                    
-                                    {/* Decorative Elements */}
-                                    <motion.div 
-                                        className="absolute top-2 right-2 w-4 h-4 bg-gradient-to-br from-orange-400 to-red-400 rounded-full opacity-20"
-                                        animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.5, 0.2] }}
-                                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
-                                    />
-                                    
-                                    <motion.div 
-                                        className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-red-500"
-                                        initial={{ scaleX: 0 }}
-                                        whileInView={{ scaleX: 1 }}
-                                        transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-                                        viewport={{ once: true, amount: 0.1 }}
-                                    />
                                 </motion.div>
-                            ))}
-                        </div>
+                                );
+                            })}
+                        </motion.div>
                     </div>
-                </div>
+                </motion.div>
             )}
 
             {/* Enhanced Call to Action */}
@@ -1006,27 +859,24 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
                 transition={{ duration: 0.6 }}
                 className="relative bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 rounded-3xl p-12 text-center text-white overflow-hidden"
             >
-                {/* Animated Background Elements */}
+                {/* Simple background elements for performance */}
                 <div className="absolute inset-0">
-                    {[...Array(6)].map((_, i) => (
+                    {[...Array(2)].map((_, i) => (
                         <motion.div
                             key={i}
-                            className="absolute w-32 h-32 bg-white/10 rounded-full"
+                            className="absolute w-16 h-16 bg-white/5 rounded-full"
                             animate={{
-                                x: [0, 100, -50, 0],
-                                y: [0, -80, 40, 0],
-                                scale: [0.5, 1.2, 0.8, 0.5],
-                                rotate: [0, 180, 360, 0],
+                                scale: [0.8, 1.1, 0.8],
                             }}
                             transition={{
-                                duration: 20 + i * 2,
+                                duration: 8 + i * 2,
                                 repeat: Infinity,
                                 ease: "easeInOut",
-                                delay: i * 3,
+                                delay: i * 4,
                             }}
                             style={{
-                                left: `${10 + i * 15}%`,
-                                top: `${20 + i * 10}%`,
+                                left: `${30 + i * 40}%`,
+                                top: `${30 + i * 30}%`,
                             }}
                         />
                     ))}
@@ -1074,9 +924,15 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
                         >
                             Call Now: +91 98765 43210
                         </motion.a>
-                    </motion.div>
-                </div>
+                </motion.div>
+            </div>
             </motion.div>
+
+            {/* Form Modal */}
+            <FormModal
+                open={showFormModal}
+                onClose={() => setShowFormModal(false)}
+            />
         </section>
     );
 }

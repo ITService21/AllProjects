@@ -1,5 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
+
+const SERVICE_SCHEMES = [
+    "ARTHA", "SURAKSHA", "NISHTHA", "UTTHAN", "PRAGATI", "DISHA"
+];
 
 const ContactSection = () => {
     const [formData, setFormData] = useState({
@@ -7,6 +12,7 @@ const ContactSection = () => {
         email: '',
         phone: '',
         company: '',
+        serviceScheme: '',
         message: ''
     });
 
@@ -17,82 +23,65 @@ const ContactSection = () => {
         });
     };
 
-    // Enhanced animation variants
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2
+    const handleSchemeSelect = (scheme) => {
+        setFormData({
+            ...formData,
+            serviceScheme: scheme
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        // Basic validation
+        if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.message.trim()) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+        
+        try {
+            const res = await fetch('http://194.164.150.8:5000/send-form-mail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    smtp: {
+                        host: "mail.piwebtechnology.com",
+                        port: 587,
+                        secure: false,
+                        user: "admin@piwebtechnology.com",
+                        pass: "751821@Ss"
+                    },
+                    to: "admin@piwebtechnology.com",
+                    subject: "Contact Form Submission",
+                    fields: {
+                        Name: formData.name,
+                        Phone: formData.phone,
+                        Email: formData.email,
+                        Company: formData.company,
+                        "Service Scheme": formData.serviceScheme,
+                        Message: formData.message
+                    }
+                })
+            });
+            
+            if (res.ok) {
+                toast.success('Message sent successfully! We will contact you soon.');
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    company: '',
+                    serviceScheme: '',
+                    message: ''
+                });
+            } else {
+                alert('Failed to send message. Please try again.');
             }
+        } catch {
+            alert('Failed to send message. Please try again.');
         }
     };
 
-    const bounceIn = {
-        hidden: {
-            opacity: 0,
-            y: -150,
-            scale: 0.3,
-            rotateZ: -15
-        },
-        visible: {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            rotateZ: 0,
-            transition: {
-                duration: 1.5,
-                ease: [0.68, -0.55, 0.265, 1.55],
-                type: "spring",
-                stiffness: 120,
-                damping: 12
-            }
-        }
-    };
-
-    const slideInLeft = {
-        hidden: {
-            opacity: 0,
-            x: -200,
-            scale: 0.5,
-            rotateY: -30
-        },
-        visible: {
-            opacity: 1,
-            x: 0,
-            scale: 1,
-            rotateY: 0,
-            transition: {
-                duration: 1.8,
-                ease: [0.68, -0.55, 0.265, 1.55],
-                type: "spring",
-                stiffness: 90,
-                damping: 18
-            }
-        }
-    };
-
-    const slideInRight = {
-        hidden: {
-            opacity: 0,
-            x: 200,
-            scale: 0.5,
-            rotateY: 30
-        },
-        visible: {
-            opacity: 1,
-            x: 0,
-            scale: 1,
-            rotateY: 0,
-            transition: {
-                duration: 1.8,
-                ease: [0.68, -0.55, 0.265, 1.55],
-                type: "spring",
-                stiffness: 90,
-                damping: 18
-            }
-        }
-    };
+    // Removed heavy animation variants for better mobile performance
 
     return (
         <section className="relative py-20 px-4 overflow-hidden" style={{backgroundColor: '#FFFFFF'}}>
@@ -115,30 +104,23 @@ const ContactSection = () => {
                     }}
                 />
 
-                {/* Floating Triangles */}
-                {[...Array(8)].map((_, i) => (
+                {/* Simple floating elements for performance */}
+                {[...Array(2)].map((_, i) => (
                     <motion.div
                         key={i}
-                        className="absolute opacity-12"
+                        className="absolute w-6 h-6 bg-orange-500/20 rounded-full"
                         style={{
-                            width: `${30 + i * 8}px`,
-                            height: `${30 + i * 8}px`,
-                            background: `linear-gradient(45deg, #F85710, #FF6B35)`,
-                            clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-                            left: `${8 + i * 11}%`,
-                            top: `${15 + i * 8}%`,
+                            left: `${20 + i * 60}%`,
+                            top: `${30 + i * 40}%`,
                         }}
                         animate={{
-                            x: [0, 70, -35, 0],
-                            y: [0, -50, 25, 0],
-                            rotate: [0, 120, 240, 360],
-                            scale: [1, 1.3, 0.7, 1.1, 1],
-                            opacity: [0.12, 0.25, 0.08, 0.18, 0.12]
+                            y: [0, -20, 0],
+                            scale: [0.8, 1.1, 0.8],
                         }}
                         transition={{
-                            duration: 8 + i * 1.2,
+                            duration: 6 + i * 2,
                             repeat: Infinity,
-                            delay: i * 1.1,
+                            delay: i * 3,
                             ease: "easeInOut"
                         }}
                     />
@@ -161,132 +143,82 @@ const ContactSection = () => {
                     }}
                 />
 
-                {/* Floating Squares with Bounce */}
-                {[...Array(15)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className="absolute w-3 h-3 bg-gradient-to-r from-orange-400 to-red-400 opacity-40"
-                        animate={{
-                            y: [0, -40, 0],
-                            x: [0, 20, -10, 0],
-                            scale: [0.8, 1.2, 0.9, 1.1, 0.8],
-                            opacity: [0.4, 0.7, 0.2, 0.5, 0.4],
-                            rotate: [0, 90, 180, 270, 360]
-                        }}
-                        transition={{
-                            duration: 4 + i * 0.5,
-                            repeat: Infinity,
-                            delay: i * 0.4,
-                            ease: "easeInOut"
-                        }}
-                        style={{
-                            left: `${2 + i * 6}%`,
-                            top: `${10 + i * 5}%`,
-                        }}
-                    />
-                ))}
 
-                {/* Animated Zigzag Lines */}
-                {[...Array(5)].map((_, i) => (
-                    <motion.div
-                        key={`zigzag-${i}`}
-                        className="absolute w-32 h-1 bg-gradient-to-r from-orange-400/20 to-red-400/20 opacity-0"
-                        animate={{
-                            opacity: [0, 0.6, 0],
-                            scaleX: [0, 1, 0],
-                            rotate: [0, 5, -5, 0]
-                        }}
-                        transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            delay: i * 0.8,
-                            ease: "easeInOut"
-                        }}
-                        style={{
-                            left: `${15 + i * 20}%`,
-                            top: `${20 + i * 15}%`,
-                            transformOrigin: 'left center'
-                        }}
-                    />
-                ))}
             </div>
 
             <div className="relative z-10 max-w-7xl mx-auto">
-                {/* Header Section */}
+                {/* Fast Header Section */}
                 <motion.div 
                     className="text-center mb-16"
-                    variants={bounceIn}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ amount: 0.3 }}
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    viewport={{ once: false, amount: 0.2 }}
                 >
-                    <motion.h2
+                    <h2
                         className="text-4xl md:text-5xl lg:text-6xl font-black mb-6"
                         style={{fontFamily: 'Montserrat, sans-serif'}}
-                        initial={{ opacity: 0, scale: 0.2, rotateZ: -20 }}
-                        whileInView={{
-                            opacity: 1,
-                            scale: 1,
-                            rotateZ: 0
-                        }}
-                        transition={{
-                            duration: 1.8,
-                            delay: 0.3,
-                            ease: [0.68, -0.55, 0.265, 1.55],
-                            type: "spring",
-                            stiffness: 150,
-                            damping: 10
-                        }}
-                        viewport={{ amount: 0.3 }}
                     >
-                        <span className="text-gray-800">Get In</span>
-                        <br />
-                        <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent">
+                        <motion.span 
+                            className="text-gray-800 block"
+                            initial={{ opacity: 0, x: -80 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.2 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            Get In
+                        </motion.span>
+                        <motion.span 
+                            className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent block"
+                            initial={{ opacity: 0, x: 80 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.3 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
                             Touch
-                        </span>
-                    </motion.h2>
+                        </motion.span>
+                    </h2>
 
                     <motion.p
                         className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
                         style={{fontFamily: 'Inter, sans-serif'}}
-                        initial={{ opacity: 0, y: 30, scale: 0.8 }}
-                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                        transition={{ 
-                            duration: 1.2, 
-                            delay: 0.6,
-                            ease: [0.68, -0.55, 0.265, 1.55]
-                        }}
-                        viewport={{ amount: 0.3 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.4 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
-                        Ready to transform your business? Let's discuss how we can help you achieve your goals.
+                        Ready to transform your business? Let&apos;s discuss how we can help you achieve your goals.
                     </motion.p>
                 </motion.div>
 
             <motion.div
-                    className="grid lg:grid-cols-2 gap-12"
-                    variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                    viewport={{ amount: 0.2 }}
+                className="grid lg:grid-cols-2 gap-12"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.15 }}
             >
-                {/* Left Content */}
+                {/* Left Content - Slides from Left */}
                     <motion.div 
-                        variants={slideInLeft}
                         className="space-y-8"
+                        initial={{ opacity: 0, x: -120, y: 30 }}
+                        whileInView={{ opacity: 1, x: 0, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        viewport={{ once: false, amount: 0.2 }}
                     >
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            viewport={{ amount: 0.3 }}
+                            transition={{ duration: 0.4, delay: 0.3 }}
+                            viewport={{ once: false, amount: 0.3 }}
                         >
                             <h3 className="text-3xl md:text-4xl font-black mb-6" style={{color: '#000000', fontFamily: 'Outfit, sans-serif'}}>
-                                Let's Build Something 
+                                Let&apos;s Build Something 
                                 <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent"> Amazing</span>
                     </h3>
                             <p className="text-lg text-gray-600 leading-relaxed mb-8" style={{fontFamily: 'Inter, sans-serif'}}>
-                                We're here to support your business journey with comprehensive solutions, 
-                                expert guidance, and 24/7 assistance. Reach out to us and let's create 
+                                We&apos;re here to support your business journey with comprehensive solutions, 
+                                expert guidance, and 24/7 assistance. Reach out to us and let&apos;s create 
                                 something extraordinary together.
                             </p>
                         </motion.div>
@@ -315,65 +247,17 @@ const ContactSection = () => {
                                     ].map((item, index) => (
                                         <motion.div
                                             key={index}
-                                            className="bg-white rounded-xl p-4 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 group cursor-pointer relative overflow-hidden"
-                                            whileHover={{
-                                                scale: 1.1,
-                                                y: -8,
-                                                rotateZ: 2,
-                                                transition: { 
-                                                    duration: 0.4,
-                                                    ease: [0.68, -0.55, 0.265, 1.55]
-                                                }
-                                            }}
-                                            initial={{ opacity: 0, y: 100, scale: 0.5 }}
-                                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                                            transition={{ 
-                                                duration: 0.8, 
-                                                delay: 0.4 + index * 0.15,
-                                                ease: [0.68, -0.55, 0.265, 1.55]
-                                            }}
-                                            viewport={{ amount: 0.3 }}
+                                            className="bg-white rounded-xl p-4 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 group cursor-pointer relative overflow-hidden"
+                                            whileHover={{ scale: 1.02, y: -3, transition: { duration: 0.3 } }}
+                                            initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60, y: 30 }}
+                                            whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                            transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                                            viewport={{ once: false, amount: 0.3 }}
                                         >
-                                            {/* Animated Background */}
-                                            <motion.div 
-                                                className="absolute inset-0 rounded-xl"
-                                                initial={{ 
-                                                    background: 'linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%)'
-                                                }}
-                                                whileHover={{
-                                                    background: [
-                                                        `linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(255,255,255,1) 100%)`,
-                                                        `linear-gradient(135deg, rgba(255,107,53,0.05) 0%, rgba(253,87,16,0.03) 50%, rgba(255,255,255,1) 100%)`,
-                                                        `linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(255,255,255,1) 100%)`
-                                                    ]
-                                                }}
-                                                transition={{
-                                                    duration: 2,
-                                                    repeat: Infinity,
-                                                    ease: "easeInOut"
-                                                }}
-                                            />
-                                            
                                             <div className="relative z-10 text-center">
-                                                <motion.div
-                                                    className={`w-10 h-10 bg-gradient-to-r ${item.color} rounded-lg flex items-center justify-center text-white text-lg shadow-lg mx-auto mb-3`}
-                                                    animate={{
-                                                        rotate: [0, 10, -10, 0],
-                                                        scale: [1, 1.1, 1],
-                                                        boxShadow: [
-                                                            '0 4px 15px rgba(253, 87, 16, 0.3)',
-                                                            '0 8px 25px rgba(253, 87, 16, 0.4)',
-                                                            '0 4px 15px rgba(253, 87, 16, 0.3)'
-                                                        ]
-                                                    }}
-                                                    transition={{
-                                                        duration: 2.5,
-                                                        repeat: Infinity,
-                                                        delay: index * 0.3
-                                                    }}
-                                                >
+                                                <div className={`w-10 h-10 bg-gradient-to-r ${item.color} rounded-lg flex items-center justify-center text-white text-lg shadow-lg mx-auto mb-3`}>
                                                     {item.icon}
-                                                </motion.div>
+                                                </div>
                                                 <h4 className="text-sm font-bold text-gray-800 mb-1" style={{fontFamily: 'Outfit, sans-serif'}}>
                                                     {item.title}
                                                 </h4>
@@ -383,20 +267,6 @@ const ContactSection = () => {
                                                     </p>
                                                 ))}
                                             </div>
-                                            
-                                            {/* Decorative Corner */}
-                                            <motion.div 
-                                                className="absolute top-2 right-2 w-2 h-2 bg-gradient-to-r from-orange-400 to-red-400 rounded-full opacity-0 group-hover:opacity-100"
-                                                animate={{
-                                                    scale: [0, 1, 0],
-                                                    opacity: [0, 1, 0]
-                                                }}
-                                                transition={{
-                                                    duration: 2,
-                                                    repeat: Infinity,
-                                                    delay: index * 0.5
-                                                }}
-                                            />
                                         </motion.div>
                                     ))}
                                 </div>
@@ -404,10 +274,10 @@ const ContactSection = () => {
                                 {/* Helpful Information Section */}
                                 <motion.div
                                     className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
-                                    initial={{ opacity: 0, y: 50 }}
+                                    initial={{ opacity: 0, y: 30 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.6 }}
-                                    viewport={{ amount: 0.3 }}
+                                    transition={{ duration: 0.4, delay: 0.5 }}
+                                    viewport={{ once: false, amount: 0.3 }}
                                 >
                                     {[
                                         {
@@ -434,35 +304,16 @@ const ContactSection = () => {
                                         <motion.div
                                             key={index}
                                             className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-4 border border-orange-100 hover:border-orange-200 transition-all duration-300 group"
-                                            whileHover={{
-                                                scale: 1.05,
-                                                y: -3,
-                                                transition: { duration: 0.3 }
-                                            }}
-                                            initial={{ opacity: 0, scale: 0.8 }}
-                                            whileInView={{ opacity: 1, scale: 1 }}
-                                            transition={{ 
-                                                duration: 0.6, 
-                                                delay: 0.8 + index * 0.1,
-                                                ease: [0.68, -0.55, 0.265, 1.55]
-                                            }}
-                                            viewport={{ amount: 0.3 }}
+                                            whileHover={{ scale: 1.02, y: -2, transition: { duration: 0.3 } }}
+                                            initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+                                            viewport={{ once: false, amount: 0.3 }}
                                         >
                                             <div className="text-center">
-                                                <motion.div
-                                                    className="text-2xl mb-2"
-                                                    animate={{
-                                                        rotate: [0, 10, -10, 0],
-                                                        scale: [1, 1.1, 1]
-                                                    }}
-                                                    transition={{
-                                                        duration: 3,
-                                                        repeat: Infinity,
-                                                        delay: index * 0.5
-                                                    }}
-                                                >
+                                                <div className="text-2xl mb-2">
                                                     {item.icon}
-                                                </motion.div>
+                                                </div>
                                                 <h4 className="text-sm font-bold text-gray-800 mb-1" style={{fontFamily: 'Outfit, sans-serif'}}>
                                                     {item.title}
                                                 </h4>
@@ -511,7 +362,7 @@ const ContactSection = () => {
                                                 📞 Get Started Today
                                             </h4>
                                             <p className="text-sm text-gray-600 mb-4" style={{fontFamily: 'Inter, sans-serif'}}>
-                                                Ready to take your business to the next level? Contact us now for a free consultation and let's discuss your requirements.
+                                                Ready to take your business to the next level? Contact us now for a free consultation and let&apos;s discuss your requirements.
                                             </p>
                                             <div className="flex flex-wrap gap-2">
                                                 <span className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-semibold">
@@ -529,52 +380,28 @@ const ContactSection = () => {
                                 </motion.div>
                 </motion.div>
 
-                {/* Contact Form */}
+                {/* Contact Form - Slides from Right */}
                 <motion.div
-                    variants={slideInRight}
                     className="bg-white rounded-3xl p-8 shadow-2xl border border-gray-100 relative overflow-hidden"
-                    whileHover={{
-                        scale: 1.02,
-                        y: -5,
-                        transition: { 
-                            duration: 0.5,
-                            ease: [0.68, -0.55, 0.265, 1.55]
-                        }
-                    }}
+                    initial={{ opacity: 0, x: 120, y: 30 }}
+                    whileInView={{ opacity: 1, x: 0, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    viewport={{ once: false, amount: 0.2 }}
+                    whileHover={{ scale: 1.01, y: -3, transition: { duration: 0.3 } }}
                 >
-                    {/* Form Background Effect */}
-                    <motion.div
-                        className="absolute inset-0 rounded-3xl"
-                        initial={{
-                            background: 'linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%)'
-                        }}
-                        whileHover={{
-                            background: [
-                                'linear-gradient(135deg, rgba(253,87,16,0.03) 0%, rgba(255,107,53,0.02) 50%, rgba(255,255,255,1) 100%)',
-                                'linear-gradient(135deg, rgba(255,107,53,0.03) 0%, rgba(253,87,16,0.02) 50%, rgba(255,255,255,1) 100%)',
-                                'linear-gradient(135deg, rgba(253,87,16,0.03) 0%, rgba(255,107,53,0.02) 50%, rgba(255,255,255,1) 100%)'
-                            ]
-                        }}
-                        transition={{
-                            duration: 2.5,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                        }}
-                    />
-                        
-                        <div className="relative z-10">
-                            <motion.h3 
-                                className="text-2xl md:text-3xl font-black mb-8" 
-                                style={{color: '#000000', fontFamily: 'Outfit, sans-serif'}}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
-                                viewport={{ amount: 0.3 }}
-                            >
-                                Send Us a Message
-                            </motion.h3>
+                    <div className="relative z-10">
+                        <motion.h3 
+                            className="text-2xl md:text-3xl font-black mb-8" 
+                            style={{color: '#000000', fontFamily: 'Outfit, sans-serif'}}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 0.4 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            Send Us a Message
+                        </motion.h3>
                             
-                            <form className="space-y-6">
+                            <form className="space-y-6" onSubmit={handleSubmit}>
                                         {[
                                             { name: 'name', label: 'Full Name', type: 'text', placeholder: 'Enter your full name' },
                                             { name: 'email', label: 'Email Address', type: 'email', placeholder: 'Enter your email' },
@@ -583,132 +410,114 @@ const ContactSection = () => {
                                         ].map((field, index) => (
                                             <motion.div
                                                 key={field.name}
-                                                whileHover={{ 
-                                                    scale: 1.05,
-                                                    y: -2,
-                                                    transition: { 
-                                                        duration: 0.3,
-                                                        ease: [0.68, -0.55, 0.265, 1.55]
-                                                    }
-                                                }}
-                                                initial={{ opacity: 0, x: 50, scale: 0.8 }}
-                                                whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                                                transition={{ 
-                                                    duration: 0.8, 
-                                                    delay: 0.3 + index * 0.1,
-                                                    ease: [0.68, -0.55, 0.265, 1.55]
-                                                }}
-                                                viewport={{ amount: 0.3 }}
+                                                initial={{ opacity: 0, x: 30 }}
+                                                whileInView={{ opacity: 1, x: 0 }}
+                                                transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                                                viewport={{ once: false, amount: 0.3 }}
                                             >
                                                 <label className="block text-gray-700 text-sm font-semibold mb-2" style={{fontFamily: 'Inter, sans-serif'}}>
                                                     {field.label}
                             </label>
-                                                <motion.input
+                            <input
                                                     type={field.type}
                                                     name={field.name}
                                                     value={formData[field.name]}
                                                     onChange={handleInputChange}
                                                     placeholder={field.placeholder}
-                                                    className="w-full px-4 py-3 rounded-xl border-2 border-orange-300 focus:ring-0 focus:border-orange-500 focus:outline-none transition-all duration-300 bg-gradient-to-r from-gray-50 to-white focus:from-white focus:to-orange-50 shadow-sm focus:shadow-lg relative"
-                                                    whileFocus={{
-                                                        scale: 1.02,
-                                                        boxShadow: "0 0 0 4px rgba(253, 87, 16, 0.15), 0 0 20px rgba(253, 87, 16, 0.1)",
-                                                        transition: { duration: 0.2 }
-                                                    }}
-                                                    whileHover={{
-                                                        borderColor: "#F85710",
-                                                        boxShadow: "0 4px 12px rgba(253, 87, 16, 0.1), 0 0 0 2px rgba(253, 87, 16, 0.1)",
-                                                        transition: { duration: 0.2 }
-                                                    }}
+                                                    className="w-full px-4 py-3 rounded-xl border-2 border-orange-300 focus:ring-0 focus:border-orange-500 focus:outline-none transition-all duration-300 bg-gradient-to-r from-gray-50 to-white focus:from-white focus:to-orange-50 shadow-sm focus:shadow-lg"
                             />
                         </motion.div>
                                         ))}
 
+                                        {/* Service Scheme Field */}
                                         <motion.div
-                                            whileHover={{ 
-                                                scale: 1.05,
-                                                y: -2,
-                                                transition: { 
-                                                    duration: 0.3,
-                                                    ease: [0.68, -0.55, 0.265, 1.55]
-                                                }
-                                            }}
-                                            initial={{ opacity: 0, x: 50, scale: 0.8 }}
-                                            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                                            transition={{ 
-                                                duration: 0.8, 
-                                                delay: 0.7,
-                                                ease: [0.68, -0.55, 0.265, 1.55]
-                                            }}
-                                            viewport={{ amount: 0.3 }}
+                                            initial={{ opacity: 0, x: 30 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{ duration: 0.4, delay: 0.9 }}
+                                            viewport={{ once: false, amount: 0.3 }}
+                                        >
+                                            <label className="block text-gray-700 text-sm font-semibold mb-2" style={{fontFamily: 'Inter, sans-serif'}}>
+                                                Service Scheme <span className="text-gray-400">(optional)</span>
+                            </label>
+                                            <div className="flex flex-wrap gap-2">
+                                                {SERVICE_SCHEMES.map(scheme => (
+                                                    <button
+                                                        type="button"
+                                                        key={scheme}
+                                                        className={`px-3 py-2 rounded-full border-2 font-semibold text-sm transition-all duration-200 ${
+                                                            formData.serviceScheme === scheme
+                                                                ? 'bg-orange-500 text-white border-orange-500'
+                                                                : 'bg-white text-orange-700 border-orange-300 hover:bg-orange-50'
+                                                        }`}
+                                                        onClick={() => handleSchemeSelect(scheme)}
+                                                    >
+                                                        {scheme}
+                                                    </button>
+                                                ))}
+                                            </div>
+                        </motion.div>
+
+                                        <motion.div
+                                            initial={{ opacity: 0, x: 30 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{ duration: 0.4, delay: 1.0 }}
+                                            viewport={{ once: false, amount: 0.3 }}
                                         >
                                             <label className="block text-gray-700 text-sm font-semibold mb-2" style={{fontFamily: 'Inter, sans-serif'}}>
                                 Message
                             </label>
-                                            <motion.textarea
+                            <textarea
                                                 name="message"
                                                 value={formData.message}
                                                 onChange={handleInputChange}
                                                 placeholder="Tell us about your project or requirements..."
                                 rows="4"
-                                                className="w-full px-4 py-3 rounded-xl border-2 border-orange-300 focus:ring-0 focus:border-orange-500 focus:outline-none transition-all duration-300 bg-gradient-to-r from-gray-50 to-white focus:from-white focus:to-orange-50 shadow-sm focus:shadow-lg resize-none relative"
-                                                whileFocus={{
-                                                    scale: 1.02,
-                                                    boxShadow: "0 0 0 4px rgba(253, 87, 16, 0.15), 0 0 20px rgba(253, 87, 16, 0.1)",
-                                                    transition: { duration: 0.2 }
-                                                }}
-                                                whileHover={{
-                                                    borderColor: "#F85710",
-                                                    boxShadow: "0 4px 12px rgba(253, 87, 16, 0.1), 0 0 0 2px rgba(253, 87, 16, 0.1)",
-                                                    transition: { duration: 0.2 }
-                                                }}
+                                                className="w-full px-4 py-3 rounded-xl border-2 border-orange-300 focus:ring-0 focus:border-orange-500 focus:outline-none transition-all duration-300 bg-gradient-to-r from-gray-50 to-white focus:from-white focus:to-orange-50 shadow-sm focus:shadow-lg resize-none"
                                             />
                         </motion.div>
 
                         <motion.button
                             type="submit"
-                                            whileHover={{
-                                                scale: 1.1,
-                                                y: -3,
-                                                boxShadow: "0 25px 50px rgba(253, 87, 16, 0.4)",
-                                                transition: { 
-                                                    duration: 0.4,
-                                                    ease: [0.68, -0.55, 0.265, 1.55]
-                                                }
-                                            }}
-                                            whileTap={{ 
-                                                scale: 0.9,
-                                                y: 0
-                                            }}
-                                            className="w-full py-4 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-xl shadow-lg transition-all duration-300 text-lg relative overflow-hidden"
-                                            style={{fontFamily: 'Inter, sans-serif'}}
-                                            initial={{ opacity: 0, y: 50, scale: 0.5 }}
-                                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                                            transition={{ 
-                                                duration: 1, 
-                                                delay: 0.8,
-                                                ease: [0.68, -0.55, 0.265, 1.55]
-                                            }}
-                                            viewport={{ amount: 0.3 }}
-                                        >
-                                            <motion.span
-                                                animate={{
-                                                    x: [0, 5, 0],
-                                                    transition: {
-                                                        duration: 2,
-                                                        repeat: Infinity,
-                                                        ease: "easeInOut"
-                                                    }
-                                                }}
-                                            >
-                                                Send Message →
-                                            </motion.span>
+                            whileHover={{ scale: 1.02, y: -2, transition: { duration: 0.3 } }}
+                            whileTap={{ scale: 0.98 }}
+                            className="w-full py-4 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-xl shadow-lg transition-all duration-300 text-lg"
+                            style={{fontFamily: 'Inter, sans-serif'}}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 1.1 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            Send Message →
                         </motion.button>
                     </form>
                         </div>
                     </motion.div>
                 </motion.div>
             </div>
+            <ToastContainer 
+                position="top-right" 
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                style={{ 
+                    zIndex: 99999,
+                    top: '20px',
+                    right: '20px'
+                }}
+                toastStyle={{
+                    background: '#fff',
+                    color: '#333',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    borderRadius: '8px',
+                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)'
+                }}
+            />
         </section>
     );
 };

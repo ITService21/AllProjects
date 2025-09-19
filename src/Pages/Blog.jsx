@@ -89,27 +89,76 @@ export default function BlogPage({ initialPosts = null }) {
 
     return (
         <div style={{ backgroundColor: '#FFFFFF' }} className="min-h-screen pt-[75px]">
-            {/* Animated Background */}
+            {/* Enhanced Animated Background with Orange Geometric Objects */}
             <div className="absolute inset-0 overflow-hidden">
-                {[...Array(6)].map((_, i) => (
+                {/* Animated Mesh Background */}
+                <motion.div 
+                    className="absolute inset-0 opacity-30"
+                    animate={{
+                        background: [
+                            "radial-gradient(circle at 20% 50%, rgba(253,87,16,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,107,53,0.15) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(253,87,16,0.15) 0%, transparent 50%)",
+                            "radial-gradient(circle at 80% 20%, rgba(255,107,53,0.15) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(253,87,16,0.15) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(253,87,16,0.15) 0%, transparent 50%)",
+                            "radial-gradient(circle at 20% 50%, rgba(253,87,16,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,107,53,0.15) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(253,87,16,0.15) 0%, transparent 50%)"
+                        ]
+                    }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                />
+                
+                {/* Light Orange Geometric Objects - Reduced for Performance */}
+                {[...Array(6)].map((_, i) => {
+                    const shapes = [
+                        "w-12 h-12 sm:w-16 sm:h-16 rounded-full",
+                        "w-10 h-10 sm:w-14 sm:h-14 rounded-lg",
+                        "w-0 h-0 border-l-[12px] border-r-[12px] border-b-[20px] border-l-transparent border-r-transparent border-b-orange-400/20",
+                        "w-8 h-8 sm:w-12 sm:h-12 transform rotate-45",
+                        "w-14 h-14 sm:w-18 sm:h-18 rounded-lg transform rotate-12",
+                        "w-6 h-6 sm:w-8 sm:h-8 rounded-full"
+                    ];
+                    
+                    return (
+                        <motion.div
+                            key={i}
+                            className={`absolute ${shapes[i % shapes.length]} bg-gradient-to-r from-orange-400/15 to-red-400/15`}
+                            animate={{
+                                x: [0, 80, -40, 0],
+                                y: [0, -60, 30, 0],
+                                rotate: [0, 90, -90, 0],
+                                scale: [0.7, 1.2, 0.8, 0.7],
+                            }}
+                            transition={{
+                                duration: 15 + i * 2,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: i * 2,
+                            }}
+                            style={{
+                                left: `${15 + i * 15}%`,
+                                top: `${25 + i * 10}%`,
+                            }}
+                        />
+                    );
+                })}
+                
+                {/* Light Animated Lines - Reduced */}
+                {[...Array(3)].map((_, i) => (
                     <motion.div
-                        key={i}
-                        className="absolute w-16 h-16 bg-gradient-to-r from-orange-200/20 to-red-200/20 rounded-full"
+                        key={`line-${i}`}
+                        className="absolute h-1 sm:h-2 bg-gradient-to-r from-orange-400/20 to-red-400/20"
                         animate={{
-                            x: [0, 80, -40, 0],
-                            y: [0, -60, 30, 0],
-                            scale: [0.5, 1, 0.8, 0.5],
-                            rotate: [0, 180, 360, 0],
+                            scaleX: [0, 1, 0],
+                            opacity: [0, 0.4, 0],
                         }}
                         transition={{
-                            duration: 15 + i * 2,
+                            duration: 4 + i * 1,
                             repeat: Infinity,
                             ease: "easeInOut",
                             delay: i * 1.5,
                         }}
                         style={{
-                            left: `${15 + i * 15}%`,
-                            top: `${25 + i * 10}%`,
+                            width: `${150 + i * 30}px`,
+                            left: `${20 + i * 25}%`,
+                            top: `${30 + i * 20}%`,
+                            transform: `rotate(${45 + i * 30}deg)`,
                         }}
                     />
                 ))}
@@ -119,9 +168,10 @@ export default function BlogPage({ initialPosts = null }) {
                 {/* Header */}
                 <motion.header 
                     className="mb-16 text-center"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    viewport={{ once: false, amount: 0.2 }}
                 >
                     <motion.div 
                         className="text-6xl mb-6"
@@ -135,18 +185,36 @@ export default function BlogPage({ initialPosts = null }) {
                     </motion.div>
                     <motion.h1 
                         className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-6"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.2 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
-                        <span className="text-gray-900">Insights &</span>
-                        <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"> Resources</span>
+                        <motion.span 
+                            className="text-gray-900"
+                            initial={{ opacity: 0, x: -60 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.3 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            Insights &
+                        </motion.span>
+                        <motion.span 
+                            className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
+                            initial={{ opacity: 0, x: 60 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.4 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            {" "}Resources
+                        </motion.span>
                     </motion.h1>
                     <motion.p 
                         className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.5 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
                         Comprehensive articles, guides, and best practices for startups and growing businesses. Stay updated with the latest trends and expert insights.
                     </motion.p>
@@ -154,9 +222,10 @@ export default function BlogPage({ initialPosts = null }) {
                     {/* Search Bar */}
                     <motion.div 
                         className="mt-12 flex justify-center"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.6 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.6 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
                         <div className="w-full md:w-1/2">
                             <label className="relative block">
@@ -221,9 +290,10 @@ export default function BlogPage({ initialPosts = null }) {
                     {/* Category Filters */}
                     <motion.div 
                         className="mt-8 flex items-center gap-3 flex-wrap justify-center"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.7 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
                         {categories.map((c, index) => (
                             <motion.button
@@ -237,9 +307,10 @@ export default function BlogPage({ initialPosts = null }) {
                                         ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg" 
                                         : "bg-white text-gray-700 border-2 border-gray-300 hover:border-orange-300 hover:shadow-md"
                                 }`}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.3, delay: 1.0 + index * 0.1 }}
+                                initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
+                                viewport={{ once: false, amount: 0.3 }}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
@@ -253,14 +324,18 @@ export default function BlogPage({ initialPosts = null }) {
                 {featured && (
                     <motion.article 
                         className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 items-stretch"
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.8 }}
+                        initial={{ opacity: 0, y: 60 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        viewport={{ once: false, amount: 0.2 }}
                     >
                         <motion.div 
                             className="lg:col-span-2 bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100 group"
+                            initial={{ opacity: 0, x: -120, y: 30 }}
+                            whileInView={{ opacity: 1, x: 0, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            viewport={{ once: false, amount: 0.2 }}
                             whileHover={{ scale: 1.02, y: -10 }}
-                            transition={{ duration: 0.3 }}
                         >
                             <div className="relative overflow-hidden">
                                 <img src={featured.image} alt={featured.title} className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -304,9 +379,10 @@ export default function BlogPage({ initialPosts = null }) {
 
                         <motion.aside 
                             className="bg-white rounded-3xl p-8 shadow-2xl border border-gray-100 flex flex-col"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6, delay: 1.0 }}
+                            initial={{ opacity: 0, x: 120, y: 30 }}
+                            whileInView={{ opacity: 1, x: 0, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            viewport={{ once: false, amount: 0.2 }}
                         >
                             <h3 className="text-2xl font-bold text-gray-900 mb-6">Latest Articles</h3>
                             <ul className="space-y-4">
@@ -315,9 +391,10 @@ export default function BlogPage({ initialPosts = null }) {
                                         key={p.id} 
                                         className="flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors duration-300 cursor-pointer"
                                         onClick={() => setSelectedPost(p)}
-                                        initial={{ opacity: 0, x: 20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.3, delay: 1.2 + index * 0.1 }}
+                                        initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                                        viewport={{ once: false, amount: 0.3 }}
                                         whileHover={{ scale: 1.02 }}
                                     >
                                         <img src={p.image} alt={p.title} className="w-20 h-16 object-cover rounded-xl flex-shrink-0" />
@@ -338,9 +415,10 @@ export default function BlogPage({ initialPosts = null }) {
                 {/* tags filter */}
                 <motion.div 
                     className="mb-12 flex items-center gap-3 flex-wrap justify-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1.0 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                 >
                     <motion.button
                         onClick={() => setActiveTag("")}
@@ -363,9 +441,10 @@ export default function BlogPage({ initialPosts = null }) {
                                     ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg" 
                                     : "bg-white text-gray-700 border-2 border-gray-300 hover:border-orange-300 hover:shadow-md"
                             }`}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.3, delay: 1.2 + index * 0.05 }}
+                            initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.3 + index * 0.05 }}
+                            viewport={{ once: false, amount: 0.3 }}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
@@ -375,14 +454,23 @@ export default function BlogPage({ initialPosts = null }) {
                 </motion.div>
 
                 {/* posts grid */}
-                <section ref={postsRef} aria-labelledby="articles" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <motion.section 
+                    ref={postsRef} 
+                    aria-labelledby="articles" 
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    viewport={{ once: false, amount: 0.15 }}
+                >
                     {gridPosts.map((p, index) => (
                         <motion.article
                             key={p.id}
                             className="bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100 group cursor-pointer"
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 1.4 + index * 0.1 }}
+                            initial={{ opacity: 0, x: index % 2 === 0 ? -120 : 120, y: 30 }}
+                            whileInView={{ opacity: 1, x: 0, y: 0 }}
+                            transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            viewport={{ once: false, amount: 0.2 }}
                             whileHover={{ scale: 1.05, y: -10 }}
                             onClick={() => setSelectedPost(p)}
                         >
@@ -429,24 +517,26 @@ export default function BlogPage({ initialPosts = null }) {
                     {filtered.length <= 1 && (
                         <motion.div 
                             className="col-span-full text-center py-16"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.6 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4 }}
+                            viewport={{ once: false, amount: 0.3 }}
                         >
                             <div className="text-6xl mb-4">🔍</div>
                             <h3 className="text-2xl font-bold text-gray-900 mb-2">No articles found</h3>
                             <p className="text-gray-600">Try adjusting your search or filter criteria</p>
                         </motion.div>
                     )}
-                </section>
+                </motion.section>
 
                 {/* load more */}
                 {filtered.length > gridPosts.length + 1 && (
                     <motion.div 
                         className="mt-16 text-center"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 1.6 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.2 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
                         <motion.button
                             onClick={() => setVisibleCount((c) => c + 6)}

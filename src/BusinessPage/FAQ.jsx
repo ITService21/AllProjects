@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
-
+  const navigate = useNavigate();
   const faqData = [
     {
       question: "What services do you offer for MSMEs and startups?",
@@ -67,33 +68,8 @@ const FAQ = () => {
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: {
-      opacity: 0,
-      y: 50,
-      scale: 0.9,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: [0.68, -0.55, 0.265, 1.55],
-      },
-    },
-  };
-
+  // Removed heavy animation variants for better mobile performance
+  
   const questionVariants = {
     closed: {
       rotate: 0,
@@ -110,112 +86,188 @@ const FAQ = () => {
       className="relative py-20 px-4 overflow-hidden"
       style={{ backgroundColor: "#FFFFFF" }}
     >
-      {/* Animated Background */}
+      {/* Beautiful Animated Background from Contact */}
       <div className="absolute inset-0">
-        {/* Gradient Background */}
+        {/* Animated Mesh Background */}
         <motion.div
-          className="absolute inset-0 opacity-5"
+          className="absolute inset-0 opacity-8"
           animate={{
             background: [
-              "radial-gradient(circle at 20% 20%, rgba(253, 87, 16, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255, 107, 53, 0.08) 0%, transparent 50%)",
-              "radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(253, 87, 16, 0.08) 0%, transparent 50%)",
-              "radial-gradient(circle at 20% 20%, rgba(253, 87, 16, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255, 107, 53, 0.08) 0%, transparent 50%)",
-            ],
+              'radial-gradient(circle at 25% 25%, rgba(253, 87, 16, 0.08) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(255, 107, 53, 0.06) 0%, transparent 50%)',
+              'radial-gradient(circle at 75% 25%, rgba(255, 107, 53, 0.08) 0%, transparent 50%), radial-gradient(circle at 25% 75%, rgba(253, 87, 16, 0.06) 0%, transparent 50%)',
+              'radial-gradient(circle at 25% 25%, rgba(253, 87, 16, 0.08) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(255, 107, 53, 0.06) 0%, transparent 50%)'
+            ]
           }}
           transition={{
-            duration: 8,
+            duration: 7,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: "easeInOut"
           }}
         />
 
-        {/* Floating Elements */}
-        {[...Array(6)].map((_, i) => (
+        {/* Floating Triangles */}
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-4 h-4 bg-gradient-to-r from-orange-400 to-red-400 rounded-full opacity-20"
+            className="absolute opacity-12"
+            style={{
+              width: `${30 + i * 8}px`,
+              height: `${30 + i * 8}px`,
+              background: `linear-gradient(45deg, #F85710, #FF6B35)`,
+              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+              left: `${8 + i * 11}%`,
+              top: `${15 + i * 8}%`,
+            }}
             animate={{
-              x: [0, 100, -50, 0],
-              y: [0, -80, 40, 0],
-              scale: [0.5, 1.2, 0.8, 0.5],
-              opacity: [0.2, 0.5, 0.3, 0.2],
+              x: [0, 70, -35, 0],
+              y: [0, -50, 25, 0],
+              rotate: [0, 120, 240, 360],
+              scale: [1, 1.3, 0.7, 1.1, 1],
+              opacity: [0.12, 0.25, 0.08, 0.18, 0.12]
             }}
             transition={{
-              duration: 10 + i * 2,
+              duration: 8 + i * 1.2,
               repeat: Infinity,
-              delay: i * 1.5,
-              ease: "easeInOut",
+              delay: i * 1.1,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+
+        {/* Animated Dots Pattern */}
+        <motion.div 
+          className="absolute inset-0 opacity-5"
+          animate={{
+            backgroundPosition: ['0px 0px', '50px 50px', '0px 0px']
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(253, 87, 16, 0.3) 1px, transparent 0)`,
+            backgroundSize: '50px 50px'
+          }}
+        />
+
+        {/* Floating Squares with Bounce */}
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-3 h-3 bg-gradient-to-r from-orange-400 to-red-400 opacity-40"
+            animate={{
+              y: [0, -40, 0],
+              x: [0, 20, -10, 0],
+              scale: [0.8, 1.2, 0.9, 1.1, 0.8],
+              opacity: [0.4, 0.7, 0.2, 0.5, 0.4],
+              rotate: [0, 90, 180, 270, 360]
+            }}
+            transition={{
+              duration: 4 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.4,
+              ease: "easeInOut"
             }}
             style={{
-              left: `${10 + i * 15}%`,
-              top: `${20 + i * 10}%`,
+              left: `${2 + i * 6}%`,
+              top: `${10 + i * 5}%`,
+            }}
+          />
+        ))}
+
+        {/* Animated Zigzag Lines */}
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={`zigzag-${i}`}
+            className="absolute w-32 h-1 bg-gradient-to-r from-orange-400/20 to-red-400/20 opacity-0"
+            animate={{
+              opacity: [0, 0.6, 0],
+              scaleX: [0, 1, 0],
+              rotate: [0, 5, -5, 0]
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              delay: i * 0.8,
+              ease: "easeInOut"
+            }}
+            style={{
+              left: `${15 + i * 20}%`,
+              top: `${20 + i * 15}%`,
+              transformOrigin: 'left center'
             }}
           />
         ))}
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto">
-        {/* Header Section */}
+        {/* Fast Header Section */}
         <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: -50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 1,
-            ease: [0.68, -0.55, 0.265, 1.55],
-          }}
-          viewport={{ amount: 0.3 }}
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          viewport={{ once: false, amount: 0.2 }}
         >
-          <motion.h2
+          <h2
             className="gap-2 text-4xl md:text-5xl lg:text-6xl font-black mb-6"
             style={{ fontFamily: "Montserrat, sans-serif" }}
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{
-              opacity: 1,
-              scale: 1,
-            }}
-            transition={{
-              duration: 1.2,
-              delay: 0.2,
-              ease: [0.68, -0.55, 0.265, 1.55],
-            }}
-            viewport={{ amount: 0.3 }}
           >
-            <div className="text-center flex flex-col gap-2 md:gap-4" >
-              {" "}
-              <span className="text-gray-800">Frequently Asked</span>
-              <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent">
+            <div className="text-center flex flex-col gap-2 md:gap-4">
+              <motion.span 
+                className="text-gray-800"
+                initial={{ opacity: 0, x: -80 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                viewport={{ once: false, amount: 0.3 }}
+              >
+                Frequently Asked
+              </motion.span>
+              <motion.span 
+                className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
+                initial={{ opacity: 0, x: 80 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                viewport={{ once: false, amount: 0.3 }}
+              >
                 Questions
-              </span>
+              </motion.span>
             </div>
-          </motion.h2>
+          </h2>
 
           <motion.p
             className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
             style={{ fontFamily: "Inter, sans-serif" }}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ amount: 0.3 }}
+            transition={{ duration: 0.4, delay: 0.4 }}
+            viewport={{ once: false, amount: 0.3 }}
           >
             Find answers to common questions about our MSME and startup services
           </motion.p>
         </motion.div>
 
-        {/* FAQ Items */}
+        {/* Fast FAQ Items */}
         <motion.div
           className="space-y-4"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ amount: 0.2 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          viewport={{ once: false, amount: 0.15 }}
         >
-          {faqData.map((faq, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300"
-            >
+          {faqData.map((faq, index) => {
+            const isEven = index % 2 === 0;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                viewport={{ once: false, amount: 0.2 }}
+                whileHover={{ scale: 1.01, y: -3, transition: { duration: 0.3 } }}
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300"
+              >
               <motion.button
                 className="w-full px-6 py-6 text-left flex items-center justify-between focus:outline-none"
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
@@ -265,43 +317,57 @@ const FAQ = () => {
                 )}
               </AnimatePresence>
             </motion.div>
-          ))}
+            );
+          })}
         </motion.div>
 
-        {/* Bottom CTA */}
+        {/* Fast Bottom CTA */}
         <motion.div
           className="text-center mt-16"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          viewport={{ amount: 0.3 }}
+          initial={{ opacity: 0, y: 60, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
         >
           <motion.div
             className="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-8 border border-orange-100"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, x: -80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+            viewport={{ once: false, amount: 0.3 }}
+            whileHover={{ scale: 1.02, y: -3, transition: { duration: 0.3 } }}
           >
-            <h3
+            <motion.h3
               className="text-2xl md:text-3xl font-bold text-gray-800 mb-4"
               style={{ fontFamily: "Outfit, sans-serif" }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+              viewport={{ once: false, amount: 0.3 }}
             >
               Still have questions?
-            </h3>
-            <p
+            </motion.h3>
+            <motion.p
               className="text-gray-600 mb-6"
               style={{ fontFamily: "Inter, sans-serif" }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+              viewport={{ once: false, amount: 0.3 }}
             >
               Our expert team is here to help you with any queries about our
               services
-            </p>
+            </motion.p>
             <motion.button
               className="px-8 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
               style={{ fontFamily: "Inter, sans-serif" }}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 20px 40px rgba(253, 87, 16, 0.3)",
-              }}
-              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.6 }}
+              viewport={{ once: false, amount: 0.3 }}
+              whileHover={{ scale: 1.02, y: -2, transition: { duration: 0.3 } }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => navigate('/contact-us')}
             >
               Contact Us Now
             </motion.button>

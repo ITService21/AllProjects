@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import PropTypes from "prop-types";
+import { useState } from "react";
+import PartnerModal from "../Components/PartnerModal";
 
 // Partners data with comprehensive content
 const partnersData = {
@@ -190,244 +191,224 @@ const partnershipStats = [
     { number: "24/7", label: "Partner Support" }
 ];
 
-// Custom hook for visibility
-const useAlwaysVisible = () => {
-    const [isVisible, setIsVisible] = useState(true);
-    
-    useEffect(() => {
-        setIsVisible(true);
-    }, []);
-    
-    return isVisible;
-};
-
 export default function Partners({ className = "" }) {
-    const alwaysVisible = useAlwaysVisible();
-
-    // Animation variants
-    const fadeUp = { 
-        visible: { opacity: 1, y: 0 }
-    };
-    const slideLeft = { 
-        visible: { opacity: 1, x: 0 }
-    };
-    const slideRight = { 
-        visible: { opacity: 1, x: 0 }
-    };
+    const [showPartnerModal, setShowPartnerModal] = useState(false);
 
     return (
         <section 
             className={`w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative overflow-hidden ${className}`} 
             style={{ backgroundColor: '#FFFFFF' }}
         >
-            {/* Animated Background */}
-            <div className="absolute inset-0 overflow-hidden">
-                {/* Floating Partnership Icons */}
-                {[...Array(8)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className="absolute text-4xl opacity-10"
-                        animate={{
-                            x: [0, 100, -50, 0],
-                            y: [0, -80, 40, 0],
-                            rotate: [0, 360, -360, 0],
-                            scale: [0.5, 1.2, 0.8, 0.5],
-                        }}
-                        transition={{
-                            duration: 20 + i * 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 2,
-                        }}
-                        style={{
-                            left: `${10 + i * 12}%`,
-                            top: `${20 + i * 8}%`,
-                        }}
-                    >
-                        🤝
-                    </motion.div>
-                ))}
-                
-                {/* Animated Lines */}
-                {[...Array(6)].map((_, i) => (
-                    <motion.div
-                        key={`line-${i}`}
-                        className="absolute h-1 bg-gradient-to-r from-orange-300/40 to-red-300/40"
-                        animate={{
-                            scaleX: [0, 1, 0],
-                            opacity: [0, 1, 0],
-                        }}
-                        transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 0.8,
-                        }}
-                        style={{
-                            width: `${200 + i * 50}px`,
-                            left: `${5 + i * 15}%`,
-                            top: `${30 + i * 10}%`,
-                            transform: `rotate(${i * 15}deg)`,
-                        }}
-                    />
-                ))}
-            </div>
 
             {/* Header Section */}
-            <div className="relative z-10 text-center mb-16">
+            <motion.div 
+                className="relative z-10 text-center mb-16"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.15 }}
+            >
                 <motion.div
-                    initial="visible"
-                    animate="visible"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={fadeUp}
-                    transition={{ duration: 0.6 }}
+                    className="text-center"
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                 >
                     <motion.div 
                         className="text-8xl mb-6"
-                        animate={{ 
-                            rotate: [0, 10, -10, 0],
-                            scale: [1, 1.1, 1]
-                        }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
                         🤝
                     </motion.div>
                     
                     <motion.h1 
                         className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-6"
-                        initial={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: [0.68, -0.55, 0.265, 1.55] }}
-                        viewport={{ once: true, amount: 0.1 }}
+                        transition={{ duration: 0.4, delay: 0.4 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
-                        <span className="text-gray-900">Our Strategic</span>
-                        <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"> Partners</span>
+                        <motion.span 
+                            className="text-gray-900"
+                            initial={{ opacity: 0, x: -60 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.5 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            Our Strategic
+                        </motion.span>
+                        <motion.span 
+                            className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
+                            initial={{ opacity: 0, x: 60 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.6 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            {" "}Partners
+                        </motion.span>
                         <br />
-                        <span className="text-gray-900">& Alliances</span>
+                        <motion.span 
+                            className="text-gray-900"
+                            initial={{ opacity: 0, x: -40 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.7 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            & Alliances
+                        </motion.span>
                     </motion.h1>
                     
                     <motion.p 
                         className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8"
-                        initial={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        viewport={{ once: true, amount: 0.1 }}
+                        transition={{ duration: 0.4, delay: 0.8 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
                         Building strong partnerships with government agencies, financial institutions, technology leaders, and industry associations to provide comprehensive support for MSMEs and startups.
                     </motion.p>
                 </motion.div>
-            </div>
+            </motion.div>
 
             {/* Partnership Statistics */}
-            <div className="relative z-10 mb-16">
+            <motion.div 
+                className="relative z-10 mb-16"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.15 }}
+            >
                 <motion.div
-                    initial="visible"
-                    animate="visible"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={fadeUp}
-                    transition={{ duration: 0.6 }}
                     className="text-center mb-12"
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                 >
-                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                    <motion.h2 
+                        className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Partnership Network
-                    </h2>
-                    <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                    </motion.h2>
+                    <motion.p 
+                        className="text-lg text-gray-600 max-w-3xl mx-auto"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.4 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Our extensive network of partners ensures comprehensive support for your business needs
-                    </p>
+                    </motion.p>
                 </motion.div>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-                    {partnershipStats.map((stat, index) => (
-                        <motion.div
-                            key={index}
-                            initial="visible"
-                            animate="visible"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.1 }}
-                            variants={fadeUp}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className="text-center p-6 bg-white rounded-2xl shadow-xl border border-gray-100"
-                        >
-                            <motion.div 
-                                className="text-4xl font-black text-transparent bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text mb-2"
-                                animate={{ scale: [1, 1.05, 1] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }}
+                <motion.div 
+                    className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                    viewport={{ once: false, amount: 0.15 }}
+                >
+                    {partnershipStats.map((stat, index) => {
+                        const isEven = index % 2 === 0;
+                        return (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, x: isEven ? -80 : 80, y: 30 }}
+                                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                transition={{ duration: 0.4, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                viewport={{ once: false, amount: 0.3 }}
+                                className="text-center p-6 bg-white rounded-2xl shadow-xl border border-gray-100"
+                                whileHover={{ 
+                                    scale: 1.02, 
+                                    y: -3,
+                                    transition: { duration: 0.3 }
+                                }}
                             >
-                                {stat.number}
+                                <div className="text-4xl font-black text-transparent bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text mb-2">
+                                    {stat.number}
+                                </div>
+                                <p className="text-gray-600 font-semibold">{stat.label}</p>
                             </motion.div>
-                            <p className="text-gray-600 font-semibold">{stat.label}</p>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
+                        );
+                    })}
+                </motion.div>
+            </motion.div>
 
             {/* Strategic Partners Section */}
-            <div className="relative z-10 mb-16">
+            <motion.div 
+                className="relative z-10 mb-16"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.15 }}
+            >
                 <motion.div
-                    initial="visible"
-                    animate="visible"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={fadeUp}
-                    transition={{ duration: 0.6 }}
                     className="text-center mb-12"
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                 >
-                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                    <motion.h2 
+                        className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Strategic Partners
-                    </h2>
-                    <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                    </motion.h2>
+                    <motion.p 
+                        className="text-lg text-gray-600 max-w-3xl mx-auto"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.4 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Government agencies and institutions supporting MSME development
-                    </p>
+                    </motion.p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {partnersData.strategicPartners.map((partner, index) => (
-                        <motion.div
-                            key={partner.id}
-                            initial="visible"
-                            animate="visible"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.1 }}
-                            variants={index % 2 === 0 ? slideLeft : slideRight}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className="bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group"
-                            whileHover={{ 
-                                scale: 1.02, 
-                                y: -10,
-                                transition: { 
-                                    duration: 0.3, 
-                                    ease: [0.68, -0.55, 0.265, 1.55]
-                                }
-                            }}
-                        >
-                            {/* Animated Background */}
-                            <motion.div 
-                                className="absolute inset-0 bg-gradient-to-br from-orange-50 via-red-50 to-orange-50 opacity-0 group-hover:opacity-100"
-                                animate={{
-                                    background: [
-                                        "linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)",
-                                        "linear-gradient(135deg, rgba(255,107,53,0.05) 0%, rgba(253,87,16,0.03) 50%, rgba(255,107,53,0.05) 100%)",
-                                        "linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)"
-                                    ]
+                <motion.div 
+                    className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                    viewport={{ once: false, amount: 0.15 }}
+                >
+                    {partnersData.strategicPartners.map((partner, index) => {
+                        const isEven = index % 2 === 0;
+                        return (
+                            <motion.div
+                                key={partner.id}
+                                initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
+                                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                viewport={{ once: false, amount: 0.2 }}
+                                className="bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group"
+                                whileHover={{ 
+                                    scale: 1.02, 
+                                    y: -5,
+                                    transition: { duration: 0.3 }
                                 }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                            />
-                            
+                            >
                             <div className="relative z-10">
                                 <div className="flex items-start gap-6 mb-6">
-                                    <motion.div 
-                                        className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center flex-shrink-0"
-                                        whileHover={{ rotate: 5, scale: 1.1 }}
-                                        transition={{ duration: 0.3 }}
-                                    >
+                                    <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center flex-shrink-0">
                                         <img 
                                             src={partner.logo} 
                                             alt={partner.name}
                                             className="w-16 h-16 rounded-xl object-cover"
                                         />
-                                    </motion.div>
+                                    </div>
                                     <div className="flex-1">
                                         <h3 className="text-2xl font-bold text-gray-800 mb-2">{partner.name}</h3>
                                         <p className="text-orange-600 font-semibold mb-2">{partner.category}</p>
@@ -450,98 +431,96 @@ export default function Partners({ className = "" }) {
                                     <h4 className="text-lg font-semibold text-gray-800 mb-3">Services Offered:</h4>
                                     <div className="flex flex-wrap gap-2">
                                         {partner.services.map((service, serviceIndex) => (
-                                            <motion.span
+                                            <span
                                                 key={serviceIndex}
                                                 className="px-3 py-1 bg-gradient-to-r from-orange-100 to-red-100 text-orange-700 rounded-full text-sm font-medium"
-                                                initial={{ opacity: 0, scale: 0.8 }}
-                                                whileInView={{ opacity: 1, scale: 1 }}
-                                                transition={{ duration: 0.3, delay: serviceIndex * 0.1 }}
-                                                viewport={{ once: true, amount: 0.1 }}
                                             >
                                                 {service}
-                                            </motion.span>
+                                            </span>
                                         ))}
                                     </div>
                                 </div>
                                 
-                                <motion.a
+                                <a
                                     href={partner.website}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
-                                    whileHover={{ 
-                                        scale: 1.05,
-                                        boxShadow: "0 20px 40px rgba(253, 87, 16, 0.3)"
-                                    }}
-                                    whileTap={{ scale: 0.95 }}
                                 >
                                     Visit Website
-                                </motion.a>
+                                </a>
                             </div>
-                            
-                            {/* Decorative Border */}
-                            <motion.div 
-                                className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-red-500"
-                                initial={{ scaleX: 0 }}
-                                whileInView={{ scaleX: 1 }}
-                                transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-                                viewport={{ once: true, amount: 0.1 }}
-                            />
                         </motion.div>
-                    ))}
-                </div>
-            </div>
+                        );
+                    })}
+                </motion.div>
+            </motion.div>
 
             {/* Technology Partners Section */}
-            <div className="relative z-10 mb-16">
+            <motion.div 
+                className="relative z-10 mb-16"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.15 }}
+            >
                 <motion.div
-                    initial="visible"
-                    animate="visible"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={fadeUp}
-                    transition={{ duration: 0.6 }}
                     className="text-center mb-12"
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                 >
-                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                    <motion.h2 
+                        className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Technology Partners
-                    </h2>
-                    <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                    </motion.h2>
+                    <motion.p 
+                        className="text-lg text-gray-600 max-w-3xl mx-auto"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.4 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Leading technology companies providing cutting-edge solutions and resources
-                    </p>
+                    </motion.p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {partnersData.technologyPartners.map((partner, index) => (
-                        <motion.div
-                            key={partner.id}
-                            initial="visible"
-                            animate="visible"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.1 }}
-                            variants={fadeUp}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className="bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 text-center group"
-                            whileHover={{ 
-                                scale: 1.05, 
-                                y: -10,
-                                transition: { 
-                                    duration: 0.3, 
-                                    ease: [0.68, -0.55, 0.265, 1.55]
-                                }
-                            }}
-                        >
-                            <motion.div 
-                                className="w-24 h-24 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl mx-auto mb-6 flex items-center justify-center"
-                                whileHover={{ rotate: 360 }}
-                                transition={{ duration: 0.6 }}
+                <motion.div 
+                    className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                    viewport={{ once: false, amount: 0.15 }}
+                >
+                    {partnersData.technologyPartners.map((partner, index) => {
+                        const isEven = index % 2 === 0;
+                        return (
+                            <motion.div
+                                key={partner.id}
+                                initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
+                                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                viewport={{ once: false, amount: 0.2 }}
+                                className="bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 text-center group"
+                                whileHover={{ 
+                                    scale: 1.02, 
+                                    y: -3,
+                                    transition: { duration: 0.3 }
+                                }}
                             >
+                            <div className="w-24 h-24 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl mx-auto mb-6 flex items-center justify-center">
                                 <img 
                                     src={partner.logo} 
                                     alt={partner.name}
                                     className="w-20 h-20 rounded-xl object-cover"
                                 />
-                            </motion.div>
+                            </div>
                             
                             <h3 className="text-xl font-bold text-gray-800 mb-3">{partner.name}</h3>
                             <p className="text-orange-600 font-semibold mb-3">{partner.category}</p>
@@ -555,71 +534,85 @@ export default function Partners({ className = "" }) {
                                 ))}
                             </div>
                             
-                            <motion.a
+                            <a
                                 href={partner.website}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300"
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
                             >
                                 Learn More
-                            </motion.a>
+                            </a>
                         </motion.div>
-                    ))}
-                </div>
-            </div>
+                        );
+                    })}
+                </motion.div>
+            </motion.div>
 
             {/* Financial Partners Section */}
-            <div className="relative z-10 mb-16">
+            <motion.div 
+                className="relative z-10 mb-16"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.15 }}
+            >
                 <motion.div
-                    initial="visible"
-                    animate="visible"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={fadeUp}
-                    transition={{ duration: 0.6 }}
                     className="text-center mb-12"
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                 >
-                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                    <motion.h2 
+                        className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Financial Partners
-                    </h2>
-                    <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                    </motion.h2>
+                    <motion.p 
+                        className="text-lg text-gray-600 max-w-3xl mx-auto"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.4 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Leading banks and financial institutions providing comprehensive banking solutions
-                    </p>
+                    </motion.p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {partnersData.financialPartners.map((partner, index) => (
-                        <motion.div
-                            key={partner.id}
-                            initial="visible"
-                            animate="visible"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.1 }}
-                            variants={fadeUp}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className="bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 text-center group"
-                            whileHover={{ 
-                                scale: 1.05, 
-                                y: -10,
-                                transition: { 
-                                    duration: 0.3, 
-                                    ease: [0.68, -0.55, 0.265, 1.55]
-                                }
-                            }}
-                        >
-                            <motion.div 
-                                className="w-24 h-24 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl mx-auto mb-6 flex items-center justify-center"
-                                whileHover={{ rotate: 360 }}
-                                transition={{ duration: 0.6 }}
+                <motion.div 
+                    className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                    viewport={{ once: false, amount: 0.15 }}
+                >
+                    {partnersData.financialPartners.map((partner, index) => {
+                        const isEven = index % 2 === 0;
+                        return (
+                            <motion.div
+                                key={partner.id}
+                                initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
+                                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                viewport={{ once: false, amount: 0.2 }}
+                                className="bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 text-center group"
+                                whileHover={{ 
+                                    scale: 1.02, 
+                                    y: -3,
+                                    transition: { duration: 0.3 }
+                                }}
                             >
+                            <div className="w-24 h-24 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl mx-auto mb-6 flex items-center justify-center">
                                 <img 
                                     src={partner.logo} 
                                     alt={partner.name}
                                     className="w-20 h-20 rounded-xl object-cover"
                                 />
-                            </motion.div>
+                            </div>
                             
                             <h3 className="text-xl font-bold text-gray-800 mb-3">{partner.name}</h3>
                             <p className="text-orange-600 font-semibold mb-3">{partner.category}</p>
@@ -633,132 +626,142 @@ export default function Partners({ className = "" }) {
                                 ))}
                             </div>
                             
-                            <motion.a
+                            <a
                                 href={partner.website}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300"
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
                             >
                                 Learn More
-                            </motion.a>
+                            </a>
                         </motion.div>
-                    ))}
-                </div>
-            </div>
+                        );
+                    })}
+                </motion.div>
+            </motion.div>
 
             {/* Partnership Benefits Section */}
-            <div className="relative z-10 mb-16">
+            <motion.div 
+                className="relative z-10 mb-16"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.15 }}
+            >
                 <motion.div
-                    initial="visible"
-                    animate="visible"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={fadeUp}
-                    transition={{ duration: 0.6 }}
                     className="text-center mb-12"
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                 >
-                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                    <motion.h2 
+                        className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Partnership Benefits
-                    </h2>
-                    <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                    </motion.h2>
+                    <motion.p 
+                        className="text-lg text-gray-600 max-w-3xl mx-auto"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.4 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         How our strategic partnerships benefit your business growth and success
-                    </p>
+                    </motion.p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {partnershipBenefits.map((benefit, index) => (
-                        <motion.div
-                            key={index}
-                            initial="visible"
-                            animate="visible"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.1 }}
-                            variants={fadeUp}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className="text-center p-6 bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl border border-orange-100"
-                        >
-                            <motion.div 
-                                className="text-4xl mb-4"
-                                animate={{ 
-                                    rotate: [0, 10, -10, 0],
-                                    scale: [1, 1.1, 1]
+                <motion.div 
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                    viewport={{ once: false, amount: 0.15 }}
+                >
+                    {partnershipBenefits.map((benefit, index) => {
+                        const isEven = index % 2 === 0;
+                        return (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
+                                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                viewport={{ once: false, amount: 0.2 }}
+                                className="text-center p-6 bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl border border-orange-100"
+                                whileHover={{ 
+                                    scale: 1.02, 
+                                    y: -3,
+                                    transition: { duration: 0.3 }
                                 }}
-                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.5 }}
                             >
-                                {benefit.icon}
+                                <div className="text-4xl mb-4">{benefit.icon}</div>
+                                <h3 className="text-xl font-bold text-gray-800 mb-3">{benefit.title}</h3>
+                                <p className="text-gray-600">{benefit.description}</p>
                             </motion.div>
-                            <h3 className="text-xl font-bold text-gray-800 mb-3">{benefit.title}</h3>
-                            <p className="text-gray-600">{benefit.description}</p>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
+                        );
+                    })}
+                </motion.div>
+            </motion.div>
 
             {/* CTA Section */}
             <motion.div
-                initial="visible"
-                animate="visible"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
-                variants={fadeUp}
-                transition={{ duration: 0.6 }}
                 className="relative bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 rounded-3xl p-12 text-center text-white overflow-hidden"
+                initial={{ opacity: 0, y: 60, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.2 }}
             >
-                {/* Animated Background Elements */}
-                <div className="absolute inset-0">
-                    {[...Array(6)].map((_, i) => (
-                        <motion.div
-                            key={i}
-                            className="absolute w-20 h-20 bg-white/10 rounded-full"
-                            animate={{
-                                x: [0, 80, -40, 0],
-                                y: [0, -60, 30, 0],
-                                scale: [0.5, 1.2, 0.8, 0.5],
-                                rotate: [0, 180, 360, 0],
-                            }}
-                            transition={{
-                                duration: 18 + i * 2,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                                delay: i * 2,
-                            }}
-                            style={{
-                                left: `${15 + i * 15}%`,
-                                top: `${25 + i * 10}%`,
-                            }}
-                        />
-                    ))}
-                </div>
-                
                 <div className="relative z-10">
-                    <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+                    <motion.h2 
+                        className="text-4xl sm:text-5xl font-bold mb-6"
+                        initial={{ opacity: 0, x: -80 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Join Our Partner Network
-                    </h2>
-                    <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
+                    </motion.h2>
+                    <motion.p 
+                        className="text-xl mb-8 opacity-90 max-w-3xl mx-auto"
+                        initial={{ opacity: 0, x: 80 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Become part of our growing network of partners and help us support more MSMEs and startups across India.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                        <motion.a
-                            href="/contact-us"
+                    </motion.p>
+                    <motion.div 
+                        className="flex flex-col sm:flex-row gap-6 justify-center"
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
+                        <button
+                            onClick={() => setShowPartnerModal(true)}
                             className="px-10 py-4 bg-white text-orange-600 font-bold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg"
-                            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(255,255,255,0.3)" }}
-                            whileTap={{ scale: 0.95 }}
                         >
                             Become a Partner
-                        </motion.a>
-                        <motion.a
+                        </button>
+                        <a
                             href="tel:+919876543210"
                             className="px-10 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-orange-600 transition-all duration-300"
-                            whileHover={{ scale: 1.05, backgroundColor: "white", color: "#F85710" }}
-                            whileTap={{ scale: 0.95 }}
                         >
                             Call Now: +91 98765 43210
-                        </motion.a>
-                    </div>
+                        </a>
+                    </motion.div>
                 </div>
             </motion.div>
+
+            {/* Partner Modal */}
+            <PartnerModal
+                open={showPartnerModal}
+                onClose={() => setShowPartnerModal(false)}
+            />
         </section>
     );
 }

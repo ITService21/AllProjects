@@ -1,20 +1,88 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaWhatsapp, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const SERVICE_SCHEMES = [
+    "ARTHA", "SURAKSHA", "NISHTHA", "UTTHAN", "PRAGATI", "DISHA"
+];
 
 function ContactUs() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
+        company: '',
+        serviceScheme: '',
         subject: '',
         message: ''
     });
+    const [sending, setSending] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSchemeSelect = (scheme) => {
+        setFormData({
+            ...formData,
+            serviceScheme: scheme
+        });
+    };
+
+    const isValid = () =>
+        formData.name.trim() &&
+        formData.email.trim() &&
+        formData.phone.trim() &&
+        formData.message.trim();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission
-        console.log('Form submitted:', formData);
+        if (!isValid()) {
+            toast.error('Please fill all required fields.');
+            return;
+        }
+        setSending(true);
+        try {
+            const res = await fetch('http://194.164.150.8:5000/send-form-mail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    smtp: {
+                        host: "mail.piwebtechnology.com",
+                        port: 587,
+                        secure: false,
+                        user: "admin@piwebtechnology.com",
+                        pass: "751821@Ss"
+                    },
+                    to: "admin@piwebtechnology.com",
+                    subject: "Contact Form Submission",
+                    fields: {
+                        Name: formData.name,
+                        Phone: formData.phone,
+                        Email: formData.email,
+                        Company: formData.company,
+                        "Service Scheme": formData.serviceScheme,
+                        Subject: formData.subject,
+                        Message: formData.message
+                    }
+                })
+            });
+            if (res.ok) {
+                toast.success('Message sent successfully! We will contact you soon.');
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    company: '',
+                    serviceScheme: '',
+                    subject: '',
+                    message: ''
+                });
+            } else {
+                toast.error('Failed to send message. Please try again.');
+            }
+        } catch {
+            toast.error('Failed to send message. Please try again.');
+        }
+        setSending(false);
     };
 
     const handleChange = (e) => {
@@ -76,7 +144,7 @@ function ContactUs() {
 
             {/* Main Content */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                {/* Contact Cards Section */}
+            {/* Contact Cards Section */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                     {/* Phone */}
                     <motion.div
@@ -158,8 +226,8 @@ function ContactUs() {
                                         className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-orange-500 focus:outline-none transition-colors"
                                         required
                                     />
-                                </div>
-                                <div>
+                        </div>
+                        <div>
                                     <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
                                     <input
                                         type="email"
@@ -180,20 +248,53 @@ function ContactUs() {
                                         value={formData.phone}
                                         onChange={handleChange}
                                         className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-orange-500 focus:outline-none transition-colors"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
-                                    <input
-                                        type="text"
-                                        name="subject"
-                                        value={formData.subject}
-                                        onChange={handleChange}
-                                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-orange-500 focus:outline-none transition-colors"
                                         required
                                     />
                                 </div>
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Company Name</label>
+                                    <input
+                                        type="text"
+                                        name="company"
+                                        value={formData.company}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-orange-500 focus:outline-none transition-colors"
+                                        placeholder="Enter your company name"
+                                    />
+                                </div>
                             </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
+                                <input
+                                    type="text"
+                                    name="subject"
+                                    value={formData.subject}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-orange-500 focus:outline-none transition-colors"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    Service Scheme <span className="text-gray-400">(optional)</span>
+                                </label>
+                                <div className="flex flex-wrap gap-2">
+                                    {SERVICE_SCHEMES.map(scheme => (
+                                        <button
+                                            type="button"
+                                            key={scheme}
+                                            className={`px-3 py-2 rounded-full border-2 font-semibold text-sm transition-all duration-200 ${
+                                                formData.serviceScheme === scheme
+                                                    ? 'bg-orange-500 text-white border-orange-500'
+                                                    : 'bg-white text-orange-700 border-orange-300 hover:bg-orange-50'
+                                            }`}
+                                            onClick={() => handleSchemeSelect(scheme)}
+                                        >
+                                            {scheme}
+                                        </button>
+                                    ))}
+                        </div>
+                    </div>
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">Message</label>
                                 <textarea
@@ -207,11 +308,12 @@ function ContactUs() {
                             </div>
                             <motion.button
                                 type="submit"
-                                className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-4 px-8 rounded-xl hover:shadow-lg transition-all duration-300"
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
+                                disabled={sending}
+                                className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-4 px-8 rounded-xl hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                whileHover={{ scale: sending ? 1 : 1.02 }}
+                                whileTap={{ scale: sending ? 1 : 0.98 }}
                             >
-                                Send Message
+                                {sending ? "Sending..." : "Send Message"}
                             </motion.button>
                         </form>
                     </motion.div>
@@ -298,19 +400,43 @@ function ContactUs() {
                 >
                     <h3 className="text-3xl font-bold text-gray-800 text-center mb-8">Find Us</h3>
                     <div className="bg-white p-4 rounded-3xl shadow-2xl border border-gray-100">
-                        <iframe
+                    <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.5!2d72.5!3d23.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDAwJzAwLjAiTiA3MsKwMzAnMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
-                            width="100%"
+                        width="100%"
                             height="400"
                             style={{ border: 0, borderRadius: '20px' }}
-                            allowFullScreen
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
                             title="Grow Startup Location"
-                        ></iframe>
-                    </div>
+                    ></iframe>
+                </div>
                 </motion.div>
             </div>
+            <ToastContainer 
+                position="top-right" 
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                style={{ 
+                    zIndex: 99999,
+                    top: '20px',
+                    right: '20px'
+                }}
+                toastStyle={{
+                    background: '#fff',
+                    color: '#333',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    borderRadius: '8px',
+                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)'
+                }}
+            />
         </div>
     );
 }

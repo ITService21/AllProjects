@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import PropTypes from "prop-types";
+import { useState } from "react";
+import FormModal from "../../Components/FormModal";
 
 // Service data with comprehensive content
 const servicesData = [
@@ -142,179 +143,287 @@ const servicesData = [
     }
 ];
 
-// Custom hook for visibility
-const useAlwaysVisible = () => {
-    const [isVisible, setIsVisible] = useState(true);
-    
-    useEffect(() => {
-        setIsVisible(true);
-    }, []);
-    
-    return isVisible;
-};
-
 export default function AllServices({ className = "" }) {
-    const alwaysVisible = useAlwaysVisible();
-
-    // Animation variants
-    const fadeUp = { 
-        visible: { opacity: 1, y: 0 }
-    };
-    const slideLeft = { 
-        visible: { opacity: 1, x: 0 }
-    };
-    const slideRight = { 
-        visible: { opacity: 1, x: 0 }
-    };
+    const [showFormModal, setShowFormModal] = useState(false);
 
     return (
         <section 
             className={`mt-[40px] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative overflow-hidden ${className}`} 
             style={{ backgroundColor: '#FFFFFF' }}
         >
-            {/* Animated Background */}
+            {/* Enhanced Animated Background with Orange Geometric Objects */}
             <div className="absolute inset-0 overflow-hidden">
-                {/* Floating Geometric Shapes */}
-                {[...Array(6)].map((_, i) => (
+                {/* Animated Mesh Background */}
+                <motion.div 
+                    className="absolute inset-0 opacity-30"
+                    animate={{
+                        background: [
+                            "radial-gradient(circle at 20% 50%, rgba(253,87,16,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,107,53,0.15) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(253,87,16,0.15) 0%, transparent 50%)",
+                            "radial-gradient(circle at 80% 20%, rgba(255,107,53,0.15) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(253,87,16,0.15) 0%, transparent 50%), radial-gradient(circle at 20% 50%, rgba(253,87,16,0.15) 0%, transparent 50%)",
+                            "radial-gradient(circle at 20% 50%, rgba(253,87,16,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,107,53,0.15) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(253,87,16,0.15) 0%, transparent 50%)"
+                        ]
+                    }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                />
+                
+                {/* Orange Geometric Objects - Scattered Across Page */}
+                {[...Array(12)].map((_, i) => {
+                    const shapes = [
+                        // Circles
+                        "w-16 h-16 sm:w-20 sm:h-20 rounded-full",
+                        "w-12 h-12 sm:w-16 sm:h-16 rounded-full",
+                        "w-20 h-20 sm:w-24 sm:h-24 rounded-full",
+                        // Squares
+                        "w-14 h-14 sm:w-18 sm:h-18 rounded-lg",
+                        "w-10 h-10 sm:w-14 sm:h-14 rounded-lg",
+                        "w-16 h-16 sm:w-20 sm:h-20 rounded-lg",
+                        // Triangles (using clip-path)
+                        "w-0 h-0 border-l-[20px] border-r-[20px] border-b-[35px] border-l-transparent border-r-transparent border-b-orange-400/30",
+                        "w-0 h-0 border-l-[16px] border-r-[16px] border-b-[28px] border-l-transparent border-r-transparent border-b-orange-400/30",
+                        // Diamonds
+                        "w-12 h-12 sm:w-16 sm:h-16 transform rotate-45",
+                        "w-8 h-8 sm:w-12 sm:h-12 transform rotate-45",
+                        // Hexagons (approximated with rounded corners)
+                        "w-14 h-14 sm:w-18 sm:h-18 rounded-lg transform rotate-12",
+                        "w-10 h-10 sm:w-14 sm:h-14 rounded-lg transform -rotate-12"
+                    ];
+                    
+                    return (
+                        <motion.div
+                            key={i}
+                            className={`absolute ${shapes[i % shapes.length]} bg-gradient-to-r from-orange-400/25 to-red-400/25`}
+                            animate={{
+                                x: [0, 150, -80, 0],
+                                y: [0, -120, 60, 0],
+                                rotate: [0, 180, -180, 0],
+                                scale: [0.6, 1.4, 1, 0.6],
+                            }}
+                            transition={{
+                                duration: 20 + i * 1.5,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: i * 1.2,
+                            }}
+                            style={{
+                                left: `${5 + (i * 7) % 85}%`,
+                                top: `${10 + (i * 8) % 70}%`,
+                            }}
+                        />
+                    );
+                })}
+                
+                {/* Additional Orange Objects - Scattered Randomly */}
+                {[...Array(15)].map((_, i) => {
+                    const objectTypes = [
+                        // Small circles
+                        "w-6 h-6 sm:w-8 sm:h-8 rounded-full",
+                        "w-4 h-4 sm:w-6 sm:h-6 rounded-full",
+                        // Small squares
+                        "w-5 h-5 sm:w-7 sm:h-7 rounded",
+                        "w-3 h-3 sm:w-5 sm:h-5 rounded",
+                        // Small triangles
+                        "w-0 h-0 border-l-[8px] border-r-[8px] border-b-[14px] border-l-transparent border-r-transparent border-b-orange-400/20",
+                        "w-0 h-0 border-l-[6px] border-r-[6px] border-b-[10px] border-l-transparent border-r-transparent border-b-orange-400/20",
+                        // Small diamonds
+                        "w-4 h-4 sm:w-6 sm:h-6 transform rotate-45",
+                        "w-3 h-3 sm:w-5 sm:h-5 transform rotate-45",
+                        // Small rectangles
+                        "w-8 h-4 sm:w-10 sm:h-5 rounded",
+                        "w-6 h-3 sm:w-8 sm:h-4 rounded",
+                        // Small ovals
+                        "w-10 h-6 sm:w-12 sm:h-8 rounded-full",
+                        "w-8 h-5 sm:w-10 sm:h-6 rounded-full",
+                        // Small stars (approximated)
+                        "w-6 h-6 sm:w-8 sm:h-8 transform rotate-45",
+                        "w-4 h-4 sm:w-6 sm:h-6 transform rotate-45",
+                        // Small hexagons
+                        "w-6 h-6 sm:w-8 sm:h-8 rounded-lg transform rotate-30"
+                    ];
+                    
+                    return (
+                        <motion.div
+                            key={`small-${i}`}
+                            className={`absolute ${objectTypes[i % objectTypes.length]} bg-gradient-to-r from-orange-300/20 to-red-300/20`}
+                            animate={{
+                                x: [0, 100, -50, 0],
+                                y: [0, -80, 40, 0],
+                                rotate: [0, 360, -360, 0],
+                                scale: [0.5, 1.2, 0.8, 0.5],
+                            }}
+                            transition={{
+                                duration: 15 + i * 1,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: i * 0.8,
+                            }}
+                            style={{
+                                left: `${Math.random() * 90}%`,
+                                top: `${Math.random() * 80}%`,
+                            }}
+                        />
+                    );
+                })}
+                
+                {/* Orange Animated Lines - Scattered */}
+                {[...Array(8)].map((_, i) => (
                     <motion.div
-                        key={i}
-                        className="absolute w-16 h-16 bg-gradient-to-r from-orange-200/20 to-red-200/20 rounded-full"
+                        key={`line-${i}`}
+                        className="absolute h-1 sm:h-2 bg-gradient-to-r from-orange-400/40 to-red-400/40"
                         animate={{
-                            x: [0, 80, -40, 0],
-                            y: [0, -60, 30, 0],
-                            scale: [0.5, 1, 0.8, 0.5],
-                            rotate: [0, 180, 360, 0],
+                            scaleX: [0, 1, 0],
+                            opacity: [0, 0.6, 0],
                         }}
                         transition={{
-                            duration: 12 + i * 2,
+                            duration: 3 + i * 0.5,
                             repeat: Infinity,
                             ease: "easeInOut",
-                            delay: i * 1.5,
+                            delay: i * 0.6,
                         }}
                         style={{
-                            left: `${15 + i * 15}%`,
-                            top: `${25 + i * 10}%`,
+                            width: `${200 + i * 50}px`,
+                            left: `${Math.random() * 80}%`,
+                            top: `${Math.random() * 70}%`,
+                            transform: `rotate(${Math.random() * 360}deg)`,
                         }}
                     />
                 ))}
                 
-                {/* Animated Lines */}
-                {[...Array(4)].map((_, i) => (
-                    <motion.div
-                        key={`line-${i}`}
-                        className="absolute h-1 bg-gradient-to-r from-orange-300/30 to-red-300/30"
-                        animate={{
-                            scaleX: [0, 1, 0],
-                            opacity: [0, 0.8, 0],
-                        }}
-                        transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: i * 0.8,
-                        }}
-                        style={{
-                            width: `${150 + i * 40}px`,
-                            left: `${10 + i * 20}%`,
-                            top: `${35 + i * 15}%`,
-                            transform: `rotate(${i * 20}deg)`,
-                        }}
-                    />
-                ))}
+                {/* Orange Floating Objects - Various Shapes */}
+                {[...Array(10)].map((_, i) => {
+                    const shapes = [
+                        // Large circles
+                        "w-14 h-14 sm:w-18 sm:h-18 rounded-full",
+                        "w-10 h-10 sm:w-14 sm:h-14 rounded-full",
+                        // Large squares
+                        "w-12 h-12 sm:w-16 sm:h-16 rounded-lg",
+                        "w-8 h-8 sm:w-12 sm:h-12 rounded-lg",
+                        // Large triangles
+                        "w-0 h-0 border-l-[15px] border-r-[15px] border-b-[26px] border-l-transparent border-r-transparent border-b-orange-400/25",
+                        "w-0 h-0 border-l-[12px] border-r-[12px] border-b-[20px] border-l-transparent border-r-transparent border-b-orange-400/25",
+                        // Large diamonds
+                        "w-10 h-10 sm:w-14 sm:h-14 transform rotate-45",
+                        "w-8 h-8 sm:w-12 sm:h-12 transform rotate-45",
+                        // Large rectangles
+                        "w-16 h-8 sm:w-20 sm:h-10 rounded-lg",
+                        "w-12 h-6 sm:w-16 sm:h-8 rounded-lg"
+                    ];
+                    
+                    return (
+                        <motion.div
+                            key={`floating-${i}`}
+                            className={`absolute ${shapes[i % shapes.length]} bg-gradient-to-r from-orange-400/30 to-red-400/30`}
+                            animate={{
+                                x: [0, 120, -60, 0],
+                                y: [0, -100, 50, 0],
+                                rotate: [0, 180, -180, 0],
+                                scale: [0.6, 1.3, 0.9, 0.6],
+                            }}
+                            transition={{
+                                duration: 18 + i * 1.5,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: i * 1.8,
+                            }}
+                            style={{
+                                left: `${Math.random() * 85}%`,
+                                top: `${Math.random() * 75}%`,
+                            }}
+                        />
+                    );
+                })}
             </div>
 
             {/* Header Section */}
-            <div className="relative z-10 text-center mb-16">
+            <motion.div 
+                className="relative z-10 text-center mb-16"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.15 }}
+            >
                 <motion.div
-                    initial="visible"
-                    animate="visible"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={fadeUp}
-                    transition={{ duration: 0.6 }}
+                    className="text-center"
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                 >
                     <motion.h1 
                         className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-6"
-                        initial={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: [0.68, -0.55, 0.265, 1.55] }}
-                        viewport={{ once: true, amount: 0.1 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
-                        <span className="text-gray-900">Our</span>
-                        <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"> Comprehensive</span>
+                        <motion.span 
+                            className="text-gray-900"
+                            initial={{ opacity: 0, x: -60 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.4 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            Our
+                        </motion.span>
+                        <motion.span 
+                            className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
+                            initial={{ opacity: 0, x: 60 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.5 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            {" "}Comprehensive
+                        </motion.span>
                         <br />
-                        <span className="text-gray-900">Services</span>
+                        <motion.span 
+                            className="text-gray-900"
+                            initial={{ opacity: 0, x: -40 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.6 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        >
+                            Services
+                        </motion.span>
                     </motion.h1>
                     
                     <motion.p 
                         className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8"
-                        initial={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        viewport={{ once: true, amount: 0.1 }}
+                        transition={{ duration: 0.4, delay: 0.7 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
-                        Empowering MSMEs and startups with end-to-end business solutions. From funding to growth, we provide comprehensive support to help your business thrive in today's competitive landscape.
+                        Empowering MSMEs and startups with end-to-end business solutions. From funding to growth, we provide comprehensive support to help your business thrive in today&apos;s competitive landscape.
                     </motion.p>
                 </motion.div>
-            </div>
+            </motion.div>
 
             {/* Services Grid */}
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-                {servicesData.map((service, index) => (
-                    <motion.div
-                        key={service.id}
-                        initial="visible"
-                        animate="visible"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.1 }}
-                        variants={index % 2 === 0 ? slideLeft : slideRight}
-                        transition={{ duration: 0.6, delay: index * 0.1 }}
-                        className="relative bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group"
-                        whileHover={{ 
-                            scale: 1.02, 
-                            y: -10,
-                            transition: { 
-                                duration: 0.3, 
-                                ease: [0.68, -0.55, 0.265, 1.55]
-                            }
-                        }}
-                    >
-                        {/* Animated Background */}
-                        <motion.div 
-                            className="absolute inset-0 bg-gradient-to-br from-orange-50 via-red-50 to-orange-50 opacity-0 group-hover:opacity-100"
-                            animate={{
-                                background: [
-                                    "linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)",
-                                    "linear-gradient(135deg, rgba(255,107,53,0.05) 0%, rgba(253,87,16,0.03) 50%, rgba(255,107,53,0.05) 100%)",
-                                    "linear-gradient(135deg, rgba(253,87,16,0.05) 0%, rgba(255,107,53,0.03) 50%, rgba(253,87,16,0.05) 100%)"
-                                ]
+            <motion.div 
+                className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.15 }}
+            >
+                {servicesData.map((service, index) => {
+                    const isEven = index % 2 === 0;
+                    return (
+                        <motion.div
+                            key={service.id}
+                            initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
+                            whileInView={{ opacity: 1, x: 0, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            viewport={{ once: false, amount: 0.2 }}
+                            className="relative bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group"
+                            whileHover={{ 
+                                scale: 1.02, 
+                                y: -5,
+                                transition: { duration: 0.3 }
                             }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                        />
-                        
-                        {/* Floating Elements */}
-                        <motion.div 
-                            className="absolute top-4 right-4 w-6 h-6 bg-gradient-to-r from-orange-400 to-red-400 rounded-full opacity-20"
-                            animate={{ 
-                                scale: [1, 1.5, 1],
-                                rotate: [0, 180, 360],
-                                opacity: [0.2, 0.5, 0.2]
-                            }}
-                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.5 }}
-                        />
-                        
+                        >
                         <div className="relative z-10">
                             {/* Service Icon */}
-                            <motion.div 
-                                className="text-6xl mb-6"
-                                animate={{ 
-                                    rotate: [0, 10, -10, 0],
-                                    scale: [1, 1.1, 1]
-                                }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
-                            >
-                                {service.icon}
-                            </motion.div>
+                            <div className="text-6xl mb-6">{service.icon}</div>
                             
                             {/* Service Title */}
                             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-3">
@@ -334,17 +443,13 @@ export default function AllServices({ className = "" }) {
                             {/* Features Grid */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                                 {service.features.slice(0, 4).map((feature, featureIndex) => (
-                                    <motion.div
+                                    <div
                                         key={featureIndex}
                                         className="flex items-center gap-2 text-sm text-gray-700"
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.4, delay: featureIndex * 0.1 }}
-                                        viewport={{ once: true, amount: 0.1 }}
                                     >
                                         <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
                                         {feature}
-                                    </motion.div>
+                                    </div>
                                 ))}
                             </div>
                             
@@ -361,51 +466,60 @@ export default function AllServices({ className = "" }) {
                             </div>
                             
                             {/* CTA Button */}
-                            <motion.a
+                            <a
                                 href={service.link}
                                 className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
-                                whileHover={{ 
-                                    scale: 1.05,
-                                    boxShadow: "0 20px 40px rgba(253, 87, 16, 0.3)"
-                                }}
-                                whileTap={{ scale: 0.95 }}
                             >
                                 Learn More
-                            </motion.a>
+                            </a>
                         </div>
-                        
-                        {/* Decorative Border */}
-                        <motion.div 
-                            className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-red-500"
-                            initial={{ scaleX: 0 }}
-                            whileInView={{ scaleX: 1 }}
-                            transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-                            viewport={{ once: true, amount: 0.1 }}
-                        />
                     </motion.div>
-                ))}
-            </div>
+                    );
+                })}
+            </motion.div>
 
             {/* Why Choose Us Section */}
-            <div className="relative z-10 mb-16">
+            <motion.div 
+                className="relative z-10 mb-16"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.15 }}
+            >
                 <motion.div
-                    initial="visible"
-                    animate="visible"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={fadeUp}
-                    transition={{ duration: 0.6 }}
                     className="text-center mb-12"
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                 >
-                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                    <motion.h2 
+                        className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Why Choose Our Services?
-                    </h2>
-                    <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                    </motion.h2>
+                    <motion.p 
+                        className="text-lg text-gray-600 max-w-3xl mx-auto"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.4 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         We combine expertise, experience, and dedication to deliver exceptional results for your business
-                    </p>
+                    </motion.p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <motion.div 
+                    className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                    viewport={{ once: false, amount: 0.15 }}
+                >
                     {[
                         {
                             icon: "🎯",
@@ -422,97 +536,86 @@ export default function AllServices({ className = "" }) {
                             title: "24/7 Support",
                             description: "Round-the-clock assistance and guidance throughout your business journey"
                         }
-                    ].map((item, index) => (
-                        <motion.div
-                            key={index}
-                            initial="visible"
-                            animate="visible"
-                            whileInView="visible"
-                            viewport={{ once: true, amount: 0.1 }}
-                            variants={fadeUp}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
-                            className="text-center p-6 bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl border border-orange-100"
-                        >
-                            <motion.div 
-                                className="text-4xl mb-4"
-                                animate={{ 
-                                    rotate: [0, 10, -10, 0],
-                                    scale: [1, 1.1, 1]
+                    ].map((item, index) => {
+                        const isEven = index % 2 === 0;
+                        return (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
+                                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                viewport={{ once: false, amount: 0.2 }}
+                                className="text-center p-6 bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl border border-orange-100"
+                                whileHover={{ 
+                                    scale: 1.02, 
+                                    y: -3,
+                                    transition: { duration: 0.3 }
                                 }}
-                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.5 }}
                             >
-                                {item.icon}
+                                <div className="text-4xl mb-4">{item.icon}</div>
+                                <h3 className="text-xl font-bold text-gray-800 mb-3">{item.title}</h3>
+                                <p className="text-gray-600">{item.description}</p>
                             </motion.div>
-                            <h3 className="text-xl font-bold text-gray-800 mb-3">{item.title}</h3>
-                            <p className="text-gray-600">{item.description}</p>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
+                        );
+                    })}
+                </motion.div>
+            </motion.div>
 
             {/* CTA Section */}
             <motion.div
-                initial="visible"
-                animate="visible"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.1 }}
-                variants={fadeUp}
-                transition={{ duration: 0.6 }}
                 className="relative bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 rounded-3xl p-12 text-center text-white overflow-hidden"
+                initial={{ opacity: 0, y: 60, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: false, amount: 0.2 }}
             >
-                {/* Animated Background Elements */}
-                <div className="absolute inset-0">
-                    {[...Array(4)].map((_, i) => (
-                        <motion.div
-                            key={i}
-                            className="absolute w-24 h-24 bg-white/10 rounded-full"
-                            animate={{
-                                x: [0, 80, -40, 0],
-                                y: [0, -60, 30, 0],
-                                scale: [0.5, 1.2, 0.8, 0.5],
-                                rotate: [0, 180, 360, 0],
-                            }}
-                            transition={{
-                                duration: 15 + i * 2,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                                delay: i * 2,
-                            }}
-                            style={{
-                                left: `${20 + i * 20}%`,
-                                top: `${30 + i * 15}%`,
-                            }}
-                        />
-                    ))}
-                </div>
-                
                 <div className="relative z-10">
-                    <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+                    <motion.h2 
+                        className="text-4xl sm:text-5xl font-bold mb-6"
+                        initial={{ opacity: 0, x: -80 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Ready to Transform Your Business?
-                    </h2>
-                    <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
+                    </motion.h2>
+                    <motion.p 
+                        className="text-xl mb-8 opacity-90 max-w-3xl mx-auto"
+                        initial={{ opacity: 0, x: 80 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
                         Join thousands of successful MSMEs who trust us with their growth journey. Get started today with our comprehensive business solutions.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                        <motion.a
-                            href="/contact-us"
+                    </motion.p>
+                    <motion.div 
+                        className="flex flex-col sm:flex-row gap-6 justify-center"
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
+                        <button
+                            onClick={() => setShowFormModal(true)}
                             className="px-10 py-4 bg-white text-orange-600 font-bold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg"
-                            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(255,255,255,0.3)" }}
-                            whileTap={{ scale: 0.95 }}
                         >
                             Get Started Today
-                        </motion.a>
-                        <motion.a
+                        </button>
+                        <a
                             href="tel:+919876543210"
                             className="px-10 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-orange-600 transition-all duration-300"
-                            whileHover={{ scale: 1.05, backgroundColor: "white", color: "#F85710" }}
-                            whileTap={{ scale: 0.95 }}
                         >
                             Call Now: +91 98765 43210
-                        </motion.a>
-                    </div>
+                        </a>
+                    </motion.div>
                 </div>
             </motion.div>
+
+            {/* Form Modal */}
+            <FormModal
+                open={showFormModal}
+                onClose={() => setShowFormModal(false)}
+            />
         </section>
     );
 }

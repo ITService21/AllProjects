@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaPhoneAlt } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 const SERVICE_SCHEMES = [
     "ARTHA", "SURAKSHA", "NISHTHA", "UTTHAN", "PRAGATI", "DISHA"
@@ -80,6 +81,10 @@ export default function FormModal({ open, onClose }) {
                     serviceScheme: '',
                     message: ''
                 });
+                // Close modal after successful submission
+                setTimeout(() => {
+                    onClose();
+                }, 2000);
             } else {
                 toast.error('Failed to send request. Please try again.');
             }
@@ -246,3 +251,9 @@ export default function FormModal({ open, onClose }) {
         </AnimatePresence>
     );
 }
+
+// PropTypes
+FormModal.propTypes = {
+    open: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired
+};

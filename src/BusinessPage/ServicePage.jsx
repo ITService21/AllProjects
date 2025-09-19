@@ -1,12 +1,15 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import ServiceModal from "../Components/ServiceModal";
+import FormModal from "../Components/FormModal";
 import serviceDetails from "../Data/ServiceDetails";
-
+import { useNavigate } from "react-router-dom";
 const ServicePage = () => {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState(0);
   const [selectedService, setSelectedService] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showBookConsultant, setShowBookConsultant] = useState(false);
 
   const handleServiceClick = (serviceName) => {
     const serviceDetail = serviceDetails[serviceName];
@@ -389,12 +392,13 @@ const ServicePage = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Header Section */}
+        {/* Header Section with Scroll Animation */}
           <motion.div
             className="text-center mb-16 relative"
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: false, amount: 0.2 }}
         >
           {/* Decorative Elements */}
           <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent rounded-full"></div>
@@ -408,10 +412,24 @@ const ServicePage = () => {
               className="text-4xl flex gap-[10px] md:gap-[14px] lg:gap-[18px] text-normal md:text-6xl lg:text-7xl font-extrabold mb-6 relative"
               style={{ fontFamily: "Poppins, sans-serif" }}
             >
-              <span className="text-gray-800">Our</span>
-              <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
+              <motion.span 
+                className="text-gray-800"
+                initial={{ opacity: 0, x: -80 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                viewport={{ once: false, amount: 0.3 }}
+              >
+                Our
+              </motion.span>
+              <motion.span 
+                className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent animate-gradient"
+                initial={{ opacity: 0, x: 80 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                viewport={{ once: false, amount: 0.3 }}
+              >
                 Services
-              </span>
+              </motion.span>
             </h2>
 
             {/* Animated Underline */}
@@ -430,60 +448,80 @@ const ServicePage = () => {
 
           <motion.div
             className="flex flex-wrap justify-center gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+            viewport={{ once: false, amount: 0.3 }}
           >
             {[
               { icon: "🚀", text: "Business Setup" },
               { icon: "💰", text: "Funding Support" },
               { icon: "📜", text: "Compliance" },
               { icon: "📈", text: "Growth Strategy" },
-            ].map((item, index) => (
-              <motion.span
-                key={index}
-                className="bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-white/50 text-sm font-semibold hover:shadow-xl transition-all duration-300"
-                whileHover={{
-                  scale: 1.05,
-                  y: -2,
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                style={{ fontFamily: "Poppins, sans-serif" }}
-              >
+            ].map((item, index) => {
+              const isEven = index % 2 === 0;
+              return (
+                <motion.span
+                  key={index}
+                  className="bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg border border-white/50 text-sm font-semibold hover:shadow-xl transition-all duration-300"
+                  whileHover={{
+                    scale: 1.05,
+                    y: -2,
+                  }}
+                  initial={{ opacity: 0, x: isEven ? -60 : 60, y: 20 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                  viewport={{ once: false, amount: 0.3 }}
+                  style={{ fontFamily: "Poppins, sans-serif" }}
+                >
                 <span className="mr-2">{item.icon}</span>
                 {item.text}
               </motion.span>
-            ))}
+              );
+            })}
           </motion.div>
         </motion.div>
 
-        {/* Category Tabs */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {serviceCategories.map((category, index) => (
+        {/* Category Tabs with Scroll Animation */}
+        <motion.div 
+          className="flex flex-wrap justify-center gap-4 mb-12"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: false, amount: 0.3 }}
+        >
+          {serviceCategories.map((category, index) => {
+            const isEven = index % 2 === 0;
+            return (
               <motion.button
-              key={category.id}
-              onClick={() => setActiveCategory(index)}
-              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                activeCategory === index
-                  ? `bg-gradient-to-r ${category.color} text-white shadow-lg transform scale-105`
-                  : "bg-white text-gray-700 border border-gray-200 hover:shadow-md"
-              }`}
-              style={{ fontFamily: "Poppins, sans-serif" }}
-            >
+                key={category.id}
+                onClick={() => setActiveCategory(index)}
+                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                  activeCategory === index
+                    ? `bg-gradient-to-r ${category.color} text-white shadow-lg transform scale-105`
+                    : "bg-white text-gray-700 border border-gray-200 hover:shadow-md"
+                }`}
+                style={{ fontFamily: "Poppins, sans-serif" }}
+                initial={{ opacity: 0, x: isEven ? -80 : 80, scale: 0.9 }}
+                whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                viewport={{ once: false, amount: 0.3 }}
+                whileHover={{ scale: 1.05, y: -2 }}
+              >
               <span className="mr-2">{category.icon}</span>
               {category.name}
             </motion.button>
-          ))}
-        </div>
+            );
+          })}
+        </motion.div>
 
-        {/* Active Category Content */}
+        {/* Active Category Content with Scroll Animation */}
         <motion.div
           key={activeCategory}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          viewport={{ once: false, amount: 0.3 }}
           className="mb-12"
         >
           <div className="text-center mb-8">
@@ -503,18 +541,42 @@ const ServicePage = () => {
           </div>
         </motion.div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {serviceCategories[activeCategory].services.map((service, index) => (
-                <motion.div
+        {/* Services Grid with Scroll Animation */}
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          viewport={{ once: false, amount: 0.15 }}
+        >
+          {serviceCategories[activeCategory].services.map((service, index) => {
+            const isEven = index % 2 === 0;
+            return (
+              <motion.div
                 key={index}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -5,
-                    transition: { duration: 0.3, ease: "easeOut" },
-                  }}
-                  className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
-                >
+                initial={{ 
+                  opacity: 0, 
+                  x: isEven ? -120 : 120,
+                  y: 30
+                }}
+                whileInView={{ 
+                  opacity: 1, 
+                  x: 0,
+                  y: 0
+                }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: index * 0.1,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                viewport={{ once: false, amount: 0.2 }}
+                whileHover={{
+                  scale: 1.05,
+                  y: -5,
+                  transition: { duration: 0.3, ease: "easeOut" },
+                }}
+                className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
+              >
               {/* Animated Background Gradient */}
               <div
                 className={`absolute inset-0 bg-gradient-to-r ${serviceCategories[activeCategory].color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
@@ -599,15 +661,17 @@ const ServicePage = () => {
               <div className="absolute top-4 right-4 w-2 h-2 bg-[#F85710] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="absolute bottom-4 left-4 w-1 h-1 bg-[#F85710] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </motion.div>
-          ))}
-        </div>
+            );
+          })}
+        </motion.div>
 
-        {/* Bottom CTA Section */}
+        {/* Bottom CTA Section with Scroll Animation */}
           <motion.div
             className="mt-16 relative overflow-hidden"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            initial={{ opacity: 0, y: 60, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: false, amount: 0.2 }}
         >
           {/* Animated Background */}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-gray-800 to-slate-900 rounded-3xl">
@@ -629,9 +693,10 @@ const ServicePage = () => {
 
           <div className="relative z-10 text-center p-8 md:p-12">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              initial={{ opacity: 0, x: -80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: false, amount: 0.3 }}
             >
               <h3
                 className="text-[28px] md:text-5xl font-extrabold text-white mb-6"
@@ -645,9 +710,10 @@ const ServicePage = () => {
               <motion.p
                 className="text-gray-300 text-xl mb-10 max-w-3xl mx-auto leading-relaxed"
                 style={{ fontFamily: "Poppins, sans-serif" }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.7 }}
+                initial={{ opacity: 0, x: 80 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: false, amount: 0.3 }}
               >
                 Get expert consultation and take your MSME to the next level
                 with our
@@ -659,15 +725,17 @@ const ServicePage = () => {
 
               <motion.div
                 className="flex flex-col sm:flex-row gap-6 justify-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.9 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                viewport={{ once: false, amount: 0.3 }}
               >
                 <motion.button
                   whileHover={{
                     scale: 1.05,
                     boxShadow: "0 20px 40px rgba(249, 115, 22, 0.4)",
                   }}
+                  onClick={() => setShowBookConsultant(true)}
                   whileTap={{ scale: 0.95 }}
                   className="px-10 py-5 bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white font-bold rounded-full shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 relative overflow-hidden"
                   style={{ fontFamily: "Poppins, sans-serif" }}
@@ -690,6 +758,7 @@ const ServicePage = () => {
                   whileTap={{ scale: 0.95 }}
                   className="px-10 py-5 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold rounded-full shadow-2xl hover:bg-white/20 transition-all duration-300 relative overflow-hidden"
                   style={{ fontFamily: "Poppins, sans-serif" }}
+                  onClick={() => navigate('/services/all')} 
                 >
                   <motion.span
                     className="relative z-10"
@@ -711,6 +780,12 @@ const ServicePage = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         service={selectedService}
+      />
+
+      {/* Form Modal */}
+      <FormModal
+        open={showBookConsultant}
+        onClose={() => setShowBookConsultant(false)}
       />
     </div>
   );

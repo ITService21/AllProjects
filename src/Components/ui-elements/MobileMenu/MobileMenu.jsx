@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
+import FormModal from "../../FormModal";
 
 export const MobileMenu = ({ menuLinks, onClose }) => {
   const [expandedLinkId, setExpandedLinkId] = useState(null);
+  const [showFormModal, setShowFormModal] = useState(false);
 
   const onMenuItemClick = (index) => {
     if (expandedLinkId === index) {
@@ -152,16 +154,24 @@ export const MobileMenu = ({ menuLinks, onClose }) => {
 
       {/* Footer CTA */}
       <div className="px-6 py-4 bg-gradient-to-r from-orange-500/10 to-red-500/10 border-t border-gray-200/50">
-        <motion.a
-          href="/contact-us"
+        <motion.button
+          onClick={() => {
+            setShowFormModal(true);
+            onClose();
+          }}
           className="block w-full text-center py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-xl hover:from-orange-600 hover:to-red-600 transition-all duration-300"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          onClick={onClose}
         >
           Get Started
-        </motion.a>
+        </motion.button>
       </div>
+
+      {/* Form Modal */}
+      <FormModal
+        open={showFormModal}
+        onClose={() => setShowFormModal(false)}
+      />
     </motion.div>
   );
 };

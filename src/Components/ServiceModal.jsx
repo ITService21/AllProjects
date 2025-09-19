@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import FormModal from "./FormModal";
 import { 
     FaTimes, 
     FaExternalLinkAlt, 
@@ -245,7 +246,7 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
                             <div className="text-center pt-6 border-t border-gray-200">
                                 <button
                                     onClick={() => setShowBookConsultant(true)}
-                                    className="bg-gradient-to-r from-[#1D4ED8] to-[#1D4ED8] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-[#1E40AF] hover:to-[#1E40AF] transition-all duration-200 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto"
+                                    className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-orange-600 hover:to-red-600 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto"
                                 >
                                     <FaHandshake />
                                     Book Free Consultation
@@ -348,6 +349,12 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
                     </AnimatePresence>
                 </motion.div>
             )}
+
+            {/* FormModal */}
+            <FormModal
+                open={showBookConsultant}
+                onClose={() => setShowBookConsultant(false)}
+            />
         </AnimatePresence>
     );
 };
