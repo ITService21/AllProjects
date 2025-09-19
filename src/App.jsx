@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import FloatingWhatsApp from "./Components/FloatingWhatsApp";
+import ScrollToTop from "./Components/ScrollToTop";
 //About Us
 
 import AnimatedBanner from "./Binner/Binner";
@@ -32,6 +33,7 @@ import Videos from "./Pages/Gallery/Videos";
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="flex flex-col min-h-screen">
         <Navbar />
 

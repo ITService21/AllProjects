@@ -84,7 +84,7 @@ const AutoCardCarousel = () => {
   const visible = getVisibleCards();
 
   return (
-    <div className="mt-[40px] md:mt-[70px] bg-gradient-to-br from-gray-100 to-blue-300 px-4 pt-[100px] pb-20">
+    <div className="mt-[40px] md:mt-[70px] bg-gradient-to-br from-gray-100 to-blue-300 px-4 pt-[100px] pb-20 overflow-hidden">
       {/* Compact Header Section */}
       <div className="text-center mb-8 max-w-5xl mx-auto">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3" style={{color: '#000000', fontFamily: 'Poppins, sans-serif', fontWeight: '600'}}>

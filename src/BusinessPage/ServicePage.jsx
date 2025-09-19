@@ -1,46 +1,64 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import ServiceModal from "../Components/ServiceModal";
+import serviceDetails from "../Data/ServiceDetails";
 
 const ServicePage = () => {
   const [activeCategory, setActiveCategory] = useState(0);
+  const [selectedService, setSelectedService] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const serviceCategories = [
+  const handleServiceClick = (serviceName) => {
+    const serviceDetail = serviceDetails[serviceName];
+    if (serviceDetail) {
+      setSelectedService(serviceDetail);
+      setIsModalOpen(true);
+    }
+  };
+
+  const serviceCategories = [ 
     {
       id: 0,
       name: "ARTHA",
       title: "Funding & Grants",
-      icon: "💰",
+      icon: "💸",
       color: "from-orange-500 to-orange-600",
       services: [
         {
           name: "PMEGP Loan",
           amount: "Up to ₹25L",
           description: "Prime Minister's scheme",
+          icon: "🏭",
         },
         {
           name: "MUDRA Loan",
           amount: "Up to ₹10L",
           description: "Micro enterprise funding",
+          icon: "💼",
         },
         {
           name: "Startup India Seed Fund",
           amount: "Up to ₹1Cr",
           description: "Early stage funding",
+          icon: "🚀",
         },
         {
           name: "NAIFF Scheme",
           amount: "Up to ₹2Cr",
           description: "New age funding",
+          icon: "💡",
         },
         {
           name: "Government Grants",
           amount: "Up to ₹50L",
           description: "Various schemes",
+          icon: "🏛️",
         },
         {
           name: "Venture Capital",
           amount: "Up to ₹5Cr",
           description: "Growth capital",
+          icon: "📈",
         },
       ],
     },
@@ -53,33 +71,33 @@ const ServicePage = () => {
       services: [
         {
           name: "Trademark Registration",
-          amount: "₹4,500",
           description: "Brand protection",
+          icon: "™️",
         },
         {
           name: "Shram Suvidha",
-          amount: "₹2,000",
           description: "Labor compliance",
+          icon: "👷",
         },
         {
           name: "Patent Registration",
-          amount: "₹25,000",
           description: "Intellectual property",
+          icon: "🔬",
         },
         {
           name: "Copyright Registration",
-          amount: "₹5,000",
           description: "Content protection",
+          icon: "📝",
         },
         {
           name: "ISO Certification",
-          amount: "₹15,000",
           description: "Quality standards",
+          icon: "🏆",
         },
         {
           name: "GST Registration",
-          amount: "₹1,500",
           description: "Tax compliance",
+          icon: "🧾",
         },
       ],
     },
@@ -92,33 +110,33 @@ const ServicePage = () => {
       services: [
         {
           name: "Startup India Certificate",
-          amount: "₹5,000",
           description: "Government recognition",
+          icon: "🚀",
         },
         {
           name: "MSME Registration",
-          amount: "₹1,000",
           description: "Udyog Aadhar",
+          icon: "📋",
         },
         {
           name: "ZED Certification",
-          amount: "₹10,000",
           description: "Zero defect export",
+          icon: "⭐",
         },
         {
           name: "GeM Registration",
-          amount: "₹3,000",
           description: "Government e-marketplace",
+          icon: "🏛️",
         },
         {
           name: "FSSAI Certificate",
-          amount: "₹2,500",
           description: "Food safety",
+          icon: "🍽️",
         },
         {
           name: "IEC Certificate",
-          amount: "₹2,000",
           description: "Import export code",
+          icon: "🌍",
         },
       ],
     },
@@ -131,33 +149,33 @@ const ServicePage = () => {
       services: [
         {
           name: "Private Limited Company",
-          amount: "₹15,000",
           description: "Complete company incorporation",
+          icon: "🏢",
         },
         {
           name: "One Person Company",
-          amount: "₹12,000",
           description: "Solo entrepreneur setup",
+          icon: "👤",
         },
         {
           name: "Limited Liability Partnership",
-          amount: "₹8,000",
           description: "LLP registration",
+          icon: "🤝",
         },
         {
           name: "Partnership Firm",
-          amount: "₹5,000",
           description: "Partnership registration",
+          icon: "👥",
         },
         {
           name: "Section 8 Company",
-          amount: "₹20,000",
           description: "Non-profit organization",
+          icon: "❤️",
         },
         {
           name: "12A & 80G Registration",
-          amount: "₹15,000",
           description: "Tax exemption certificates",
+          icon: "📜",
         },
       ],
     },
@@ -171,33 +189,33 @@ const ServicePage = () => {
       services: [
         {
           name: "Digital Marketing",
-          amount: "₹25,000",
           description: "Online presence",
+          icon: "📱",
         },
         {
           name: "Website Development",
-          amount: "₹15,000",
           description: "Professional websites",
+          icon: "💻",
         },
         {
           name: "Logo Design",
-          amount: "₹5,000",
           description: "Brand identity",
+          icon: "🎨",
         },
         {
           name: "Business Growth Programs",
-          amount: "₹50,000",
           description: "Strategic planning",
+          icon: "📊",
         },
         {
           name: "Merger & Acquisition",
-          amount: "₹1,00,000",
           description: "Business expansion",
+          icon: "🔄",
         },
         {
           name: "CRM Solutions",
-          amount: "₹30,000",
           description: "Customer management",
+          icon: "👥",
         },
       ],
     },
@@ -210,98 +228,161 @@ const ServicePage = () => {
       services: [
         {
           name: "Affordable Land",
-          amount: "₹5,000/sq ft",
           description: "Business premises",
+          icon: "🏗️",
         },
         {
           name: "Export Documentation",
-          amount: "₹3,000",
           description: "International trade",
+          icon: "📦",
         },
         {
           name: "Market Research",
-          amount: "₹20,000",
           description: "Business insights",
+          icon: "🔍",
         },
         {
           name: "Brand Development",
-          amount: "₹40,000",
           description: "Complete branding",
+          icon: "🎯",
         },
         {
           name: "E-commerce Setup",
-          amount: "₹35,000",
           description: "Online selling",
+          icon: "🛒",
         },
         {
           name: "Social Media Marketing",
-          amount: "₹15,000",
           description: "Digital presence",
+          icon: "📲",
         },
       ],
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
 
   return (
     <div className="relative py-20 px-4 overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-        {/* Floating Geometric Shapes */}
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-r from-orange-400/20 to-red-400/20 rounded-full blur-lg animate-bounce"></div>
-        <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-gradient-to-r from-green-400/20 to-blue-400/20 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-40 right-1/3 w-28 h-28 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-lg animate-bounce"></div>
+      
+      {/* Enhanced Mobile Background with Color Scheme */}
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-orange-50">
+        {/* Mobile-optimized floating shapes with brand colors */}
+        <motion.div 
+          className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-[#F85710]/20 to-[#ff6b35]/20 rounded-full blur-xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2]
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div 
+          className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-r from-[#F85710]/20 to-[#ff6b35]/20 rounded-full blur-lg"
+          animate={{
+            y: [0, -20, 0],
+            scale: [1, 1.1, 1]
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.5
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-20 left-1/4 w-40 h-40 bg-gradient-to-r from-[#F85710]/15 to-[#ff6b35]/15 rounded-full blur-2xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.15, 0.3, 0.15]
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-40 right-1/3 w-28 h-28 bg-gradient-to-r from-[#F85710]/20 to-[#ff6b35]/20 rounded-full blur-lg"
+          animate={{
+            y: [0, 15, 0],
+            rotate: [0, 180, 360]
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1.5
+          }}
+        />
 
-        {/* Animated Grid Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0)`,
-              backgroundSize: "50px 50px",
-            }}
-          ></div>
-        </div>
+        {/* Mobile-optimized grid pattern */}
+        <motion.div 
+          className="absolute inset-0 opacity-5"
+          animate={{
+            backgroundPosition: ["0px 0px", "50px 50px", "0px 0px"]
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, #F85710 1px, transparent 0)`,
+            backgroundSize: "50px 50px",
+          }}
+        />
 
-        {/* Floating Particles */}
-        {[...Array(8)].map((_, i) => (
+        {/* Enhanced mobile particles */}
+        {[...Array(12)].map((_, i) => (
           <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-gradient-to-r from-orange-400 to-red-400 rounded-full opacity-60"
+            key={`mobile-particle-${i}`}
+            className="absolute w-1 h-1 md:w-2 md:h-2 bg-gradient-to-r from-[#F85710] to-[#ff6b35] rounded-full opacity-40 md:opacity-60"
             animate={{
-              x: [0, 100, 0],
-              y: [0, -50, 0],
-              opacity: [0.6, 1, 0.6],
+              x: [0, 50, 0],
+              y: [0, -30, 0],
+              opacity: [0.4, 0.8, 0.4],
+              scale: [1, 1.5, 1]
             }}
             transition={{
-              duration: 6 + i,
+              duration: 4 + i * 0.5,
               repeat: Infinity,
-              delay: i * 0.8,
+              delay: i * 0.3,
+              ease: "easeInOut"
             }}
             style={{
-              left: `${10 + i * 12}%`,
-              top: `${20 + i * 8}%`,
+              left: `${5 + i * 8}%`,
+              top: `${10 + i * 7}%`,
+            }}
+          />
+        ))}
+
+        {/* Mobile floating elements */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={`mobile-float-${i}`}
+            className="absolute opacity-20 md:opacity-30"
+            animate={{
+              y: [0, -20, 0],
+              rotate: [0, 180, 360],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{
+              duration: 8 + i,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.8
+            }}
+            style={{
+              left: `${15 + i * 15}%`,
+              top: `${25 + i * 12}%`,
+              width: `${30 + i * 10}px`,
+              height: `${30 + i * 10}px`,
+              background: `linear-gradient(45deg, #F85710, #ff6b35)`,
+              borderRadius: i % 2 === 0 ? "50%" : "20%"
             }}
           />
         ))}
@@ -309,11 +390,11 @@ const ServicePage = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header Section */}
-        <motion.div
-          className="text-center mb-16 relative"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          <motion.div
+            className="text-center mb-16 relative"
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
         >
           {/* Decorative Elements */}
           <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent rounded-full"></div>
@@ -379,16 +460,10 @@ const ServicePage = () => {
         </motion.div>
 
         {/* Category Tabs */}
-        <motion.div
-          className="flex flex-wrap justify-center gap-4 mb-12"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
           {serviceCategories.map((category, index) => (
-            <motion.button
+              <motion.button
               key={category.id}
-              variants={itemVariants}
               onClick={() => setActiveCategory(index)}
               className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
                 activeCategory === index
@@ -401,7 +476,7 @@ const ServicePage = () => {
               {category.name}
             </motion.button>
           ))}
-        </motion.div>
+        </div>
 
         {/* Active Category Content */}
         <motion.div
@@ -429,23 +504,17 @@ const ServicePage = () => {
         </motion.div>
 
         {/* Services Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {serviceCategories[activeCategory].services.map((service, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{
-                scale: 1.05,
-                y: -5,
-                transition: { duration: 0.3, ease: "easeOut" },
-              }}
-              className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
-            >
+                <motion.div
+                key={index}
+                  whileHover={{
+                    scale: 1.05,
+                    y: -5,
+                    transition: { duration: 0.3, ease: "easeOut" },
+                  }}
+                  className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
+                >
               {/* Animated Background Gradient */}
               <div
                 className={`absolute inset-0 bg-gradient-to-r ${serviceCategories[activeCategory].color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
@@ -478,18 +547,21 @@ const ServicePage = () => {
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {service.amount}
+                    {service.amount || ""}
                   </motion.div>
-                  <div className="text-xs text-gray-500">Starting from</div>
+                  <div className="text-xs text-gray-500">
+                    {service.amount ? "Loan Amount" : ""}
+                  </div>
                 </div>
               </motion.div>
 
               <motion.h4
-                className="text-xl font-bold mb-2 relative z-10"
+                className="text-xl font-bold mb-2 relative z-10 flex items-center gap-2"
                 style={{ color: "#000000", fontFamily: "Poppins, sans-serif" }}
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
               >
+                <span className="text-2xl">{service.icon}</span>
                 {service.name}
               </motion.h4>
 
@@ -503,6 +575,7 @@ const ServicePage = () => {
               </motion.p>
 
               <motion.button
+                onClick={() => handleServiceClick(service.name)}
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
@@ -523,18 +596,18 @@ const ServicePage = () => {
               </motion.button>
 
               {/* Decorative Elements */}
-              <div className="absolute top-4 right-4 w-2 h-2 bg-orange-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="absolute bottom-4 left-4 w-1 h-1 bg-orange-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </motion.div>
+              <div className="absolute top-4 right-4 w-2 h-2 bg-[#F85710] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute bottom-4 left-4 w-1 h-1 bg-[#F85710] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Bottom CTA Section */}
-        <motion.div
-          className="mt-16 relative overflow-hidden"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          <motion.div
+            className="mt-16 relative overflow-hidden"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
         >
           {/* Animated Background */}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-gray-800 to-slate-900 rounded-3xl">
@@ -630,8 +703,15 @@ const ServicePage = () => {
               </motion.div>
             </motion.div>
           </div>
-        </motion.div>
+          </motion.div>
       </div>
+
+      {/* Service Modal */}
+      <ServiceModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        service={selectedService}
+      />
     </div>
   );
 };
