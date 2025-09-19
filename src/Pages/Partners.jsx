@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import PartnerModal from "../Components/PartnerModal";
+import { useModal } from "../Context/ModalContext";
 
 // Partners data with comprehensive content
 const partnersData = {
@@ -193,6 +194,7 @@ const partnershipStats = [
 
 export default function Partners({ className = "" }) {
     const [showPartnerModal, setShowPartnerModal] = useState(false);
+    const { openModal, closeModal } = useModal();
 
     return (
         <section 
@@ -742,7 +744,10 @@ export default function Partners({ className = "" }) {
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         <button
-                            onClick={() => setShowPartnerModal(true)}
+                            onClick={() => {
+                                openModal();
+                                setShowPartnerModal(true);
+                            }}
                             className="px-10 py-4 bg-white text-orange-600 font-bold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg"
                         >
                             Become a Partner
@@ -760,7 +765,10 @@ export default function Partners({ className = "" }) {
             {/* Partner Modal */}
             <PartnerModal
                 open={showPartnerModal}
-                onClose={() => setShowPartnerModal(false)}
+                onClose={() => {
+                    closeModal();
+                    setShowPartnerModal(false);
+                }}
             />
         </section>
     );

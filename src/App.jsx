@@ -3,6 +3,7 @@ import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import FloatingWhatsApp from "./Components/FloatingWhatsApp";
 import ScrollToTop from "./Components/ScrollToTop";
+import { ModalProvider } from "./Context/ModalContext";
 //About Us
 
 import AnimatedBanner from "./Binner/Binner";
@@ -32,37 +33,39 @@ import Videos from "./Pages/Gallery/Videos";
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
+    <ModalProvider>
+      <Router>
+        <ScrollToTop />
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
 
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<AnimatedBanner />} />
-            <Route path="/home" element={<AnimatedBanner />} />
-            <Route path="/contact-us" element={<ContactUs />} />
-            <Route path="/about-us/mission-vision" element={<CompanyVisionMission />} />
-            <Route path="/about-us/overview" element={<CompanyOverview />} />
-            <Route path="/about-us/ourteam" element={<SimpleTeamPage />} />
-            <Route path="/about-us/certifications" element={<Certifications />} />
-            <Route path="/about-us/partners" element={<Partners />} />
-            <Route path="/service" element={<ServicesPage />} />
-            <Route path="/services/all" element={<AllServices />} />
-            <Route path="/services/funding" element={<FundingConsultant />} />
-            <Route path="/services/certificate" element={<CertificateConsultant />} />
-            <Route path="/services/marketing" element={<MarketingServices />} />
-            <Route path="/services/legal" element={<LegalServices />} />
-            <Route path="/gallery/albums" element={<Albums />} />
-            <Route path="/gallery/videos" element={<Videos />} />
-            <Route path="/blog" element={<BlogPage />} />
-          </Routes>
-        </main>
-      
-        <Footer />
-        <FloatingWhatsApp />
-      </div>
-    </Router>
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<AnimatedBanner />} />
+              <Route path="/home" element={<AnimatedBanner />} />
+              <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/about-us/mission-vision" element={<CompanyVisionMission />} />
+              <Route path="/about-us/overview" element={<CompanyOverview />} />
+              <Route path="/about-us/ourteam" element={<SimpleTeamPage />} />
+              <Route path="/about-us/certifications" element={<Certifications />} />
+              <Route path="/about-us/partners" element={<Partners />} />
+              <Route path="/service" element={<ServicesPage />} />
+              <Route path="/services/all" element={<AllServices />} />
+              <Route path="/services/funding" element={<FundingConsultant />} />
+              <Route path="/services/certificate" element={<CertificateConsultant />} />
+              <Route path="/services/marketing" element={<MarketingServices />} />
+              <Route path="/services/legal" element={<LegalServices />} />
+              <Route path="/gallery/albums" element={<Albums />} />
+              <Route path="/gallery/videos" element={<Videos />} />
+              <Route path="/blog" element={<BlogPage />} />
+            </Routes>
+          </main>
+        
+          <Footer />
+          <FloatingWhatsApp />
+        </div>
+      </Router>
+    </ModalProvider>
   );
 }
 

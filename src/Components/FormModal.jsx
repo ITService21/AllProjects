@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaPhoneAlt } from "react-icons/fa";
 import PropTypes from "prop-types";
+import { useModal } from "../Context/ModalContext";
 
 const SERVICE_SCHEMES = [
     "ARTHA", "SURAKSHA", "NISHTHA", "UTTHAN", "PRAGATI", "DISHA"
@@ -19,6 +20,7 @@ export default function FormModal({ open, onClose }) {
         message: ''
     });
     const [sending, setSending] = useState(false);
+    const { closeModal } = useModal();
 
     const handleInputChange = (e) => {
         setFormData({
@@ -83,9 +85,10 @@ export default function FormModal({ open, onClose }) {
                 });
                 // Close modal after successful submission
                 setTimeout(() => {
+                    closeModal();
                     onClose();
                 }, 2000);
-            } else {
+            } else { 
                 toast.error('Failed to send request. Please try again.');
             }
         } catch {
@@ -122,7 +125,10 @@ export default function FormModal({ open, onClose }) {
                 >
                     {/* Close Button */}
                     <button
-                        onClick={onClose}
+                        onClick={() => {
+                            closeModal();
+                            onClose();
+                        }}
                         className="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-xl font-bold"
                         aria-label="Close"
                     >
@@ -187,7 +193,7 @@ export default function FormModal({ open, onClose }) {
                                 placeholder="Your Phone"
                             />
                         </div>
-                        <div>
+                        {/* <div>
                             <label className="block text-xs font-semibold text-gray-700 mb-1">
                                 Company <span className="text-gray-400">(optional)</span>
                             </label>
@@ -199,7 +205,7 @@ export default function FormModal({ open, onClose }) {
                                 className="w-full px-3 py-2 rounded-lg border border-orange-300 focus:border-orange-500 text-xs"
                                 placeholder="Company Name"
                             />
-                        </div>
+                        </div> */}
                         <div>
                             <label className="block text-xs font-semibold text-gray-700 mb-1">
                                 Service Scheme <span className="text-gray-400">(optional)</span>

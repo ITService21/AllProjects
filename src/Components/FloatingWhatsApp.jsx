@@ -2,9 +2,31 @@ import { motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
 import { useState } from "react";
 import FormModal from "./FormModal";
+import { useModal } from "../Context/ModalContext";
 
 export default function FloatingWhatsApp() {
     const [showFormModal, setShowFormModal] = useState(false);
+    const { isAnyModalOpen, openModal, closeModal } = useModal();
+
+    const handleFormModalOpen = () => {
+        openModal();
+        setShowFormModal(true);
+    };
+
+    const handleFormModalClose = () => {
+        closeModal();
+        setShowFormModal(false);
+    };
+
+    // Don't render if any modal is open
+    if (isAnyModalOpen) {
+        return (
+            <FormModal 
+                open={showFormModal} 
+                onClose={handleFormModalClose} 
+            />
+        );
+    }
 
     return (
         <>
@@ -25,7 +47,7 @@ export default function FloatingWhatsApp() {
 
             {/* Book Consultant Button - Right */}
             <motion.button
-                onClick={() => setShowFormModal(true)}
+                onClick={handleFormModalOpen}
                 className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-base rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden"
                 initial={{ opacity: 1, scale: 1 }}
                 animate={{ 

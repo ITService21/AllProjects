@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaHandshake, FaBuilding } from "react-icons/fa";
 import Select from "react-select";
 import PropTypes from "prop-types";
+import { useModal } from "../Context/ModalContext";
 
 const PARTNERSHIP_TYPES = [
     "Strategic Partner", "Technology Partner", "Financial Partner", "Government Partner", "Industry Partner"
@@ -38,6 +39,7 @@ export default function PartnerModal({ open, onClose }) {
         message: ''
     });
     const [sending, setSending] = useState(false);
+    const { closeModal } = useModal();
 
     const handleInputChange = (e) => {
         setFormData({
@@ -130,6 +132,7 @@ export default function PartnerModal({ open, onClose }) {
                 });
                 // Close modal after successful submission
                 setTimeout(() => {
+                    closeModal();
                     onClose();
                 }, 2000);
             } else {
@@ -169,7 +172,10 @@ export default function PartnerModal({ open, onClose }) {
                 >
                     {/* Close Button */}
                     <button
-                        onClick={onClose}
+                        onClick={() => {
+                            closeModal();
+                            onClose();
+                        }}
                         className="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl font-bold z-10"
                         aria-label="Close"
                     >
@@ -439,7 +445,7 @@ export default function PartnerModal({ open, onClose }) {
                         <motion.button
                             type="submit"
                             disabled={sending}
-                            className="w-full py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold rounded-lg shadow hover:scale-105 transition-all duration-200 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="my-[300px] w-full py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold rounded-lg shadow hover:scale-105 transition-all duration-200 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                             whileHover={{ scale: sending ? 1 : 1.03 }}
                             whileTap={{ scale: sending ? 1 : 0.97 }}
                         >
