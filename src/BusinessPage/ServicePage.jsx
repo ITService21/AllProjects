@@ -4,6 +4,7 @@ import ServiceModal from "../Components/ServiceModal";
 import FormModal from "../Components/FormModal";
 import serviceDetails from "../Data/ServiceDetails";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const ServicePage = () => {
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState(0);
@@ -454,10 +455,10 @@ const ServicePage = () => {
             viewport={{ once: false, amount: 0.3 }}
           >
             {[
-              { icon: "🚀", text: "Business Setup" },
-              { icon: "💰", text: "Funding Support" },
-              { icon: "📜", text: "Compliance" },
-              { icon: "📈", text: "Growth Strategy" },
+              { icon: "🚀", text: "Business Setup", link: "/services/all" },
+              { icon: "💰", text: "Funding Support", link: "/services/funding" },
+              { icon: "📜", text: "Compliance", link: "/services/legal" },
+              { icon: "📈", text: "Growth Strategy", link: "/services/marketing" },
             ].map((item, index) => {
               const isEven = index % 2 === 0;
               return (
@@ -475,7 +476,10 @@ const ServicePage = () => {
                   style={{ fontFamily: "Poppins, sans-serif" }}
                 >
                 <span className="mr-2">{item.icon}</span>
-                {item.text}
+                {/* {item.text} */}
+                <Link to={item.link}>
+                  {item.text}
+                </Link>
               </motion.span>
               );
             })}

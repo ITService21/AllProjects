@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
-import { useState } from "react";
 import FormModal from "../../Components/FormModal";
+import { useCTAModal } from "../../hooks/useCTAModal";
 
 // Service data with comprehensive content
 const servicesData = [
@@ -35,7 +35,6 @@ const servicesData = [
             "Application Submission & Follow-up",
             "Funding Disbursement Support"
         ],
-        pricing: "Starting from ₹15,000",
         duration: "15-45 days",
         link: "/services/funding"
     },
@@ -69,7 +68,6 @@ const servicesData = [
             "Audit Support",
             "Certificate Delivery"
         ],
-        pricing: "Starting from ₹8,000",
         duration: "7-30 days",
         link: "/services/certificate"
     },
@@ -103,7 +101,6 @@ const servicesData = [
             "Performance Monitoring",
             "Continuous Improvement"
         ],
-        pricing: "Starting from ₹12,000/month",
         duration: "Ongoing",
         link: "/services/marketing"
     },
@@ -137,14 +134,13 @@ const servicesData = [
             "Compliance Monitoring",
             "Ongoing Support"
         ],
-        pricing: "Starting from ₹10,000",
         duration: "5-20 days",
         link: "/services/legal"
     }
 ];
 
 export default function AllServices({ className = "" }) {
-    const [showFormModal, setShowFormModal] = useState(false);
+    const { showFormModal, setShowFormModal, ctaRef } = useCTAModal();
 
     return (
         <section 
@@ -453,12 +449,8 @@ export default function AllServices({ className = "" }) {
                                 ))}
                             </div>
                             
-                            {/* Pricing & Duration */}
+                            {/* Duration */}
                             <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                                <div className="bg-gradient-to-r from-orange-50 to-red-50 p-3 rounded-lg border border-orange-100">
-                                    <div className="text-sm font-semibold text-orange-600">Starting Price</div>
-                                    <div className="text-lg font-bold text-gray-800">{service.pricing}</div>
-                                </div>
                                 <div className="bg-gradient-to-r from-orange-50 to-red-50 p-3 rounded-lg border border-orange-100">
                                     <div className="text-sm font-semibold text-orange-600">Duration</div>
                                     <div className="text-lg font-bold text-gray-800">{service.duration}</div>
@@ -468,7 +460,7 @@ export default function AllServices({ className = "" }) {
                             {/* CTA Button */}
                             <a
                                 href={service.link}
-                                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
+                                className="inline-flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
                             >
                                 Learn More
                             </a>
@@ -563,6 +555,7 @@ export default function AllServices({ className = "" }) {
 
             {/* CTA Section */}
             <motion.div
+                ref={ctaRef}
                 className="relative bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 rounded-3xl p-12 text-center text-white overflow-hidden"
                 initial={{ opacity: 0, y: 60, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}

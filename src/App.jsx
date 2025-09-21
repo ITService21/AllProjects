@@ -4,6 +4,7 @@ import Footer from "./Components/Footer";
 import FloatingWhatsApp from "./Components/FloatingWhatsApp";
 import ScrollToTop from "./Components/ScrollToTop";
 import { ModalProvider } from "./Context/ModalContext";
+import AutoPopupModal from "./Components/AutoPopupModal";
 //About Us
 
 import AnimatedBanner from "./Binner/Binner";
@@ -63,6 +64,7 @@ function App() {
         
           <Footer />
           <FloatingWhatsApp />
+          <AutoPopupModal />
         </div>
       </Router>
     </ModalProvider>

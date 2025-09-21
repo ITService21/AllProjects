@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const AutoCardCarousel = () => {
   const [startIndex, setStartIndex] = useState(0);
   const intervalRef = useRef(null);
@@ -321,10 +322,10 @@ const AutoCardCarousel = () => {
         
         <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm text-gray-600 mt-4 sm:mt-6">
           {[
-            { text: "🚀 Setup", delay: 0 },
-            { text: "💰 Funding", delay: 0.5 },
-            { text: "📜 Compliance", delay: 1 },
-            { text: "📈 Growth", delay: 1.5 }
+            { text: "🚀 Setup", delay: 0, link: "/services/all" },
+            { text: "💰 Funding", delay: 0.5, link: "/services/funding" },
+            { text: "📜 Compliance", delay: 1, link: "/services/legal" },
+            { text: "📈 Growth", delay: 1.5, link: "/services/marketing" },
           ].map((item, index) => (
             <motion.span 
               key={index}
@@ -345,7 +346,10 @@ const AutoCardCarousel = () => {
                 delay: item.delay
               }}
             >
-              {item.text}
+              {/* {item.text} */}
+              <Link to={item.link} className=""> 
+                {item.text}
+              </Link>
             </motion.span>
           ))}
         </div>

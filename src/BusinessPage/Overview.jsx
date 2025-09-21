@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Overview = () => {
   const [counts, setCounts] = useState({
     clients: 0,
@@ -8,7 +9,7 @@ const Overview = () => {
     projects: 0,
     certifications: 0
   });
-
+  const navigate = useNavigate();
   const statsRef = useRef(null);
   const isInView = useInView(statsRef, { once: true, threshold: 0.3 });
 
@@ -42,22 +43,26 @@ const Overview = () => {
     {
       icon: "🚀",
       title: "Business Incorporation & Registration",
-      description: "Transform your vision into reality with seamless company formation and legal compliance"
+      description: "Transform your vision into reality with seamless company formation and legal compliance",
+      link: "/services/all"
     },
     {
       icon: "💰",
       title: "Seed Funding & Loan Assistance",
-      description: "Unlock financial opportunities and secure the capital your business needs to thrive"
+      description: "Unlock financial opportunities and secure the capital your business needs to thrive",
+      link: "/services/funding"
     },
     {
       icon: "🏆",
       title: "Startup India & MSME Certification",
-      description: "Achieve government recognition and unlock exclusive benefits for your enterprise"
+      description: "Achieve government recognition and unlock exclusive benefits for your enterprise",
+      link: "/services/certificate"
     },
     {
       icon: "📈",
       title: "Business Growth Strategy",
-      description: "Accelerate your success with proven strategies and expert guidance for scaling"
+      description: "Accelerate your success with proven strategies and expert guidance for scaling",
+      link: "/services/marketing"
     }
   ];
 
@@ -230,7 +235,7 @@ const Overview = () => {
                   }}
                   viewport={{ once: false, amount: 0.3 }}
                 >
-                  Ahmedabad
+                  Gandhinagar
                 </motion.span>
                 based consultancy
               </span>
@@ -331,7 +336,7 @@ const Overview = () => {
                 }}
               />
               
-              <div className="relative z-10">
+              <div className="relative z-10" onClick={() => navigate(service.link)}>
                 {/* Icon - No Color Change on Hover */}
                 <motion.div 
                   className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-3xl flex items-center justify-center text-white text-3xl mb-6 shadow-2xl relative"
@@ -354,6 +359,9 @@ const Overview = () => {
                   style={{color: '#000000', fontFamily: 'Outfit, sans-serif'}}
                 >
                   {service.title}
+                  {/* <Link to={service.link}>
+                    {service.title}
+                  </Link> */}
                 </h3>
                 
                 <p 
@@ -469,7 +477,7 @@ const Overview = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: false, amount: 0.3 }}
             >
-              Based in Ahmedabad, we&apos;re your trusted partner for business growth and success
+              Based in Gandhinagar, we&apos;re your trusted partner for business growth and success
             </motion.p>
             
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">

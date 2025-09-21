@@ -230,7 +230,7 @@ const ContactSection = () => {
                                         {
                                             icon: "📍",
                                             title: "Location",
-                                            details: ["Ahmedabad, Gujarat"],
+                                            details: ["Gandhinagar, Gujarat"],
                                             color: "from-orange-500 to-red-500"
                                         },
                                         {

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
-import { useState } from "react";
 import FormModal from "../../Components/FormModal";
+import { useCTAModal } from "../../hooks/useCTAModal";
 
 // Certificate services data
 const certificateServices = [
@@ -18,7 +18,6 @@ const certificateServices = [
         ],
         icon: "🏢",
         duration: "7-15 days",
-        price: "₹8,000"
     },
     {
         title: "Quality Management Certifications",
@@ -33,7 +32,6 @@ const certificateServices = [
         ],
         icon: "🏆",
         duration: "30-60 days",
-        price: "₹25,000"
     },
     {
         title: "Industry-Specific Certifications",
@@ -48,7 +46,6 @@ const certificateServices = [
         ],
         icon: "🎯",
         duration: "15-45 days",
-        price: "₹15,000"
     },
     {
         title: "ZED Certification",
@@ -121,7 +118,7 @@ const processSteps = [
 ];
 
 export default function CertificateConsultant({ className = "" }) {
-    const [showFormModal, setShowFormModal] = useState(false);
+    const { showFormModal, setShowFormModal, ctaRef } = useCTAModal();
 
     return (
         <section 
@@ -594,6 +591,7 @@ export default function CertificateConsultant({ className = "" }) {
 
             {/* CTA Section */}
             <motion.div
+                ref={ctaRef}
                 className="relative bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 rounded-3xl p-12 text-center text-white overflow-hidden"
                 initial={{ opacity: 0, y: 60, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}

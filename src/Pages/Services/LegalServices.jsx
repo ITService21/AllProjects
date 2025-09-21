@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import FormModal from "../../Components/FormModal";
+import { useCTAModal } from "../../hooks/useCTAModal";
 
 // Legal services data
 const legalServices = [
@@ -150,31 +150,8 @@ const processSteps = [
     }
 ];
 
-// Custom hook for visibility
-const useAlwaysVisible = () => {
-    const [isVisible, setIsVisible] = useState(true);
-    
-    useEffect(() => {
-        setIsVisible(true);
-    }, []);
-    
-    return isVisible;
-};
-
 export default function LegalServices({ className = "" }) {
-    const [showFormModal, setShowFormModal] = useState(false);
-    const alwaysVisible = useAlwaysVisible();
-
-    // Animation variants
-    const fadeUp = { 
-        visible: { opacity: 1, y: 0 }
-    };
-    const slideLeft = { 
-        visible: { opacity: 1, x: 0 }
-    };
-    const slideRight = { 
-        visible: { opacity: 1, x: 0 }
-    };
+    const { showFormModal, setShowFormModal, ctaRef } = useCTAModal();
 
     return (
         <section 
@@ -646,6 +623,7 @@ export default function LegalServices({ className = "" }) {
 
             {/* CTA Section */}
             <motion.div
+                ref={ctaRef}
                 initial={{ opacity: 0, y: 60, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}

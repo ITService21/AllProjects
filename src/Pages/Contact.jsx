@@ -190,7 +190,7 @@ function ContactUs() {
                         className="bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 text-center group cursor-pointer"
                         whileHover={{ scale: 1.05, y: -10 }}
                         transition={{ duration: 0.3 }}
-                        onClick={() => window.open("https://www.google.com/maps/search/Ahmedabad+Gujarat")}
+                        onClick={() => window.open("https://www.google.com/maps/search/Gandhinagar+Gujarat")}
                     >
                         <motion.div 
                             className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mx-auto mb-6 flex items-center justify-center"
@@ -200,7 +200,7 @@ function ContactUs() {
                             <FaMapMarkerAlt className="text-white text-2xl" />
                         </motion.div>
                         <h3 className="text-xl font-bold text-gray-800 mb-3">Visit Us</h3>
-                        <p className="text-gray-600 mb-4">Ahmedabad, Gujarat</p>
+                        <p className="text-gray-600 mb-4">Gandhinagar, Gujarat</p>
                         <p className="text-sm text-gray-500">Schedule a meeting with us</p>
                     </motion.div>
                 </div>

@@ -239,7 +239,7 @@ export default function ServicesPage({ services = demoServices }) {
                                 <div className="mt-auto">
                                     <h4 className="text-sm font-semibold text-blue-100">Our branches</h4>
                                     <ul className="mt-3 grid grid-cols-2 gap-2 text-sm text-blue-100/90">
-                                        <li>Ahmedabad (HQ)</li>
+                                        <li>Gandhinagar (HQ)</li>
                                         <li>Vadodara</li>
                                         <li>Delhi</li>
                                         <li>Chennai</li>

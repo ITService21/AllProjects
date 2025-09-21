@@ -54,7 +54,7 @@ const FAQ = () => {
     {
       question: "What makes your consultancy different from others?",
       answer:
-        "We offer end-to-end business solutions with 24/7 support, experienced team of experts, customized strategies, proven track record, and commitment to client success. We're based in Ahmedabad and understand the local business ecosystem.",
+        "We offer end-to-end business solutions with 24/7 support, experienced team of experts, customized strategies, proven track record, and commitment to client success. We're based in Gandhinagar and understand the local business ecosystem.",
     },
     {
       question: "Do you provide support after business setup?",
@@ -64,7 +64,7 @@ const FAQ = () => {
     {
       question: "How can I contact your team for consultation?",
       answer:
-        "You can reach us through our contact form, email, phone, or visit our office in Ahmedabad. We offer free initial consultation and respond to all inquiries within 2 hours during business hours.",
+        "You can reach us through our contact form, email, phone, or visit our office in Gandhinagar. We offer free initial consultation and respond to all inquiries within 2 hours during business hours.",
     },
   ];
 

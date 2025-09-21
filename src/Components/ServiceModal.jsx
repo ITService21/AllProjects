@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import FormModal from "./FormModal";
 import { API_ENDPOINTS } from "../config/api";
@@ -17,6 +17,8 @@ import {
 
 const ServiceModal = ({ isOpen, onClose, service }) => {
     const [showBookConsultant, setShowBookConsultant] = useState(false);
+    const [hasTriggeredForm, setHasTriggeredForm] = useState(false);
+    const applicationProcessRef = useRef(null);
     const [consultantForm, setConsultantForm] = useState({
         name: '',
         email: '',
@@ -24,6 +26,44 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
         service: service?.name || '',
         message: ''
     });
+
+    // Close FormModal when ServiceModal closes
+    useEffect(() => {
+        if (!isOpen) {
+            setShowBookConsultant(false);
+            setHasTriggeredForm(false);
+        }
+    }, [isOpen]);
+
+    // Intersection Observer to detect when Application Process comes into view
+    useEffect(() => {
+        if (!isOpen || !applicationProcessRef.current || hasTriggeredForm) return;
+
+        const currentRef = applicationProcessRef.current;
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && !hasTriggeredForm) {
+                        console.log('🎯 Application Process section is visible - opening FormModal');
+                        setShowBookConsultant(true);
+                        setHasTriggeredForm(true);
+                    }
+                });
+            },
+            {
+                threshold: 0.3, // Trigger when 30% of the element is visible
+                rootMargin: '0px 0px -50px 0px' // Trigger a bit before it's fully visible
+            }
+        );
+
+        observer.observe(currentRef);
+
+        return () => {
+            if (currentRef) {
+                observer.unobserve(currentRef);
+            }
+        };
+    }, [isOpen, hasTriggeredForm]);
 
     const handleConsultantSubmit = async (e) => {
         e.preventDefault();
@@ -198,7 +238,10 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
                             </div>
 
                             {/* Application Process */}
-                            <div className="bg-white border border-gray-200 p-6 rounded-xl">
+                            <div 
+                                ref={applicationProcessRef}
+                                className="bg-white border border-gray-200 p-6 rounded-xl"
+                            >
                                 <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                                     <FaBuilding className="text-blue-600" />
                                     Application Process
@@ -354,7 +397,10 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
             {/* FormModal */}
             <FormModal
                 open={showBookConsultant}
-                onClose={() => setShowBookConsultant(false)}
+                onClose={() => {
+                    setShowBookConsultant(false);
+                    // Keep ServiceModal open when FormModal is closed
+                }}
             />
         </AnimatePresence>
     );

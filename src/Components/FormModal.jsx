@@ -11,7 +11,7 @@ const SERVICE_SCHEMES = [
     "ARTHA", "SURAKSHA", "NISHTHA", "UTTHAN", "PRAGATI", "DISHA"
 ];
 
-export default function FormModal({ open, onClose }) {
+export default function FormModal({ open, onClose, onDismissPermanently }) {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -135,6 +135,17 @@ export default function FormModal({ open, onClose }) {
                     >
                         ×
                     </button>
+                    
+                    {/* Don't Show Again Button - Only for auto popup */}
+                    {onDismissPermanently && (
+                        <button
+                            onClick={onDismissPermanently}
+                            className="absolute top-3 left-3 text-xs text-gray-400 hover:text-orange-500 underline"
+                            aria-label="Don't show again"
+                        >
+                            Don&apos;t show again
+                        </button>
+                    )}
                     <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center" style={{ color: "#F85710" }}>
                         Book a Consultant
                     </h2>
@@ -262,5 +273,6 @@ export default function FormModal({ open, onClose }) {
 // PropTypes
 FormModal.propTypes = {
     open: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
+    onDismissPermanently: PropTypes.func
 };

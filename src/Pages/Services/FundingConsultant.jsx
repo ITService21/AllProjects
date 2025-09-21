@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import FormModal from "../../Components/FormModal";
+import { useCTAModal } from "../../hooks/useCTAModal";
 
 // Funding services data
 const fundingServices = [
@@ -93,7 +94,7 @@ const successStories = [
 ];
 
 export default function FundingConsultant({ className = "" }) {
-    const [showFormModal, setShowFormModal] = useState(false);
+    const { showFormModal, setShowFormModal, ctaRef } = useCTAModal();
 
     return (
         <section 
@@ -581,6 +582,7 @@ export default function FundingConsultant({ className = "" }) {
 
             {/* CTA Section */}
             <motion.div
+                ref={ctaRef}
                 className="relative bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 rounded-3xl p-12 text-center text-white overflow-hidden"
                 initial={{ opacity: 0, y: 60, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}

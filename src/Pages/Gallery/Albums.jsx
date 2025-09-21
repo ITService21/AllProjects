@@ -111,7 +111,7 @@ const albumsData = [
     {
         id: 6,
         title: "Office & Infrastructure",
-        description: "A glimpse into our modern office space, meeting rooms, and work environment in Ahmedabad.",
+        description: "A glimpse into our modern office space, meeting rooms, and work environment in Gandhinagar.",
         category: "Office",
         imageCount: 12,
         coverImage: "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
