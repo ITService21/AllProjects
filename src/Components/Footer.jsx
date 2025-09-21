@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { API_ENDPOINTS } from "../config/api";
 import {
     FaFacebookF,
     FaInstagram,
@@ -25,7 +26,7 @@ export default function Footer() {
             return;
         }
         try {
-            await fetch('http://194.164.150.8:5000/send-form-mail', {
+            await fetch(API_ENDPOINTS.SEND_FORM_MAIL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -47,7 +48,7 @@ export default function Footer() {
             setEmail('');
             setTimeout(() => setIsSubscribed(false), 10000); // Show message for 10 seconds
         } catch {
-            setErrorMsg('Subscription failed. Please try again later.');
+            setErrorMsg('An error occurred. Please try again.');
             setIsSubscribed(false);
         }
     };

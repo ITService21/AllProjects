@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
+import { API_ENDPOINTS } from "../config/api";
 
 const SERVICE_SCHEMES = [
     "ARTHA", "SURAKSHA", "NISHTHA", "UTTHAN", "PRAGATI", "DISHA"
@@ -39,7 +40,7 @@ const ContactSection = () => {
         }
         
         try {
-            const res = await fetch('http://194.164.150.8:5000/send-form-mail', {
+            const res = await fetch(API_ENDPOINTS.SEND_FORM_MAIL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

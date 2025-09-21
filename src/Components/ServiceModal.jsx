@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import FormModal from "./FormModal";
+import { API_ENDPOINTS } from "../config/api";
 import { 
     FaTimes, 
     FaExternalLinkAlt, 
@@ -27,7 +28,7 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
     const handleConsultantSubmit = async (e) => {
         e.preventDefault();
         try {
-            await fetch('http://194.164.150.8:5000/send-form-mail', {
+            await fetch(API_ENDPOINTS.SEND_FORM_MAIL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

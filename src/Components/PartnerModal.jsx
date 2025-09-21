@@ -6,6 +6,7 @@ import { FaHandshake, FaBuilding } from "react-icons/fa";
 import Select from "react-select";
 import PropTypes from "prop-types";
 import { useModal } from "../Context/ModalContext";
+import { API_ENDPOINTS } from "../config/api";
 
 const PARTNERSHIP_TYPES = [
     "Strategic Partner", "Technology Partner", "Financial Partner", "Government Partner", "Industry Partner"
@@ -85,7 +86,7 @@ export default function PartnerModal({ open, onClose }) {
         }
         setSending(true);
         try {
-            const res = await fetch('http://194.164.150.8:5000/send-form-mail', {
+            const res = await fetch(API_ENDPOINTS.SEND_FORM_MAIL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
