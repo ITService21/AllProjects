@@ -696,12 +696,7 @@ const ServicePage = () => {
           </div>
 
           <div className="relative z-10 text-center p-8 md:p-12">
-            <motion.div
-              initial={{ opacity: 0, x: -80 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: false, amount: 0.3 }}
-            >
+            <div>
               <h3
                 className="text-[28px] md:text-5xl font-extrabold text-white mb-6"
                 style={{ fontFamily: "Poppins, sans-serif" }}
@@ -711,13 +706,9 @@ const ServicePage = () => {
                 </span>
               </h3>
 
-              <motion.p
+              <p
                 className="text-gray-300 text-xl mb-10 max-w-3xl mx-auto leading-relaxed"
                 style={{ fontFamily: "Poppins, sans-serif" }}
-                initial={{ opacity: 0, x: 80 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                viewport={{ once: false, amount: 0.3 }}
               >
                 Get expert consultation and take your MSME to the next level
                 with our
@@ -725,56 +716,34 @@ const ServicePage = () => {
                   {" "}
                   comprehensive services
                 </span>
-              </motion.p>
+              </p>
 
-              <motion.div
+              <div
                 className="flex flex-col sm:flex-row gap-6 justify-center"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                viewport={{ once: false, amount: 0.3 }}
               >
-                <motion.button
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 20px 40px rgba(249, 115, 22, 0.4)",
-                  }}
+                <button
                   onClick={() => setShowBookConsultant(true)}
-                  whileTap={{ scale: 0.95 }}
                   className="px-10 py-5 bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white font-bold rounded-full shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 relative overflow-hidden"
                   style={{ fontFamily: "Poppins, sans-serif" }}
                 >
-                  <motion.span
-                    className="relative z-10"
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
+                  <span className="relative z-10">
                     🚀 Book Free Consultation
-                  </motion.span>
+                  </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-                </motion.button>
+                </button>
 
-                <motion.button
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 20px 40px rgba(255, 255, 255, 0.2)",
-                  }}
-                  whileTap={{ scale: 0.95 }}
+                <button
                   className="px-10 py-5 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold rounded-full shadow-2xl hover:bg-white/20 transition-all duration-300 relative overflow-hidden"
                   style={{ fontFamily: "Poppins, sans-serif" }}
                   onClick={() => navigate('/services/all')} 
                 >
-                  <motion.span
-                    className="relative z-10"
-                    animate={{ x: [0, 3, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                  >
+                  <span className="relative z-10">
                     📋 View All Services
-                  </motion.span>
+                  </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-                </motion.button>
-              </motion.div>
-            </motion.div>
+                </button>
+              </div>
+            </div>
           </div>
           </motion.div>
       </div>

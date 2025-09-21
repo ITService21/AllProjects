@@ -74,9 +74,9 @@ For faster testing, temporarily change the timers:
 // In AutoPopupModal.jsx, change:
 }, 3000); // 3 seconds for home page
 // to:
-}, 5000); // 5 seconds for home page
+}, 15000); // 5 seconds for home page
 
-}, 60000); // 60 seconds for other pages
+}, 90000); // 90 seconds for other pages
 // to:
 }, 10000); // 10 seconds for other pages
 ```

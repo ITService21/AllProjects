@@ -79,7 +79,7 @@ const AutoCardCarousel = () => {
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setStartIndex((prev) => (prev + 1) % cardData.length);
-    }, 3000);
+    }, 7000);
     return () => clearInterval(intervalRef.current);
   }, [cardData.length]);
 
@@ -91,8 +91,42 @@ const AutoCardCarousel = () => {
 
   const visible = getVisibleCards();
 
+  // Navigation functions
+  const goToPrevious = () => {
+    setStartIndex((prev) => (prev - 1 + cardData.length) % cardData.length);
+    // Reset auto-play timer
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(() => {
+        setStartIndex((prev) => (prev + 1) % cardData.length);
+      }, 7000);
+    }
+  };
+
+  const goToNext = () => {
+    setStartIndex((prev) => (prev + 1) % cardData.length);
+    // Reset auto-play timer
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(() => {
+        setStartIndex((prev) => (prev + 1) % cardData.length);
+      }, 7000);
+    }
+  };
+
+  const goToSlide = (index) => {
+    setStartIndex(index);
+    // Reset auto-play timer
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(() => {
+        setStartIndex((prev) => (prev + 1) % cardData.length);
+      }, 7000);
+    }
+  };
+
   return (
-    <div className="mt-[40px] md:mt-[70px] bg-gradient-to-br from-orange-50 to-orange-200 px-4 pt-[100px] pb-20 overflow-hidden relative">
+    <div className="mt-[40px] md:mt-[50px] bg-gradient-to-br from-orange-50 to-orange-200 px-4 pt-[40px] pb-16 overflow-hidden relative">
       {/* Background Object Animations */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Animated Mesh Background */}
@@ -230,6 +264,15 @@ const AutoCardCarousel = () => {
 
       {/* Compact Header Section */}
       <div className="text-center mb-8 max-w-5xl mx-auto relative z-10">
+        {/* Logo */}
+        <div className="mb-6 flex justify-center">
+          <img 
+            src="/image/logo.jpg" 
+            alt="Grow Startup Logo" 
+            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover shadow-lg border-4 border-white/50"
+          />
+        </div>
+        
         <motion.h2 
           className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3" 
           style={{color: '#000000', fontFamily: 'Poppins, sans-serif', fontWeight: '600'}}
@@ -356,7 +399,30 @@ const AutoCardCarousel = () => {
       </div>
 
       {/* Carousel Section */}
-      <div className="flex justify-center items-center">
+      <div className="relative flex justify-center items-center">
+        {/* Left Arrow */}
+        <button
+          onClick={goToPrevious}
+          className="absolute left-0 z-20 bg-white/90 backdrop-blur-sm border border-orange-200 rounded-full p-3 shadow-lg hover:bg-white hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+          aria-label="Previous slide"
+        >
+          <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        {/* Right Arrow */}
+        <button
+          onClick={goToNext}
+          className="absolute right-0 z-20 bg-white/90 backdrop-blur-sm border border-orange-200 rounded-full p-3 shadow-lg hover:bg-white hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+          aria-label="Next slide"
+        >
+          <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        {/* Cards Container */}
       <div className="flex gap-4 sm:gap-6 transition-all duration-700 ease-in-out">
         {visible.map((card, index) => {
           const isCenter = index === Math.floor(visibleCards / 2);
@@ -365,62 +431,82 @@ const AutoCardCarousel = () => {
             <div
               key={card.id}
               className={`
-                relative group overflow-hidden rounded-3xl bg-center bg-cover shadow-2xl 
-                transition-all duration-700 ease-in-out transform border-2 border-white/40 
-                w-[260px] sm:w-[300px] md:w-[280px] lg:w-[320px] xl:w-[340px] h-[380px] sm:h-[420px] md:h-[400px]
-                ${isCenter ? 'scale-110 shadow-3xl z-10 border-white/80 shadow-orange-500/20 animate-float' : 'scale-75 opacity-60 hover:opacity-80'}
-                hover:scale-105 hover:shadow-3xl hover:shadow-orange-500/30
+                  relative group overflow-hidden rounded-3xl bg-center bg-cover shadow-2xl 
+                  transition-all duration-700 ease-in-out transform border-2 border-white/40 
+                  w-[260px] sm:w-[300px] md:w-[280px] lg:w-[320px] xl:w-[340px] h-[380px] sm:h-[420px] md:h-[400px]
+                  ${isCenter ? 'scale-110 shadow-3xl z-10 border-white/80 shadow-orange-500/20 animate-float' : 'scale-75 opacity-60 hover:opacity-80'}
+                  hover:scale-105 hover:shadow-3xl hover:shadow-orange-500/30
               `}
               style={{
                 backgroundImage: `url(${card.image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
-              {/* Animated Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent group-hover:from-black/95 transition duration-700"></div>
-              
-              {/* Shimmer Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>
-
-              {/* Floating Icon */}
-              <div className="absolute top-6 left-6 text-4xl opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 transform hover:rotate-12">
-                {card.icon}
-              </div>
-
-              {/* Service Badge - Always Visible */}
-              <div className="absolute top-6 right-6 bg-white/30 backdrop-blur-sm border border-white/40 rounded-full px-3 py-1 text-xs font-semibold text-white opacity-90 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-105">
-                Service
-              </div>
-
-              {/* Content Container */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <h3 className="text-lg font-bold mb-3 leading-tight group-hover:text-xl transition-all duration-500 transform group-hover:-translate-y-1">
-                  {card.title}
-                </h3>
-                <p className="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition duration-500 line-clamp-3 mb-4">
-                  {card.description}
-                </p>
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              >
+                {/* Animated Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent group-hover:from-black/95 transition duration-700"></div>
                 
-                {/* Enhanced Learn More Button - Always Visible */}
-                <div className="opacity-80 group-hover:opacity-100 transition-all duration-700 transform group-hover:translate-y-0">
-                  <button onClick={() => navigate(card?.navigate)} className="bg-gradient-to-r from-orange-500/70 to-orange-600/70 backdrop-blur-sm border border-white/40 text-white px-6 py-3 rounded-xl text-sm font-semibold hover:from-orange-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                    Learn More →
-                  </button>
+                {/* Shimmer Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>
+
+                {/* Floating Icon */}
+                <div className="absolute top-6 left-6 text-4xl opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 transform hover:rotate-12">
+                  {card.icon}
                 </div>
+
+                {/* Service Badge - Always Visible */}
+                <div className="absolute top-6 right-6 bg-white/30 backdrop-blur-sm border border-white/40 rounded-full px-3 py-1 text-xs font-semibold text-white opacity-90 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-105">
+                  Service
+                </div>
+
+                {/* Content Container */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-lg font-bold mb-3 leading-tight group-hover:text-xl transition-all duration-500 transform group-hover:-translate-y-1">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition duration-500 line-clamp-3 mb-4">
+                    {card.description}
+                  </p>
+                  
+                  {/* Enhanced Learn More Button - Always Visible */}
+                  <div className="opacity-80 group-hover:opacity-100 transition-all duration-700 transform group-hover:translate-y-0">
+                    <button onClick={() => navigate(card?.navigate)} className="bg-gradient-to-r from-orange-500/70 to-orange-600/70 backdrop-blur-sm border border-white/40 text-white px-6 py-3 rounded-xl text-sm font-semibold hover:from-orange-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                      Learn More →
+                    </button>
+                  </div>
               </div>
 
-              {/* Enhanced Decorative Elements - Always Visible */}
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-500/15 to-transparent rounded-bl-3xl opacity-60 group-hover:opacity-100 transition duration-700"></div>
-              <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-orange-500/15 to-transparent rounded-tr-3xl opacity-60 group-hover:opacity-100 transition duration-700"></div>
-              
-              {/* Corner Accents - Always Visible */}
-              <div className="absolute top-4 right-4 w-2 h-2 bg-orange-500 rounded-full opacity-60 group-hover:opacity-100 transition duration-500"></div>
-              <div className="absolute bottom-4 left-4 w-2 h-2 bg-orange-500 rounded-full opacity-60 group-hover:opacity-100 transition duration-500"></div>
+                {/* Enhanced Decorative Elements - Always Visible */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-500/15 to-transparent rounded-bl-3xl opacity-60 group-hover:opacity-100 transition duration-700"></div>
+                <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-orange-500/15 to-transparent rounded-tr-3xl opacity-60 group-hover:opacity-100 transition duration-700"></div>
+                
+                {/* Corner Accents - Always Visible */}
+                <div className="absolute top-4 right-4 w-2 h-2 bg-orange-500 rounded-full opacity-60 group-hover:opacity-100 transition duration-500"></div>
+                <div className="absolute bottom-4 left-4 w-2 h-2 bg-orange-500 rounded-full opacity-60 group-hover:opacity-100 transition duration-500"></div>
             </div>
           );
         })}
         </div>
+      </div>
+
+      {/* Dots Navigation - Below the carousel */}
+      <div className="flex justify-center mt-2 space-x-2">
+        {cardData.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className="relative group transition-all duration-300"
+            aria-label={`Go to slide ${index + 1}`}
+          >
+            {/* Main dot */}
+            <div className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index === startIndex
+                ? 'bg-orange-500 w-8 shadow-md'
+                : 'bg-orange-500/30 hover:bg-orange-500/50'
+            }`}>
+            </div>
+          </button>
+        ))}
       </div>
     </div>
   );

@@ -449,36 +449,28 @@ const Overview = () => {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
           viewport={{ once: false, amount: 0.2 }}
-        >
+         >
           {/* Enhanced Background Effects */}
           <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full blur-2xl animate-bounce"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-full blur-xl animate-pulse"></div>
           
           <div className="relative z-10">
-            <motion.h3 
+            <h3 
               className="text-4xl md:text-5xl font-black text-white mb-6" 
               style={{fontFamily: 'Montserrat, sans-serif'}}
-              initial={{ opacity: 0, x: -80 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: false, amount: 0.3 }}
             >
               <span className="bg-gradient-to-r from-white via-orange-200 to-white bg-clip-text text-transparent">
                 Gujarat&apos;s Premier MSME Consultancy
               </span>
-            </motion.h3>
+            </h3>
             
-            <motion.p 
+            <p 
               className="text-gray-300 text-xl mb-12 max-w-3xl mx-auto font-medium" 
               style={{fontFamily: 'Inter, sans-serif'}}
-              initial={{ opacity: 0, x: 80 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: false, amount: 0.3 }}
             >
               Based in Gandhinagar, we&apos;re your trusted partner for business growth and success
-            </motion.p>
+            </p>
             
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {[
@@ -489,32 +481,9 @@ const Overview = () => {
               ].map((stat, index) => {
                 const isEven = index % 2 === 0;
                 return (
-                  <motion.div
+                  <div
                     key={index}
                     className="text-center group"
-                    initial={{ 
-                      opacity: 0, 
-                      scale: 0.9, 
-                      x: isEven ? -60 : 60,
-                      y: 30
-                    }}
-                    whileInView={{ 
-                      opacity: 1, 
-                      scale: 1, 
-                      x: 0,
-                      y: 0
-                    }}
-                    transition={{ 
-                      duration: 0.5, 
-                      delay: 0.4 + index * 0.1,
-                      ease: [0.25, 0.46, 0.45, 0.94]
-                    }}
-                    viewport={{ once: false, amount: 0.2 }}
-                    whileHover={{ 
-                      scale: 1.05,
-                      y: -5,
-                      transition: { duration: 0.3 }
-                    }}
                   >
                   <motion.div 
                     className="text-4xl md:text-5xl font-black mb-3 relative" 
@@ -535,22 +504,18 @@ const Overview = () => {
                     {counts[stat.key]}{stat.suffix}
                   </motion.div>
                   
-                  <motion.div 
+                  <div 
                     className="text-gray-300 text-sm font-medium uppercase tracking-wider" 
                     style={{fontFamily: 'Inter, sans-serif'}}
-                    whileHover={{
-                      color: '#F85710',
-                      transition: { duration: 0.3 }
-                    }}
                   >
                     {stat.label}
-                  </motion.div>
+                  </div>
                   
-                  {/* Animated Underline */}
-                  <motion.div 
+                  {/* Static Underline */}
+                  <div 
                     className="w-0 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 mx-auto mt-2 group-hover:w-full transition-all duration-500"
                   />
-                </motion.div>
+                </div>
                 );
               })}
             </div>

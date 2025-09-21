@@ -51,7 +51,7 @@ export default function AutoPopupModal() {
                     openModal();
                     setHasShownInitialPopup(true);
                 }
-            }, 5000); // 5 seconds for home page
+            }, 15000); // 5 seconds for home page
         } else {
             // Show popup after 60 seconds on other pages
             console.log(`📄 Other page detected (${location.pathname}) - popup will show in 60 seconds`);
@@ -62,7 +62,7 @@ export default function AutoPopupModal() {
                     openModal();
                     setHasShownInitialPopup(true);
                 }
-            }, 60000); // 60 seconds for other pages
+            }, 90000); // 60 seconds for other pages
         }
 
         return () => clearTimeout(timer);
@@ -79,14 +79,14 @@ export default function AutoPopupModal() {
             clearInterval(intervalRef.current);
         }
 
-        // Set up new interval for recurring popups every 60 seconds
+        // Set up new interval for recurring popups every 90 seconds
         intervalRef.current = setInterval(() => {
             if (!isPopupDismissed() && !isAnyModalOpen) {
                 console.log('⏰ Interval popup triggered');
                 setShowModal(true);
                 openModal();
             }
-        }, 60000); // 60 seconds
+        }, 90000); // 90 seconds
 
         return () => {
             if (intervalRef.current) {

@@ -125,6 +125,10 @@ function Navbar() {
             <MobileMenu 
               menuLinks={NavbarLinks} 
               onClose={() => setIsMobileMenuOpen(false)}
+              onGetStarted={() => {
+                openModal();
+                setShowFormModal(true);
+              }}
             />
           )}
         </AnimatePresence>
