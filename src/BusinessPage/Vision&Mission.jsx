@@ -235,7 +235,7 @@ function VisionMission() {
                                 </h3>
                                 
                                 <p className="text-gray-600 leading-relaxed text-lg mb-4" style={{fontFamily: 'Inter, sans-serif'}}>
-                                    To be the premier MSME consultancy in Gujarat, recognized as the catalyst for entrepreneurial success and business transformation across India.
+                                    To be the premier MSME consultancy in Gandhinagar, recognized as the catalyst for entrepreneurial success and business transformation across India.
                                 </p>
                                 <p className="text-gray-500 leading-relaxed text-base" style={{fontFamily: 'Inter, sans-serif'}}>
                                     We envision a future where every startup and small business has access to world-class guidance, enabling them to scale globally while maintaining their local roots and values.

@@ -266,7 +266,7 @@ export default function PartnerModal({ open, onClose }) {
                                         onChange={handleInputChange}
                                         required
                                         className="w-full px-3 py-2 rounded-lg border border-orange-300 focus:border-orange-500 text-sm"
-                                        placeholder="+91 98765 43210"
+                                        placeholder="+91 7383930301"
                                     />
                                 </div>
                             </div>

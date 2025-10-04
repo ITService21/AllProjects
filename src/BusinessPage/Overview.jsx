@@ -461,7 +461,7 @@ const Overview = () => {
               style={{fontFamily: 'Montserrat, sans-serif'}}
             >
               <span className="bg-gradient-to-r from-white via-orange-200 to-white bg-clip-text text-transparent">
-                Gujarat&apos;s Premier MSME Consultancy
+              Gandhinagar&apos;s Premier MSME Consultancy
               </span>
             </h3>
             
@@ -475,7 +475,7 @@ const Overview = () => {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 { key: 'clients', number: 500, suffix: '+', label: "Happy Clients" },
-                { key: 'experience', number: 15, suffix: '+', label: "Years Experience" },
+                { key: 'experience', number: 1, suffix: '+', label: "Years Experience" },
                 { key: 'projects', number: 1000, suffix: '+', label: "Projects Completed" },
                 { key: 'certifications', number: 50, suffix: '+', label: "Certifications" }
               ].map((stat, index) => {

@@ -103,11 +103,11 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8">
 
                 {/* About */}
-                <div>
-                    <h2 className="text-lg font-semibold mb-4">📈 MSME Advisors</h2>
+                <div className="col-span-2 md:col-span-1 lg:col-span-1">
+                    <h2 className="text-lg font-semibold mb-4 text-center md:text-left">📈 Growstartup Advisors</h2>
                     <p className="text-gray-400 text-sm">
                         We help small and medium businesses register, grow, and thrive with expert guidance on MSME schemes, funding, and compliance.
                     </p>
@@ -117,11 +117,37 @@ export default function Footer() {
                 <div>
                     <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
                     <ul className="space-y-2 text-gray-400 text-sm">
-                        <li><Link to="/" className="hover:text-indigo-400">Home</Link></li>
-                        <li><Link to="/services" className="hover:text-indigo-400">Our Services</Link></li>
-                        <li><Link to="/registration" className="hover:text-indigo-400">MSME Registration</Link></li>
-                        <li><Link to="/about" className="hover:text-indigo-400">About Us</Link></li>
-                        <li><Link to="/contact" className="hover:text-indigo-400">Contact</Link></li>
+                        <li><Link to="/" className="hover:text-indigo-400 transition-colors">Home</Link></li>
+                        <li><Link to="/about-us/overview" className="hover:text-indigo-400 transition-colors">About Us</Link></li>
+                        <li><Link to="/services/all" className="hover:text-indigo-400 transition-colors">Services</Link></li>
+                        {/* <li><Link to="/about-us/certifications" className="hover:text-indigo-400 transition-colors">Certifications</Link></li> */}
+                        {/* <li><Link to="/about-us/partners" className="hover:text-indigo-400 transition-colors">Partners</Link></li> */}
+                        <li><Link to="/contact-us" className="hover:text-indigo-400 transition-colors">Contact Us</Link></li>
+                    </ul>
+                </div>
+
+                {/* Services */}
+                <div>
+                    <h3 className="text-lg font-semibold mb-4">Our Services</h3>
+                    <ul className="space-y-2 text-gray-400 text-sm">
+                        <li><Link to="/services/funding" className="hover:text-indigo-400 transition-colors">Funding Consultant</Link></li>
+                        <li><Link to="/services/certificate" className="hover:text-indigo-400 transition-colors">Certificate Consultant</Link></li>
+                        <li><Link to="/services/marketing" className="hover:text-indigo-400 transition-colors">Marketing Services</Link></li>
+                        <li><Link to="/services/legal" className="hover:text-indigo-400 transition-colors">Legal Services</Link></li>
+                    </ul>
+                </div>
+
+                {/* Resources */}
+                <div>
+                    <h3 className="text-lg font-semibold mb-4">Resources</h3>
+                    <ul className="space-y-2 text-gray-400 text-sm">
+                        <li><Link to="/blog" className="hover:text-indigo-400 transition-colors">Blog</Link></li>
+                        <li><Link to="/gallery/albums" className="hover:text-indigo-400 transition-colors">Gallery</Link></li>
+                        {/* <li><Link to="/gallery/videos" className="hover:text-indigo-400 transition-colors">Videos</Link></li> */}
+                        {/* <li><Link to="/about-us/mission-vision" className="hover:text-indigo-400 transition-colors">Mission & Vision</Link></li> */}
+                        {/* <li><Link to="/about-us/ourteam" className="hover:text-indigo-400 transition-colors">Our Team</Link></li> */}
+                        <li><Link to="/about-us/certifications" className="hover:text-indigo-400 transition-colors">Certifications</Link></li>
+                        <li><Link to="/about-us/partners" className="hover:text-indigo-400 transition-colors">Partners</Link></li>
                     </ul>
                 </div>
 
@@ -129,38 +155,38 @@ export default function Footer() {
                 <div>
                     <h3 className="text-lg font-semibold mb-4">Contact</h3>
                     <ul className="space-y-2 text-gray-400 text-sm">
-                        <li className="flex items-center gap-2">
-                            <FaPhoneAlt /> +91 9876543210
+                        <li className="flex items-start gap-2">
+                            <FaPhoneAlt className="mt-1 flex-shrink-0" /> 
+                            <a href="tel:+917383930301" className="hover:text-indigo-400 transition-colors">+91 7383930301</a>
                         </li>
-                        <li className="flex items-center gap-2">
-                            <FaMapMarkerAlt /> 456 Business Park, Delhi, India
+                        <li className="flex items-start gap-2">
+                            <FaMapMarkerAlt className="mt-1 flex-shrink-0" /> 
+                            <span>B1/606, The landmark, Sector 6 (Kudasan), Gandhinagar, Gujarat 382419</span>
                         </li>
                     </ul>
-                </div>
-
-                {/* Social Media */}
-                <div>
-                    <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
-                    <div className="flex space-x-4">
-                        <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition">
-                            <FaFacebookF />
-                        </a>
-                        <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition">
-                            <FaInstagram />
-                        </a>
-                        <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition">
-                            <FaTwitter />
-                        </a>
-                        <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition">
-                            <FaLinkedinIn />
-                        </a>
+                    <div className="mt-4">
+                        <h4 className="text-md font-semibold mb-3">Follow Us</h4>
+                        <div className="flex space-x-3">
+                            <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition">
+                                <FaFacebookF />
+                            </a>
+                            <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition">
+                                <FaInstagram />
+                            </a>
+                            <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition">
+                                <FaTwitter />
+                            </a>
+                            <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition">
+                                <FaLinkedinIn />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Bottom Bar */}
             <div className="border-t border-gray-700 mt-8 pt-4 text-center text-gray-500 text-sm">
-                © {new Date().getFullYear()} MSME Advisors — All Rights Reserved
+                © {new Date().getFullYear()} Growstartup Advisors  — All Rights Reserved
             </div>
         </footer>
     );

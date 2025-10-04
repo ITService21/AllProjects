@@ -18,7 +18,7 @@ const legalServices = [
         ],
         icon: "🏢",
         duration: "7-15 days",
-        price: "₹12,000"
+        // price: "₹12,000"
     },
     {
         title: "Legal Documentation & Contracts",
@@ -33,7 +33,7 @@ const legalServices = [
         ],
         icon: "📋",
         duration: "3-7 days",
-        price: "₹8,000"
+        // price: "₹8,000"
     },
     {
         title: "Intellectual Property Protection",
@@ -48,7 +48,7 @@ const legalServices = [
         ],
         icon: "🛡️",
         duration: "15-30 days",
-        price: "₹15,000"
+        // price: "₹15,000"
     },
     {
         title: "Compliance & Regulatory Services",
@@ -63,7 +63,7 @@ const legalServices = [
         ],
         icon: "⚖️",
         duration: "5-10 days",
-        price: "₹10,000"
+        // price: "₹10,000"
     },
     {
         title: "Dispute Resolution & Litigation",
@@ -78,7 +78,7 @@ const legalServices = [
         ],
         icon: "⚔️",
         duration: "Varies",
-        price: "₹20,000"
+        // price: "₹20,000"
     },
     {
         title: "Legal Audit & Risk Assessment",
@@ -93,7 +93,7 @@ const legalServices = [
         ],
         icon: "🔍",
         duration: "10-20 days",
-        price: "₹25,000"
+        // price: "₹25,000"
     }
 ];
 
@@ -469,15 +469,15 @@ export default function LegalServices({ className = "" }) {
                             </div>
                             
                             {/* Stats */}
-                            <div className="flex gap-2">
+                            <div className="flex gap-2 w-[150px]">
                                 <div className="bg-gradient-to-r from-orange-50 to-red-50 p-2 rounded-lg border border-orange-100 flex-1">
                                     <div className="text-xs font-semibold text-orange-600">Duration</div>
                                     <div className="text-sm font-bold text-gray-800">{service.duration}</div>
                                 </div>
-                                <div className="bg-gradient-to-r from-orange-50 to-red-50 p-2 rounded-lg border border-orange-100 flex-1">
+                                {/* <div className="bg-gradient-to-r from-orange-50 to-red-50 p-2 rounded-lg border border-orange-100 flex-1">
                                     <div className="text-xs font-semibold text-orange-600">Price</div>
                                     <div className="text-sm font-bold text-gray-800">{service.price}</div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </motion.div>
@@ -691,12 +691,12 @@ export default function LegalServices({ className = "" }) {
                             Get Legal Consultation
                         </motion.button>
                         <motion.a
-                            href="tel:+919876543210"
+                            href="tel:+917383930301"
                             className="px-10 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-orange-600 transition-all duration-300"
                             whileHover={{ scale: 1.05, backgroundColor: "white", color: "#F85710" }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            Call Now: +91 98765 43210
+                            Call Now: +91 7383930301
                         </motion.a>
                     </motion.div>
                 </div>

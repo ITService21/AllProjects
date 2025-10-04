@@ -11,7 +11,6 @@ export const serviceDetails = {
         eligibility: [
             "Age: 18-40 years (General), 18-45 years (SC/ST/OBC)",
             "Educational qualification: 8th pass minimum",
-            "Family income should not exceed ₹1.5 lakh per annum",
             "Should not have availed any subsidy under PMEGP earlier",
             "Project cost should be minimum ₹1 lakh",
             "Should be a first-generation entrepreneur"

@@ -42,7 +42,7 @@ const ServicePage = () => {
         },
         {
           name: "Startup India Seed Fund",
-          amount: "Up to ₹1Cr",
+          amount: "Up to ₹50L",
           description: "Early stage funding",
           icon: "🚀",
         },

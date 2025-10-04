@@ -242,7 +242,7 @@ const ContactSection = () => {
                                         {
                                             icon: "📞",
                                             title: "Call",
-                                            details: ["+91 98765 43210"],
+                                            details: ["+91 7383930301"],
                                             color: "from-pink-500 to-orange-500"
                                         }
                                     ].map((item, index) => (

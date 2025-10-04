@@ -88,7 +88,7 @@ export const NavbarLinks = [
     icon: FaImages,
     subLinks: [
       { name: "Photo Albums", link: "/gallery/albums", icon: FaImages },
-      { name: "Videos", link: "/gallery/videos", icon: FaVideo },
+      // { name: "Videos", link: "/gallery/videos", icon: FaVideo },
     ],
   },
 

@@ -260,7 +260,7 @@ export default function Albums({ className = "" }) {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         viewport={{ once: true, amount: 0.1 }}
                     >
-                        Explore our collection of photos showcasing our journey, success stories, events, and the vibrant MSME ecosystem we&apos;re building in Gujarat.
+                        Explore our collection of photos showcasing our journey, success stories, events, and the vibrant MSME ecosystem we&apos;re building in Gandhinagar.
                     </motion.p>
                 </motion.div>
             </div>

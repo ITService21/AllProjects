@@ -9,17 +9,17 @@ const myData = {
     company: {
         name: "Grow Startup Consultancy",
         tagline: "Empowering MSMEs and Startups for Sustainable Growth",
-        description: "We are Gujarat's premier MSME consultancy firm, providing comprehensive business solutions from startup inception to expansion. Based in Gandhinagar, we serve entrepreneurs across India with expert guidance, funding assistance, compliance management, and strategic business growth consulting.",
+        description: "We are Gandhinagar's premier MSME consultancy firm, providing comprehensive business solutions from startup inception to expansion. Based in Gandhinagar, we serve entrepreneurs across India with expert guidance, funding assistance, compliance management, and strategic business growth consulting.",
         heroImage: "https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=1400&h=800&fit=crop1507003211169-0a1dd7228f2d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=",
         email: "info@growstartup.com",
         website: "https://growstartup.com",
-        founded: "2010",
+        founded: "2025",
         location: "Gandhinagar, Gujarat",
         teamSize: "50+ Experts"
     },
     vision: { 
         title: "Our Vision", 
-        text: "To be the premier MSME consultancy in Gujarat, recognized as the catalyst for entrepreneurial success and business transformation across India. We envision a future where every startup and small business has access to world-class guidance, enabling them to scale globally while maintaining their local roots and values." 
+        text: "To be the premier MSME consultancy in Gandhinagar, recognized as the catalyst for entrepreneurial success and business transformation across India. We envision a future where every startup and small business has access to world-class guidance, enabling them to scale globally while maintaining their local roots and values." 
     },
     mission: { 
         title: "Our Mission", 
@@ -28,7 +28,7 @@ const myData = {
     stats: [
         { label: "Successful Projects", value: 2500 },
         { label: "Happy Clients", value: 1800 },
-        { label: "Years of Experience", value: 14 },
+        { label: "Years of Experience", value: 1 },
         { label: "Team Members", value: 50 },
         { label: "Cities Served", value: 25 },
         { label: "Funding Raised (Cr)", value: 150 }
@@ -754,101 +754,6 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
             )}
 
             {/* Enhanced Team Section */}
-            {data.team && (
-                <motion.div 
-                    className="mb-20 relative"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.1 }}
-                    viewport={{ once: false, amount: 0.15 }}
-                >
-                    {/* Section Background */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 via-red-50/20 to-orange-50/30 rounded-3xl"></div>
-                    
-                    <div className="relative z-10 p-8">
-                        <motion.div
-                            className="text-center mb-12"
-                            initial={{ opacity: 0, x: -100 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            viewport={{ once: false, amount: 0.2 }}
-                        >
-                            <motion.h2 
-                                className="text-3xl sm:text-4xl font-bold mb-4"
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: 0.3 }}
-                                viewport={{ once: false, amount: 0.3 }}
-                            >
-                                <motion.span 
-                                    className="text-gray-900"
-                                    initial={{ opacity: 0, x: -60 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.4, delay: 0.4 }}
-                                    viewport={{ once: false, amount: 0.3 }}
-                                >
-                                    Meet Our
-                                </motion.span>
-                                <motion.span 
-                                    className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
-                                    initial={{ opacity: 0, x: 60 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.4, delay: 0.5 }}
-                                    viewport={{ once: false, amount: 0.3 }}
-                                >
-                                    {" "}Expert Team
-                                </motion.span>
-                            </motion.h2>
-                            <motion.p 
-                                className="text-lg text-gray-600 max-w-3xl mx-auto"
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: 0.6 }}
-                                viewport={{ once: false, amount: 0.3 }}
-                            >
-                                Experienced professionals dedicated to your success
-                            </motion.p>
-                        </motion.div>
-
-                        <motion.div 
-                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            transition={{ duration: 0.4, delay: 0.3 }}
-                            viewport={{ once: false, amount: 0.15 }}
-                        >
-                            {data.team.map((member, index) => {
-                                const isEven = index % 2 === 0;
-                                return (
-                                    <motion.div
-                                        key={index}
-                                        initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
-                                        whileInView={{ opacity: 1, x: 0, y: 0 }}
-                                        transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                                        viewport={{ once: false, amount: 0.2 }}
-                                        className="relative bg-white p-6 rounded-3xl shadow-2xl border border-gray-100 text-center overflow-hidden group"
-                                        whileHover={{ 
-                                            scale: 1.02, 
-                                            y: -3,
-                                            transition: { duration: 0.3 }
-                                        }}
-                                    >
-                                    <div className="relative z-10">
-                                        <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
-                                            {member.name.split(' ').map(n => n[0]).join('')}
-                                        </div>
-                                        <h3 className="text-lg font-bold text-gray-800 mb-2">{member.name}</h3>
-                                        <p className="text-orange-600 font-semibold mb-2">{member.position}</p>
-                                        <p className="text-sm text-gray-600 mb-2">{member.experience}</p>
-                                        <p className="text-sm text-gray-500">{member.expertise}</p>
-                                    </div>
-                                </motion.div>
-                                );
-                            })}
-                        </motion.div>
-                    </div>
-                </motion.div>
-            )}
 
             {/* Enhanced Call to Action */}
             <motion.div
@@ -917,12 +822,12 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
                             Get Started Today
                         </motion.button>
                         <motion.a
-                            href="tel:+919876543210"
+                            href="tel:+917383930301"
                             className="px-10 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-orange-600 transition-all duration-300"
                             whileHover={{ scale: 1.05, backgroundColor: "white", color: "#F85710" }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            Call Now: +91 98765 43210
+                            Call Now: +91 7383930301
                         </motion.a>
                 </motion.div>
             </div>

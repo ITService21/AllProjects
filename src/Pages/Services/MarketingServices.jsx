@@ -18,7 +18,7 @@ const marketingServices = [
         ],
         icon: "🔍",
         duration: "3-6 months",
-        price: "₹15,000/month"
+        // price: "₹15,000/month"
     },
     {
         title: "Social Media Marketing",
@@ -33,7 +33,7 @@ const marketingServices = [
         ],
         icon: "📱",
         duration: "Ongoing",
-        price: "₹12,000/month"
+        // price: "₹12,000/month"
     },
     {
         title: "Google Ads & PPC Campaigns",
@@ -48,7 +48,7 @@ const marketingServices = [
         ],
         icon: "🎯",
         duration: "Ongoing",
-        price: "₹10,000/month + Ad Spend"
+        // price: "₹10,000/month + Ad Spend"
     },
     {
         title: "Content Marketing",
@@ -63,7 +63,7 @@ const marketingServices = [
         ],
         icon: "✍️",
         duration: "Ongoing",
-        price: "₹8,000/month"
+        // price: "₹8,000/month"
     },
     {
         title: "Website Development",
@@ -78,7 +78,7 @@ const marketingServices = [
         ],
         icon: "💻",
         duration: "4-8 weeks",
-        price: "₹25,000"
+        // price: "₹25,000"
     },
     {
         title: "Brand Identity Design",
@@ -93,7 +93,7 @@ const marketingServices = [
         ],
         icon: "🎨",
         duration: "2-4 weeks",
-        price: "₹15,000"
+        // price: "₹15,000"
     }
 ];
 
@@ -449,15 +449,15 @@ export default function MarketingServices({ className = "" }) {
                             </div>
                             
                             {/* Stats */}
-                            <div className="flex gap-2">
+                            <div className="flex gap-2 w-[150px]">
                                 <div className="bg-gradient-to-r from-orange-50 to-red-50 p-2 rounded-lg border border-orange-100 flex-1">
                                     <div className="text-xs font-semibold text-orange-600">Duration</div>
                                     <div className="text-sm font-bold text-gray-800">{service.duration}</div>
                                 </div>
-                                <div className="bg-gradient-to-r from-orange-50 to-red-50 p-2 rounded-lg border border-orange-100 flex-1">
+                                {/* <div className="bg-gradient-to-r from-orange-50 to-red-50 p-2 rounded-lg border border-orange-100 flex-1">
                                     <div className="text-xs font-semibold text-orange-600">Price</div>
                                     <div className="text-sm font-bold text-gray-800">{service.price}</div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </motion.div>
@@ -665,10 +665,10 @@ export default function MarketingServices({ className = "" }) {
                             Start Marketing Campaign
                         </button>
                         <a
-                            href="tel:+919876543210"
+                            href="tel:+917383930301"
                             className="px-10 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-orange-600 transition-all duration-300"
                         >
-                            Call Now: +91 98765 43210
+                            Call Now: +91 7383930301
                         </a>
                     </motion.div>
                 </div>

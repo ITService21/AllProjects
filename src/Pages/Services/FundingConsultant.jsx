@@ -645,10 +645,10 @@ export default function FundingConsultant({ className = "" }) {
                             Get Funding Consultation
                         </button>
                         <a
-                            href="tel:+919876543210"
+                            href="tel:+917383930301"
                             className="px-10 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-orange-600 transition-all duration-300"
                         >
-                            Call Now: +91 98765 43210
+                            Call Now: +91 7383930301
                         </a>
                     </motion.div>
                 </div>

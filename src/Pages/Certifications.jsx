@@ -1,223 +1,243 @@
-// Certifications.jsx
-import React from "react";
 import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 
-/**
- * Certifications
- * Props:
- *  - certifications: Array of certificate objects (optional)
- *      certificate shape example:
- *      {
- *         id: "aws-123",
- *         name: "AWS Certified Solutions Architect – Associate",
- *         issuer: "Amazon Web Services",
- *         issueDate: "2023-04-15",   // ISO string or yyyy-mm-dd
- *         credentialId: "ABC-123",
- *         url: "https://example.com/cert/ABC-123",
- *         logo: "https://.../aws-logo.png",
- *         tags: ["Cloud", "Architecture"]
- *      }
- *  - title: optional string
- *  - className: optional string
- *
- * Behavior:
- *  - If certifications.length > 0 => render grid
- *  - Else render "Coming soon" UI with skeleton cards
- *
- * Requires Tailwind CSS + Framer Motion
- */
-
-function formatDate(dateStr) {
-  if (!dateStr) return "";
-  try {
-    const d = new Date(dateStr);
-    return d.toLocaleString(undefined, { month: "short", year: "numeric" });
-  } catch {
-    return dateStr;
-  }
-}
-
-function Logo({ src, alt }) {
-  if (!src) {
+export default function Certifications({ className = "" }) {
     return (
-      <div className="w-12 h-12 rounded-lg bg-gradient-to-tr from-slate-200 to-slate-100 flex items-center justify-center text-slate-400">
-        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M3 7v10a2 2 0 0 0 2 2h14" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M7 7a5 5 0 1 1 10 0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </div>
-    );
-  }
-  return (
-    <img
-      src={src}
-      alt={alt}
-      onError={(e) => {
-        e.currentTarget.onerror = null;
-        e.currentTarget.src =
-          "data:image/svg+xml;utf8," +
-          encodeURIComponent(
-            `<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><rect width='100%' height='100%' fill='#f3f4f6'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#9ca3af' font-size='12'>logo</text></svg>`
-          );
-      }}
-      className="w-12 h-12 rounded-lg object-contain bg-white/60 p-1"
-    />
-  );
-}
+        <section 
+            className={`w-full min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 relative overflow-hidden ${className}`} 
+        >
+            {/* Enhanced Background with Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-red-50"></div>
+            
+            {/* Animated Background Elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                {/* Floating Orbs */}
+                <motion.div 
+                    className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-orange-200 to-orange-300 rounded-full blur-3xl opacity-20"
+                    animate={{
+                        scale: [1, 1.3, 1],
+                        x: [0, 50, 0],
+                        y: [0, 30, 0],
+                        opacity: [0.2, 0.3, 0.2]
+                    }}
+                    transition={{
+                        duration: 15,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
+                <motion.div 
+                    className="absolute top-1/3 right-20 w-72 h-72 bg-gradient-to-br from-red-200 to-pink-300 rounded-full blur-3xl opacity-20"
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        x: [0, -30, 0],
+                        y: [0, 50, 0],
+                        opacity: [0.2, 0.3, 0.2]
+                    }}
+                    transition={{
+                        duration: 12,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1
+                    }}
+                />
+                <motion.div 
+                    className="absolute bottom-20 left-1/4 w-80 h-80 bg-gradient-to-br from-yellow-200 to-orange-300 rounded-full blur-3xl opacity-15"
+                    animate={{
+                        scale: [1, 1.4, 1],
+                        x: [0, -50, 0],
+                        y: [0, -40, 0],
+                        opacity: [0.15, 0.25, 0.15]
+                    }}
+                    transition={{
+                        duration: 18,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 2
+                    }}
+                />
 
-export default function Certifications({
-  certifications = [],
-  title = "Certifications & Awards",
-  className = "",
-}) {
-  const has = Array.isArray(certifications) && certifications.length > 0;
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 12, scale: 0.995 },
-    show: (i = 1) => ({ opacity: 1, y: 0, scale: 1, transition: { delay: i * 0.05, type: "spring", stiffness: 120, damping: 14 } }),
-  };
-
-  return (
-    <section className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ${className}`}>
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900">{title}</h2>
-          <p className="text-sm text-slate-500 mt-1">
-            Verified qualifications and notable recognitions.
-          </p>
-        </div>
-
-        {has && (
-          <div className="text-sm text-slate-500">
-            <span className="font-medium">{certifications.length}</span> items
-          </div>
-        )}
-      </div>
-
-      {/* WHEN EMPTY -> Coming soon */}
-      {!has && (
-        <div className="rounded-2xl bg-gradient-to-r from-indigo-50 to-pink-50 p-8 flex flex-col md:flex-row items-center gap-6">
-          <div className="flex-shrink-0 w-full md:w-1/3">
-            <div className="rounded-xl bg-white p-6 shadow flex items-center justify-center">
-              <svg className="w-20 h-20 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M12 2l3 6 6 .5-4.5 3.8L19 20l-7-4-7 4 1.5-7.7L3 8.5 9 8 12 2z" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-          </div>
-
-          <div className="flex-1">
-            <h3 className="text-lg font-bold text-slate-900">Credentials coming soon</h3>
-            <p className="text-sm text-slate-600 mt-2 max-w-prose">
-              We're working on uploading verified certificates. Subscribe to be notified as soon as we post them.
-            </p>
-
-            <div className="mt-4 flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={() => window.alert("Thanks — we'll notify you (demo).")}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-600 text-white text-sm shadow hover:scale-[1.02] transition"
-              >
-                Notify me
-              </button>
-
-              <a href="#" className="text-sm text-slate-600 hover:underline">
-                Learn about our assessment process
-              </a>
+                {/* Floating Particles */}
+                {[...Array(8)].map((_, i) => (
+                    <motion.div
+                        key={i}
+                        className="absolute w-2 h-2 bg-gradient-to-br from-orange-400 to-red-400 rounded-full"
+                        animate={{
+                            y: [0, -100, 0],
+                            x: [0, Math.random() * 100 - 50, 0],
+                            opacity: [0, 1, 0],
+                            scale: [0, 1, 0]
+                        }}
+                        transition={{
+                            duration: 5 + Math.random() * 3,
+                            repeat: Infinity,
+                            delay: i * 0.8,
+                            ease: "easeInOut"
+                        }}
+                        style={{
+                            left: `${10 + i * 12}%`,
+                            top: `${20 + (i % 3) * 25}%`,
+                        }}
+                    />
+                ))}
             </div>
 
-            {/* skeleton row */}
-            <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="animate-pulse bg-white/40 rounded-lg p-4 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-md bg-white/60" />
-                  <div className="flex-1">
-                    <div className="h-3 bg-white/60 rounded w-3/4 mb-2" />
-                    <div className="h-2 bg-white/50 rounded w-1/2" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* WHEN HAVE ITEMS -> Grid */}
-      {has && (
-        <div className="mt-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-            {certifications.map((c, idx) => (
-              <motion.article
-                key={c.id || `${c.name}-${idx}`}
-                className="bg-white rounded-2xl p-5 shadow hover:shadow-lg transition transform"
-                variants={cardVariants}
-                initial="hidden"
-                animate="show"
-                custom={idx}
-                whileHover={{ translateY: -6, scale: 1.01 }}
-                role="article"
-                aria-labelledby={`cert-${idx}-title`}
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <Logo src={c.logo} alt={c.issuer || c.name} />
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <h4 id={`cert-${idx}-title`} className="text-sm font-semibold text-slate-900 truncate">
-                      {c.name}
-                    </h4>
-                    <div className="mt-1 text-xs text-slate-500 flex items-center gap-3">
-                      <span>{c.issuer}</span>
-                      {c.issueDate && <span className="px-2 py-0.5 rounded bg-slate-100 text-xs">{formatDate(c.issueDate)}</span>}
-                      {c.credentialId && <span className="text-xs text-slate-400">• {c.credentialId}</span>}
-                    </div>
-
-                    {/* tags */}
-                    {Array.isArray(c.tags) && c.tags.length > 0 && (
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {c.tags.slice(0, 5).map((t) => (
-                          <span key={t} className="text-xs px-2 py-1 rounded-full bg-indigo-50 text-indigo-700">
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="mt-4 flex items-center justify-between gap-3">
-                  <div className="text-xs text-slate-500">Verified credential</div>
-
-                  <div className="flex items-center gap-2">
-                    {c.url && (
-                      <a
-                        href={c.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 text-xs px-3 py-1 rounded-full bg-gradient-to-r from-indigo-600 to-pink-500 text-white shadow-sm"
-                        aria-label={`Open certificate ${c.name}`}
-                      >
-                        View
-                      </a>
-                    )}
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (c.url) window.open(c.url, "_blank");
-                        else window.alert("No URL provided for this credential.");
-                      }}
-                      className="text-xs px-3 py-1 rounded-full border"
+            {/* Certifications Section */}
+            <motion.div 
+                className="relative z-10 flex flex-col items-center justify-center text-center min-h-[60vh]"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: false, amount: 0.3 }}
+            >
+                <motion.div
+                    className="max-w-4xl mx-auto bg-white/80 backdrop-blur-xl rounded-[2.5rem] shadow-2xl p-12 md:p-20 border border-white/50 relative overflow-hidden"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                    viewport={{ once: false, amount: 0.3 }}
+                >
+                    {/* Card Background Decoration */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-50/50 via-transparent to-red-50/50 pointer-events-none"></div>
+                    
+                    {/* Icon with enhanced design */}
+                    <motion.div 
+                        className="relative inline-flex items-center justify-center w-40 h-40 mb-8"
+                        initial={{ opacity: 0, scale: 0.3, rotate: -180 }}
+                        whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                        transition={{ duration: 1, delay: 0.4, type: "spring", bounce: 0.5 }}
+                        viewport={{ once: false, amount: 0.3 }}
                     >
-                      Details
-                    </button>
-                  </div>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      )}
-    </section>
-  );
+                        {/* Animated ring */}
+                        <motion.div 
+                            className="absolute inset-0 bg-gradient-to-br from-orange-400 to-red-500 rounded-full"
+                            animate={{
+                                scale: [1, 1.1, 1],
+                                rotate: [0, 180, 360]
+                            }}
+                            transition={{
+                                duration: 20,
+                                repeat: Infinity,
+                                ease: "linear"
+                            }}
+                        />
+                        <div className="absolute inset-2 bg-white rounded-full"></div>
+                        <motion.div 
+                            className="relative z-10 bg-gradient-to-br from-orange-100 via-orange-50 to-red-100 rounded-full w-32 h-32 flex items-center justify-center"
+                            animate={{
+                                boxShadow: [
+                                    "0 0 20px rgba(251, 146, 60, 0.3)",
+                                    "0 0 40px rgba(239, 68, 68, 0.5)",
+                                    "0 0 20px rgba(251, 146, 60, 0.3)"
+                                ]
+                            }}
+                            transition={{
+                                duration: 3,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                        >
+                            <motion.span 
+                                className="text-7xl"
+                                animate={{ scale: [1, 1.1, 1] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                🏆
+                            </motion.span>
+                        </motion.div>
+                    </motion.div>
+                    
+                    {/* Main Heading with enhanced gradient */}
+                    <motion.h1 
+                        className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-6 relative"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.5 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
+                        <span className="bg-gradient-to-r from-gray-700 via-gray-500 to-gray-600 bg-clip-text text-transparent relative">
+                            Credentials Will Live Soon
+                            <motion.span 
+                                className="absolute inset-0 bg-gradient-to-r from-orange-400 via-red-400 to-orange-400 bg-clip-text text-transparent opacity-0"
+                                animate={{ opacity: [0, 0.3, 0] }}
+                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                Credentials Will Live Soon
+                            </motion.span>
+                        </span>
+                    </motion.h1>
+                    
+                    {/* Animated decorative lines */}
+                    <div className="flex items-center justify-center gap-3 mb-8">
+                        <motion.div 
+                            className="h-1 bg-gradient-to-r from-transparent via-orange-400 to-orange-500 rounded-full"
+                            initial={{ width: 0 }}
+                            whileInView={{ width: 60 }}
+                            transition={{ duration: 1, delay: 0.6 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        />
+                        <motion.div 
+                            className="w-3 h-3 bg-gradient-to-br from-orange-400 to-red-500 rounded-full"
+                            animate={{ scale: [1, 1.5, 1], rotate: [0, 180, 360] }}
+                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                        <motion.div 
+                            className="h-1 bg-gradient-to-l from-transparent via-red-400 to-red-500 rounded-full"
+                            initial={{ width: 0 }}
+                            whileInView={{ width: 60 }}
+                            transition={{ duration: 1, delay: 0.6 }}
+                            viewport={{ once: false, amount: 0.3 }}
+                        />
+                    </div>
+                    
+                    {/* Subtitle with better styling */}
+                    <motion.p 
+                        className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-medium"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.7 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                    >
+                        Our professional certifications and industry awards will be displayed here shortly. Stay tuned!
+                    </motion.p>
+
+                    {/* Enhanced Coming Soon Badge */}
+                    <motion.div 
+                        className="mt-10 inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-orange-100 via-orange-50 to-red-100 border-2 border-orange-300 rounded-full shadow-lg relative overflow-hidden"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6, delay: 0.8 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                        whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(251, 146, 60, 0.3)" }}
+                    >
+                        {/* Animated shimmer effect */}
+                        <motion.div 
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent"
+                            animate={{ x: [-200, 400] }}
+                            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        />
+                        
+                        <motion.span 
+                            className="text-3xl relative z-10"
+                            animate={{ 
+                                rotate: [0, 10, -10, 0],
+                                scale: [1, 1.1, 1]
+                            }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                            ⏳
+                        </motion.span>
+                        <span className="text-base font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent relative z-10">
+                            Coming Soon
+                        </span>
+                    </motion.div>
+                </motion.div>
+            </motion.div>
+        </section>
+    );
 }
+
+// PropTypes
+Certifications.propTypes = {
+    className: PropTypes.string,
+};

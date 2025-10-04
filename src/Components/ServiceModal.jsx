@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import FormModal from "./FormModal";
+import EligibilityChecker from "./EligibilityChecker";
 import { API_ENDPOINTS } from "../config/api";
 import { 
     FaTimes, 
@@ -13,10 +14,12 @@ import {
     FaUser,
     FaBuilding,
     FaHandshake,
+    FaCalculator,
 } from "react-icons/fa";
 
 const ServiceModal = ({ isOpen, onClose, service }) => {
     const [showBookConsultant, setShowBookConsultant] = useState(false);
+    const [showEligibilityChecker, setShowEligibilityChecker] = useState(false);
     const [hasTriggeredForm, setHasTriggeredForm] = useState(false);
     const applicationProcessRef = useRef(null);
     const [consultantForm, setConsultantForm] = useState({
@@ -237,6 +240,26 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
                                 </div>
                             </div>
 
+                            {/* Eligibility Checker Button */}
+                            <div className="bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-xl border-2 border-orange-200">
+                                <div className="text-center">
+                                    <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-2">
+                                        <FaCalculator className="text-orange-600" />
+                                        Check Your Eligibility
+                                    </h3>
+                                    <p className="text-gray-600 mb-6">
+                                        Find out which government loans and grants you&apos;re eligible for based on your profile
+                                    </p>
+                                    <button
+                                        onClick={() => setShowEligibilityChecker(true)}
+                                        className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-orange-600 hover:to-red-600 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center gap-3 mx-auto"
+                                    >
+                                        <FaCalculator />
+                                        Check Eligibility
+                                    </button>
+                                </div>
+                            </div>
+
                             {/* Application Process */}
                             <div 
                                 ref={applicationProcessRef}
@@ -401,6 +424,12 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
                     setShowBookConsultant(false);
                     // Keep ServiceModal open when FormModal is closed
                 }}
+            />
+
+            {/* EligibilityChecker */}
+            <EligibilityChecker
+                isOpen={showEligibilityChecker}
+                onClose={() => setShowEligibilityChecker(false)}
             />
         </AnimatePresence>
     );

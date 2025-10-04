@@ -60,7 +60,7 @@ const certificateServices = [
         ],
         icon: "🌱",
         duration: "45-90 days",
-        price: "₹20,000"
+        // price: "₹20,000"
     }
 ];
 
@@ -442,10 +442,10 @@ export default function CertificateConsultant({ className = "" }) {
                                     <div className="text-sm font-semibold text-orange-600">Duration</div>
                                     <div className="text-lg font-bold text-gray-800">{service.duration}</div>
                                 </div>
-                                <div className="bg-gradient-to-r from-orange-50 to-red-50 p-3 rounded-lg border border-orange-100">
+                                {/* <div className="bg-gradient-to-r from-orange-50 to-red-50 p-3 rounded-lg border border-orange-100">
                                     <div className="text-sm font-semibold text-orange-600">Starting Price</div>
                                     <div className="text-lg font-bold text-gray-800">{service.price}</div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </motion.div>
@@ -654,10 +654,10 @@ export default function CertificateConsultant({ className = "" }) {
                             Start Certification Process
                         </button>
                         <a
-                            href="tel:+919876543210"
+                            href="tel:+917383930301"
                             className="px-10 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-orange-600 transition-all duration-300"
                         >
-                            Call Now: +91 98765 43210
+                            Call Now: +91 7383930301
                         </a>
                     </motion.div>
                 </div>

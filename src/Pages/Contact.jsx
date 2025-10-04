@@ -152,7 +152,7 @@ function ContactUs() {
                         className="bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 text-center group cursor-pointer"
                         whileHover={{ scale: 1.05, y: -10 }}
                         transition={{ duration: 0.3 }}
-                        onClick={() => (window.location.href = "tel:+919876543210")}
+                        onClick={() => (window.location.href = "tel:+917383930301")}
                     >
                         <motion.div 
                             className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mx-auto mb-6 flex items-center justify-center"
@@ -162,7 +162,7 @@ function ContactUs() {
                             <FaPhoneAlt className="text-white text-2xl" />
                         </motion.div>
                         <h3 className="text-xl font-bold text-gray-800 mb-3">Call Us</h3>
-                        <p className="text-gray-600 mb-4">+91 98765 43210</p>
+                        <p className="text-gray-600 mb-4">+91 7383930301</p>
                         <p className="text-sm text-gray-500">Available 24/7 for urgent queries</p>
                     </motion.div>
 
@@ -402,7 +402,7 @@ function ContactUs() {
                     <h3 className="text-3xl font-bold text-gray-800 text-center mb-8">Find Us</h3>
                     <div className="bg-white p-4 rounded-3xl shadow-2xl border border-gray-100">
                     <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.5!2d72.5!3d23.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDAwJzAwLjAiTiA3MsKwMzAnMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1927.1926174015482!2d72.62794682776466!3d23.176595001110528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395c2bb3619f9fdf%3A0xc4be3eeb15516748!2sThe%20Landmark!5e0!3m2!1sen!2sin!4v1759582347978!5m2!1sen!2sin"
                         width="100%"
                             height="400"
                             style={{ border: 0, borderRadius: '20px' }}

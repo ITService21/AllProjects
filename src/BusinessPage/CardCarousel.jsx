@@ -60,16 +60,18 @@ const AutoCardCarousel = () => {
   // Determine how many cards to show based on screen size
   const getVisibleCardCount = () => {
     const width = window.innerWidth;
-    if (width < 640) return 1;      // mobile
+    if (width < 640) return 3;      // mobile - show 3 (left preview, center, right preview)
     if (width < 1024) return 3;     // tablet
     return 5;                       // desktop
   };
 
   const [visibleCards, setVisibleCards] = useState(getVisibleCardCount());
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
 
   useEffect(() => {
     const handleResize = () => {
       setVisibleCards(getVisibleCardCount());
+      setIsMobile(window.innerWidth < 640);
     };
 
     window.addEventListener('resize', handleResize);
@@ -84,6 +86,14 @@ const AutoCardCarousel = () => {
   }, [cardData.length]);
 
   const getVisibleCards = () => {
+    if (isMobile) {
+      // For mobile, show: previous card (partial), current card (full), next card (partial)
+      return [
+        cardData[(startIndex - 1 + cardData.length) % cardData.length],
+        cardData[startIndex],
+        cardData[(startIndex + 1) % cardData.length]
+      ];
+    }
     return Array.from({ length: visibleCards }).map((_, i) => {
       return cardData[(startIndex + i) % cardData.length];
     });
@@ -399,43 +409,63 @@ const AutoCardCarousel = () => {
       </div>
 
       {/* Carousel Section */}
-      <div className="relative flex justify-center items-center">
-        {/* Left Arrow */}
-        <button
-          onClick={goToPrevious}
-          className="absolute left-0 z-20 bg-white/90 backdrop-blur-sm border border-orange-200 rounded-full p-3 shadow-lg hover:bg-white hover:shadow-xl transition-all duration-300 transform hover:scale-110"
-          aria-label="Previous slide"
-        >
-          <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
+      <div className={`relative flex justify-center items-center ${isMobile ? '-mx-4' : ''}`}>
+        {/* Left Arrow - Hidden on mobile */}
+        {!isMobile && (
+          <button
+            onClick={goToPrevious}
+            className="absolute left-0 z-20 bg-white/90 backdrop-blur-sm border border-orange-200 rounded-full p-3 shadow-lg hover:bg-white hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+            aria-label="Previous slide"
+          >
+            <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+        )}
 
-        {/* Right Arrow */}
-        <button
-          onClick={goToNext}
-          className="absolute right-0 z-20 bg-white/90 backdrop-blur-sm border border-orange-200 rounded-full p-3 shadow-lg hover:bg-white hover:shadow-xl transition-all duration-300 transform hover:scale-110"
-          aria-label="Next slide"
-        >
-          <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+        {/* Right Arrow - Hidden on mobile */}
+        {!isMobile && (
+          <button
+            onClick={goToNext}
+            className="absolute right-0 z-20 bg-white/90 backdrop-blur-sm border border-orange-200 rounded-full p-3 shadow-lg hover:bg-white hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+            aria-label="Next slide"
+          >
+            <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        )}
 
         {/* Cards Container */}
-      <div className="flex gap-4 sm:gap-6 transition-all duration-700 ease-in-out">
+      <div className={`flex ${isMobile ? 'justify-start items-center w-full gap-[8px] h-[420px]' : 'gap-4 sm:gap-6'} transition-all duration-700 ease-in-out`}>
         {visible.map((card, index) => {
-          const isCenter = index === Math.floor(visibleCards / 2);
+          const isCenter = isMobile ? index === 1 : index === Math.floor(visibleCards / 2);
+          const isLeftPreview = isMobile && index === 0;
+          const isRightPreview = isMobile && index === 2;
 
           return (
             <div
               key={card.id}
+              onClick={() => {
+                if (isMobile && isLeftPreview) {
+                  goToPrevious();
+                } else if (isMobile && isRightPreview) {
+                  goToNext();
+                }
+              }}
               className={`
-                  relative group overflow-hidden rounded-3xl bg-center bg-cover shadow-2xl 
+                  relative group overflow-hidden bg-center bg-cover shadow-2xl 
                   transition-all duration-700 ease-in-out transform border-2 border-white/40 
-                  w-[260px] sm:w-[300px] md:w-[280px] lg:w-[320px] xl:w-[340px] h-[380px] sm:h-[420px] md:h-[400px]
-                  ${isCenter ? 'scale-110 shadow-3xl z-10 border-white/80 shadow-orange-500/20 animate-float' : 'scale-75 opacity-60 hover:opacity-80'}
-                  hover:scale-105 hover:shadow-3xl hover:shadow-orange-500/30
+                  ${isMobile ? 
+                    (isCenter ? 
+                      'w-[calc(70%-12px)] h-[420px] scale-100 z-10 rounded-3xl opacity-100' : 
+                      'w-[15%] h-[320px] scale-95 opacity-100 cursor-pointer rounded-2xl'
+                    ) : 
+                    'w-[260px] sm:w-[300px] md:w-[280px] lg:w-[320px] xl:w-[340px] h-[380px] sm:h-[420px] md:h-[400px] rounded-3xl'
+                  }
+                  ${!isMobile && isCenter ? 'scale-110 shadow-3xl z-10 border-white/80 shadow-orange-500/20 animate-float' : ''}
+                  ${!isMobile && !isCenter ? 'scale-75 opacity-60 hover:opacity-80' : ''}
+                  ${!isMobile ? 'hover:scale-105 hover:shadow-3xl hover:shadow-orange-500/30' : ''}
               `}
               style={{
                 backgroundImage: `url(${card.image})`,
@@ -443,24 +473,31 @@ const AutoCardCarousel = () => {
                   backgroundPosition: 'center',
                 }}
               >
+                {/* Blur overlay for side preview cards on mobile - REMOVED */}
+
                 {/* Animated Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent group-hover:from-black/95 transition duration-700"></div>
                 
                 {/* Shimmer Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>
 
-                {/* Floating Icon */}
-                <div className="absolute top-6 left-6 text-4xl opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 transform hover:rotate-12">
-                  {card.icon}
-                </div>
+                {/* Floating Icon - Hidden on side previews in mobile */}
+                {!(isMobile && (isLeftPreview || isRightPreview)) && (
+                  <div className="absolute top-6 left-6 text-4xl opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 transform hover:rotate-12">
+                    {card.icon}
+                  </div>
+                )}
 
-                {/* Service Badge - Always Visible */}
-                <div className="absolute top-6 right-6 bg-white/30 backdrop-blur-sm border border-white/40 rounded-full px-3 py-1 text-xs font-semibold text-white opacity-90 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-105">
-                  Service
-                </div>
+                {/* Service Badge - Hidden on side previews in mobile */}
+                {!(isMobile && (isLeftPreview || isRightPreview)) && (
+                  <div className="absolute top-6 right-6 bg-white/30 backdrop-blur-sm border border-white/40 rounded-full px-3 py-1 text-xs font-semibold text-white opacity-90 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-105">
+                    Service
+                  </div>
+                )}
 
-                {/* Content Container */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                {/* Content Container - Hidden on side previews in mobile */}
+                {!(isMobile && (isLeftPreview || isRightPreview)) && (
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <h3 className="text-lg font-bold mb-3 leading-tight group-hover:text-xl transition-all duration-500 transform group-hover:-translate-y-1">
                     {card.title}
                   </h3>
@@ -475,14 +512,19 @@ const AutoCardCarousel = () => {
                     </button>
                   </div>
               </div>
+                )}
 
-                {/* Enhanced Decorative Elements - Always Visible */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-500/15 to-transparent rounded-bl-3xl opacity-60 group-hover:opacity-100 transition duration-700"></div>
-                <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-orange-500/15 to-transparent rounded-tr-3xl opacity-60 group-hover:opacity-100 transition duration-700"></div>
-                
-                {/* Corner Accents - Always Visible */}
-                <div className="absolute top-4 right-4 w-2 h-2 bg-orange-500 rounded-full opacity-60 group-hover:opacity-100 transition duration-500"></div>
-                <div className="absolute bottom-4 left-4 w-2 h-2 bg-orange-500 rounded-full opacity-60 group-hover:opacity-100 transition duration-500"></div>
+                {/* Enhanced Decorative Elements - Hidden on side previews in mobile */}
+                {!(isMobile && (isLeftPreview || isRightPreview)) && (
+                  <>
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-500/15 to-transparent rounded-bl-3xl opacity-60 group-hover:opacity-100 transition duration-700"></div>
+                    <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-orange-500/15 to-transparent rounded-tr-3xl opacity-60 group-hover:opacity-100 transition duration-700"></div>
+                    
+                    {/* Corner Accents */}
+                    <div className="absolute top-4 right-4 w-2 h-2 bg-orange-500 rounded-full opacity-60 group-hover:opacity-100 transition duration-500"></div>
+                    <div className="absolute bottom-4 left-4 w-2 h-2 bg-orange-500 rounded-full opacity-60 group-hover:opacity-100 transition duration-500"></div>
+                  </>
+                )}
             </div>
           );
         })}
