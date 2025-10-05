@@ -14,7 +14,7 @@ function Navbar() {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showFormModal, setShowFormModal] = useState(false);
-  const { openModal, closeModal } = useModal();
+  const { openModal, closeModal, isAnyModalOpen } = useModal();
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
@@ -95,8 +95,10 @@ function Navbar() {
             >
               <motion.button
                 onClick={() => {
-                  openModal();
-                  setShowFormModal(true);
+                  if (!isAnyModalOpen) {
+                    openModal();
+                    setShowFormModal(true);
+                  }
                 }}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-sm font-semibold rounded-full text-white bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl"
                 whileHover={{ 
@@ -126,8 +128,10 @@ function Navbar() {
               menuLinks={NavbarLinks} 
               onClose={() => setIsMobileMenuOpen(false)}
               onGetStarted={() => {
-                openModal();
-                setShowFormModal(true);
+                if (!isAnyModalOpen) {
+                  openModal();
+                  setShowFormModal(true);
+                }
               }}
             />
           )}

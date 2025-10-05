@@ -16,12 +16,33 @@ const ContactSection = () => {
         serviceScheme: '',
         message: ''
     });
+    const [phoneError, setPhoneError] = useState('');
+    const [sending, setSending] = useState(false);
 
     const handleInputChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        const { name, value } = e.target;
+        
+        // Validate phone number
+        if (name === 'phone') {
+            // Allow only digits
+            const phoneValue = value.replace(/\D/g, '');
+            setFormData({
+                ...formData,
+                phone: phoneValue
+            });
+            
+            // Validate length
+            if (phoneValue.length > 0 && phoneValue.length !== 10) {
+                setPhoneError('Phone number must be exactly 10 digits');
+            } else {
+                setPhoneError('');
+            }
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value
+            });
+        }
     };
 
     const handleSchemeSelect = (scheme) => {
@@ -35,10 +56,17 @@ const ContactSection = () => {
         e.preventDefault();
         // Basic validation
         if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.message.trim()) {
-            alert('Please fill in all required fields.');
+            toast.error('Please fill in all required fields.');
             return;
         }
         
+        // Phone validation
+        if (formData.phone.length !== 10) {
+            toast.error('Phone number must be exactly 10 digits');
+            return;
+        }
+        
+        setSending(true);
         try {
             const res = await fetch(API_ENDPOINTS.SEND_FORM_MAIL, {
                 method: 'POST',
@@ -68,10 +96,12 @@ const ContactSection = () => {
                     message: ''
                 });
             } else {
-                alert('Failed to send message. Please try again.');
+                toast.error('Failed to send message. Please try again.');
             }
         } catch {
-            alert('Failed to send message. Please try again.');
+            toast.error('Failed to send message. Please try again.');
+        } finally {
+            setSending(false);
         }
     };
 
@@ -229,7 +259,7 @@ const ContactSection = () => {
                                         {
                                             icon: "📧",
                                             title: "Email",
-                                            details: ["info@company.com"],
+                                            details: ["info@growstartup.in"],
                                             color: "from-red-500 to-pink-500"
                                         },
                                         {
@@ -399,7 +429,7 @@ const ContactSection = () => {
                                         {[
                                             { name: 'name', label: 'Full Name', type: 'text', placeholder: 'Enter your full name' },
                                             { name: 'email', label: 'Email Address', type: 'email', placeholder: 'Enter your email' },
-                                            { name: 'phone', label: 'Phone Number', type: 'tel', placeholder: 'Enter your phone number' },
+                                            { name: 'phone', label: 'Phone Number', type: 'tel', placeholder: '10 digit mobile number' },
                                             { name: 'company', label: 'Company Name', type: 'text', placeholder: 'Enter your company name' }
                                         ].map((field, index) => (
                                             <motion.div
@@ -418,8 +448,16 @@ const ContactSection = () => {
                                                     value={formData[field.name]}
                                                     onChange={handleInputChange}
                                                     placeholder={field.placeholder}
-                                                    className="w-full px-4 py-3 rounded-xl border-2 border-orange-300 focus:ring-0 focus:border-orange-500 focus:outline-none transition-all duration-300 bg-gradient-to-r from-gray-50 to-white focus:from-white focus:to-orange-50 shadow-sm focus:shadow-lg"
+                                                    maxLength={field.name === 'phone' ? "10" : undefined}
+                                                    className={`w-full px-4 py-3 rounded-xl border-2 focus:ring-0 focus:outline-none transition-all duration-300 bg-gradient-to-r from-gray-50 to-white focus:from-white focus:to-orange-50 shadow-sm focus:shadow-lg ${
+                                                        field.name === 'phone' && phoneError 
+                                                            ? 'border-red-500 focus:border-red-500' 
+                                                            : 'border-orange-300 focus:border-orange-500'
+                                                    }`}
                             />
+                                                {field.name === 'phone' && phoneError && (
+                                                    <p className="text-red-500 text-xs mt-1">{phoneError}</p>
+                                                )}
                         </motion.div>
                                         ))}
 
@@ -472,16 +510,17 @@ const ContactSection = () => {
 
                         <motion.button
                             type="submit"
-                            whileHover={{ scale: 1.02, y: -2, transition: { duration: 0.3 } }}
-                            whileTap={{ scale: 0.98 }}
-                            className="w-full py-4 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-xl shadow-lg transition-all duration-300 text-lg"
+                            disabled={sending}
+                            whileHover={{ scale: sending ? 1 : 1.02, y: sending ? 0 : -2, transition: { duration: 0.3 } }}
+                            whileTap={{ scale: sending ? 1 : 0.98 }}
+                            className="w-full py-4 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-xl shadow-lg transition-all duration-300 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                             style={{fontFamily: 'Inter, sans-serif'}}
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 1.1 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
-                            Send Message →
+                            {sending ? 'Sending...' : 'Send Message →'}
                         </motion.button>
                     </form>
                         </div>

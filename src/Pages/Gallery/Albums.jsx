@@ -1,8 +1,8 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 
-// Albums data with comprehensive content
+// Albums data with relevant images from Pexels
 const albumsData = [
     {
         id: 1,
@@ -11,20 +11,6 @@ const albumsData = [
         category: "Success Stories",
         imageCount: 24,
         coverImage: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        images: [
-            "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184293/pexels-photo-3184293.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184294/pexels-photo-3184294.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184295/pexels-photo-3184295.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184297/pexels-photo-3184297.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184299/pexels-photo-3184299.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184300/pexels-photo-3184300.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184301/pexels-photo-3184301.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
-        ],
         date: "2024-01-15",
         featured: true
     },
@@ -34,18 +20,7 @@ const albumsData = [
         description: "Documenting our MSME registration workshops, seminars, and training sessions across Gujarat.",
         category: "Events",
         imageCount: 18,
-        coverImage: "https://images.pexels.com/photos/3184466/pexels-photo-3184466.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-        images: [
-            "https://images.pexels.com/photos/3184466/pexels-photo-3184466.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184467/pexels-photo-3184467.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184468/pexels-photo-3184468.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184469/pexels-photo-3184469.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184470/pexels-photo-3184470.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184471/pexels-photo-3184471.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184472/pexels-photo-3184472.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184473/pexels-photo-3184473.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184474/pexels-photo-3184474.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
-        ],
+        coverImage: "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
         date: "2024-01-10",
         featured: false
     },
@@ -55,16 +30,7 @@ const albumsData = [
         description: "Behind-the-scenes look at our funding consultation sessions and client meetings.",
         category: "Consultations",
         imageCount: 15,
-        coverImage: "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop",
-        images: [
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop"
-        ],
+        coverImage:      "https://images.pexels.com/photos/3184295/pexels-photo-3184295.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"        ,
         date: "2024-01-08",
         featured: false
     },
@@ -74,17 +40,7 @@ const albumsData = [
         description: "Celebrating our clients' achievements as they receive their MSME certificates and awards.",
         category: "Awards",
         imageCount: 20,
-        coverImage: "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1582213782179-e0d53f98f2ca?w=800&h=600&fit=crop",
-        images: [
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1582213782179-e0d53f98f2ca?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop"
-        ],
+        coverImage:"https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop",
         date: "2024-01-05",
         featured: true
     },
@@ -94,17 +50,7 @@ const albumsData = [
         description: "Our team's journey, training sessions, and team building activities that strengthen our bond.",
         category: "Team",
         imageCount: 16,
-        coverImage: "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-        images: [
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1559136555-9303baea8ebd?w=400&h=300&fit=crop"
-        ],
+        coverImage: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
         date: "2024-01-03",
         featured: false
     },
@@ -114,15 +60,7 @@ const albumsData = [
         description: "A glimpse into our modern office space, meeting rooms, and work environment in Gandhinagar.",
         category: "Office",
         imageCount: 12,
-        coverImage: "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
-        images: [
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
-            "https://images.pexels.com/photos/3184475/pexels-photo-3184475.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop"
-        ],
+        coverImage: "https://images.pexels.com/photos/1170412/pexels-photo-1170412.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
         date: "2024-01-01",
         featured: false
     }
@@ -141,8 +79,9 @@ const albumsData = [
 
 export default function Albums({ className = "" }) {
     // const alwaysVisible = useAlwaysVisible();
-    const [selectedAlbum, setSelectedAlbum] = useState(null);
-    const [selectedImage, setSelectedImage] = useState(null);
+    // Modals disabled - no images available yet
+    // const [selectedAlbum, setSelectedAlbum] = useState(null);
+    // const [selectedImage, setSelectedImage] = useState(null);
 
     // Animation variants
     const fadeUp = { 
@@ -276,7 +215,7 @@ export default function Albums({ className = "" }) {
                         viewport={{ once: true, amount: 0.1 }}
                         variants={index % 2 === 0 ? slideLeft : slideRight}
                         transition={{ duration: 0.6, delay: index * 0.1 }}
-                        className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group cursor-pointer"
+                        className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group"
                         whileHover={{ 
                             scale: 1.05, 
                             y: -10,
@@ -285,7 +224,6 @@ export default function Albums({ className = "" }) {
                                 ease: [0.68, -0.55, 0.265, 1.55]
                             }
                         }}
-                        onClick={() => setSelectedAlbum(album)}
                     >
                         {/* Album Cover */}
                         <div className="relative overflow-hidden">
@@ -306,11 +244,11 @@ export default function Albums({ className = "" }) {
                             )}
                             
                             {/* Image Count */}
-                            <div className="absolute top-4 right-4">
+                            {/* <div className="absolute top-4 right-4">
                                 <span className="px-3 py-1 bg-black/50 text-white text-sm font-semibold rounded-full backdrop-blur-sm">
                                     {album.imageCount} photos
                                 </span>
-                            </div>
+                            </div> */}
                             
                             {/* Category */}
                             <div className="absolute bottom-4 left-4">
@@ -333,112 +271,14 @@ export default function Albums({ className = "" }) {
                                 <div className="text-sm text-gray-500">
                                     {formatDate(album.date)}
                                 </div>
-                                <motion.button
-                                    className="text-orange-600 font-semibold hover:text-orange-700 transition-colors"
-                                    whileHover={{ x: 5 }}
-                                >
-                                    View Album →
-                                </motion.button>
+                                {/* <div className="text-gray-400 font-medium text-sm">
+                                    Coming Soon
+                                </div> */}
                             </div>
                         </div>
                     </motion.div>
                 ))}
             </div>
-
-            {/* Album Modal */}
-            {selectedAlbum && (
-                <motion.div
-                    className="fixed inset-0 z-50 flex items-center justify-center p-4"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                >
-                    <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setSelectedAlbum(null)} />
-                    
-                    <motion.div
-                        className="relative z-10 max-w-6xl w-full bg-white rounded-3xl shadow-2xl overflow-auto max-h-[90vh] border border-gray-100"
-                        initial={{ y: 50, opacity: 0, scale: 0.9 }}
-                        animate={{ y: 0, opacity: 1, scale: 1 }}
-                        exit={{ y: 50, opacity: 0, scale: 0.9 }}
-                        transition={{ duration: 0.3, ease: [0.68, -0.55, 0.265, 1.55] }}
-                    >
-                        {/* Modal Header */}
-                        <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between rounded-t-3xl">
-                            <div>
-                                <h2 className="text-2xl font-bold text-gray-900">{selectedAlbum.title}</h2>
-                                <p className="text-gray-600 mt-1">{selectedAlbum.imageCount} photos • {formatDate(selectedAlbum.date)}</p>
-                            </div>
-                            <motion.button
-                                onClick={() => setSelectedAlbum(null)}
-                                className="w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:text-gray-800 transition-colors"
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                            >
-                                ×
-                            </motion.button>
-                        </div>
-                        
-                        {/* Album Description */}
-                        <div className="p-6 border-b border-gray-200">
-                            <p className="text-gray-700 leading-relaxed">{selectedAlbum.description}</p>
-                        </div>
-                        
-                        {/* Images Grid */}
-                        <div className="p-6">
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                {selectedAlbum.images.map((image, index) => (
-                                    <motion.div
-                                        key={index}
-                                        className="relative overflow-hidden rounded-2xl cursor-pointer group"
-                                        whileHover={{ scale: 1.05 }}
-                                        onClick={() => setSelectedImage(image)}
-                                    >
-                                        <img 
-                                            src={image} 
-                                            alt={`${selectedAlbum.title} ${index + 1}`}
-                                            className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-300"
-                                        />
-                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </div>
-                    </motion.div>
-                </motion.div>
-            )}
-
-            {/* Image Modal */}
-            {selectedImage && (
-                <motion.div
-                    className="fixed inset-0 z-60 flex items-center justify-center p-4"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                >
-                    <div className="absolute inset-0 bg-black/90" onClick={() => setSelectedImage(null)} />
-                    
-                    <motion.div
-                        className="relative z-10 max-w-4xl w-full"
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0.8, opacity: 0 }}
-                    >
-                        <img 
-                            src={selectedImage} 
-                            alt="Selected"
-                            className="w-full h-auto rounded-2xl shadow-2xl"
-                        />
-                        <motion.button
-                            onClick={() => setSelectedImage(null)}
-                            className="absolute top-4 right-4 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-colors"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                        >
-                            ×
-                        </motion.button>
-                    </motion.div>
-                </motion.div>
-            )}
         </div>
     );
 }

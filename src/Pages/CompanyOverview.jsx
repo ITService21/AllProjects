@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import PropTypes from "prop-types";
 import FormModal from "../Components/FormModal";
+import { useModal } from "../Context/ModalContext";
 
 
 /* Comprehensive MSME and Startup Business Data */
@@ -11,8 +12,8 @@ const myData = {
         tagline: "Empowering MSMEs and Startups for Sustainable Growth",
         description: "We are Gandhinagar's premier MSME consultancy firm, providing comprehensive business solutions from startup inception to expansion. Based in Gandhinagar, we serve entrepreneurs across India with expert guidance, funding assistance, compliance management, and strategic business growth consulting.",
         heroImage: "https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=1400&h=800&fit=crop1507003211169-0a1dd7228f2d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=",
-        email: "info@growstartup.com",
-        website: "https://growstartup.com",
+        email: "info@growstartup.in",
+        website: "https://growstartup.in",
         founded: "2025",
         location: "Gandhinagar, Gujarat",
         teamSize: "50+ Experts"
@@ -109,6 +110,7 @@ const myData = {
 
 export default function CompanyOverview({ data = myData, onContactClick = null, className = "" }) {
     const [showFormModal, setShowFormModal] = useState(false);
+    const { isAnyModalOpen } = useModal();
     
     // Simple animation variants - content is visible by default
     const fadeUp = { 
@@ -224,7 +226,9 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
     // contact handler (prefers a provided handler)
     const handleContact = (e) => {
         if (typeof onContactClick === "function") return onContactClick(e);
-        setShowFormModal(true);
+        if (!isAnyModalOpen) {
+            setShowFormModal(true);
+        }
     };
 
     // safe array helper
@@ -374,7 +378,7 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
                     </div>
 
                     {/* Quick links */}
-                    {Array.isArray(data.links) && data.links.length > 0 && (
+                    {/* {Array.isArray(data.links) && data.links.length > 0 && (
                         <div className="mt-6 flex flex-wrap items-center gap-4">
                             {data.links.map((l, i) => (
                                 <a key={i} href={l.href} className="text-sm text-orange-600 hover:text-orange-800 hover:underline font-medium">
@@ -382,7 +386,7 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
                                 </a>
                             ))}
                         </div>
-                    )}
+                    )} */}
                 </motion.div>
 
                 {/* Right: image + stats - Slides from RIGHT */}

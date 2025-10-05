@@ -1,0 +1,37 @@
+==========================================
+🔄 FAVICON NOT SHOWING? CLEAR YOUR CACHE!
+==========================================
+
+Your favicon has been updated to use logo.jpg
+
+To see it, do a HARD REFRESH:
+
+Windows/Linux Chrome/Edge/Firefox:
+  Press: Ctrl + Shift + R
+
+Mac Chrome/Edge/Firefox:
+  Press: Cmd + Shift + R
+
+Mac Safari:
+  Press: Cmd + Option + R
+
+==========================================
+
+Still not showing?
+
+1. Close ALL browser tabs with your website
+2. Close and restart your browser
+3. Open your website again
+4. Hard refresh (Ctrl+Shift+R or Cmd+Shift+R)
+
+==========================================
+
+For Production (growstartup.in):
+
+1. Hard refresh the page
+2. Clear browser cache completely
+3. Wait 5 minutes (cache timeout)
+4. Try again
+
+==========================================
+

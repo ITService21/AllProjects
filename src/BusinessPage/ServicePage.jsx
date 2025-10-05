@@ -5,8 +5,10 @@ import FormModal from "../Components/FormModal";
 import serviceDetails from "../Data/ServiceDetails";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useModal } from "../Context/ModalContext";
 const ServicePage = () => {
   const navigate = useNavigate();
+  const { isAnyModalOpen, openModal, closeModal } = useModal();
   const [activeCategory, setActiveCategory] = useState(0);
   const [selectedService, setSelectedService] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -722,7 +724,12 @@ const ServicePage = () => {
                 className="flex flex-col sm:flex-row gap-6 justify-center"
               >
                 <button
-                  onClick={() => setShowBookConsultant(true)}
+                  onClick={() => { 
+                    if (!isAnyModalOpen) {
+                      openModal();
+                      setShowBookConsultant(true);
+                    }
+                  }}
                   className="px-10 py-5 bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white font-bold rounded-full shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 relative overflow-hidden"
                   style={{ fontFamily: "Poppins, sans-serif" }}
                 >
@@ -758,7 +765,10 @@ const ServicePage = () => {
       {/* Form Modal */}
       <FormModal
         open={showBookConsultant}
-        onClose={() => setShowBookConsultant(false)}
+        onClose={() => {
+          closeModal();
+          setShowBookConsultant(false);
+        }}
       />
     </div>
   );

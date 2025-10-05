@@ -21,13 +21,33 @@ export default function FormModal({ open, onClose, onDismissPermanently }) {
         message: ''
     });
     const [sending, setSending] = useState(false);
+    const [phoneError, setPhoneError] = useState('');
     const { closeModal } = useModal();
 
     const handleInputChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        const { name, value } = e.target;
+        
+        // Validate phone number
+        if (name === 'phone') {
+            // Allow only digits
+            const phoneValue = value.replace(/\D/g, '');
+            setFormData({
+                ...formData,
+                phone: phoneValue
+            });
+            
+            // Validate length
+            if (phoneValue.length > 0 && phoneValue.length !== 10) {
+                setPhoneError('Phone number must be exactly 10 digits');
+            } else {
+                setPhoneError('');
+            }
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value
+            });
+        }
     };
 
     const handleSchemeSelect = (scheme) => {
@@ -41,12 +61,17 @@ export default function FormModal({ open, onClose, onDismissPermanently }) {
         formData.name.trim() &&
         formData.email.trim() &&
         formData.phone.trim() &&
+        formData.phone.length === 10 &&
         formData.message.trim();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!isValid()) {
-            toast.error('Please fill all required fields.');
+            if (formData.phone.length !== 10) {
+                toast.error('Phone number must be exactly 10 digits');
+            } else {
+                toast.error('Please fill all required fields.');
+            }
             return;
         }
         setSending(true);
@@ -194,11 +219,16 @@ export default function FormModal({ open, onClose, onDismissPermanently }) {
                                 value={formData.phone}
                                 onChange={handleInputChange}
                                 required
-                                className="w-full px-3 py-2 rounded-lg border border-orange-300 focus:border-orange-500 text-xs"
-                                placeholder="Your Phone"
+                                maxLength="10"
+                                className={`w-full px-3 py-2 rounded-lg border text-xs ${
+                                    phoneError ? 'border-red-500 focus:border-red-500' : 'border-orange-300 focus:border-orange-500'
+                                }`}
+                                placeholder="10 digit mobile number"
                             />
-                        </div>
-                        {/* <div>
+                            {phoneError && (
+                                <p className="text-red-500 text-xs mt-1">{phoneError}</p>
+                            )}
+                        </div>                        {/* <div>
                             <label className="block text-xs font-semibold text-gray-700 mb-1">
                                 Company <span className="text-gray-400">(optional)</span>
                             </label>

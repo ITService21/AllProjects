@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../config/api";
 import {
     FaFacebookF,
@@ -14,6 +15,7 @@ import {
 export default function Footer() {
     const [email, setEmail] = useState('');
     const [isSubscribed, setIsSubscribed] = useState(false);
+    const [processing, setProcessing] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
 
     const handleSubscribe = async (e) => {
@@ -21,12 +23,13 @@ export default function Footer() {
         setErrorMsg('');
         // Simple email validation
         if (!email || !/^[\w-.]+@([\w-]+\.)+[\w-]{2,}$/.test(email)) {
-            setErrorMsg('Please enter a valid email address.');
+            toast.error('Please enter a valid email address.');
             setIsSubscribed(false);
             return;
         }
+        setProcessing(true);
         try {
-            await fetch(API_ENDPOINTS.SEND_FORM_MAIL, {
+            const res = await fetch(API_ENDPOINTS.SEND_FORM_MAIL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -37,12 +40,20 @@ export default function Footer() {
                     }
                 })
             });
-            setIsSubscribed(true);
-            setEmail('');
-            setTimeout(() => setIsSubscribed(false), 10000); // Show message for 10 seconds
+            if (res.ok) {
+                setIsSubscribed(true);
+                toast.success('Thank you for subscribing! We\'ll send you monthly updates.');
+                setEmail('');
+                setTimeout(() => setIsSubscribed(false), 10000); // Show message for 10 seconds
+            } else {
+                toast.error('An error occurred. Please try again.');
+                setIsSubscribed(false);
+            }
         } catch {
-            setErrorMsg('An error occurred. Please try again.');
+            toast.error('An error occurred. Please try again.');
             setIsSubscribed(false);
+        } finally {
+            setProcessing(false);
         }
     };
 
@@ -75,9 +86,10 @@ export default function Footer() {
                             </div>
                             <button
                                 type="submit"
-                                className="bg-[#F85710] text-white px-6 py-3 rounded-lg font-semibold text-sm hover:bg-[#E04A0E] transition-colors duration-200 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg hover:shadow-xl"
+                                disabled={processing || isSubscribed}
+                                className="bg-[#F85710] text-white px-6 py-3 rounded-lg font-semibold text-sm hover:bg-[#E04A0E] transition-colors duration-200 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                {isSubscribed ? '✓ Subscribed!' : 'Subscribe'}
+                                {processing ? 'Processing...' : isSubscribed ? '✓ Subscribed!' : 'Subscribe'}
                             </button>
                         </form>
                     </div>

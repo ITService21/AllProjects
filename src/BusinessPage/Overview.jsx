@@ -33,7 +33,7 @@ const Overview = () => {
       };
 
       animateCount(500, 'clients');
-      animateCount(15, 'experience');
+      animateCount(5, 'experience');
       animateCount(1000, 'projects');
       animateCount(50, 'certifications');
     }

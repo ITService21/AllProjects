@@ -67,7 +67,7 @@ export const MenuLinks = ({ menuLinks }) => {
               />
               
               {/* Text Content */}
-              <span className="relative z-10 flex items-center">
+              <span className="relative z-10 flex items-center md:text-[1vw]">
                 {menuLink?.name}
                 {Array?.isArray(menuLink?.subLinks) &&
                   menuLink?.subLinks?.length !== 0 && (

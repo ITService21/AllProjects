@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import FormModal from "../../Components/FormModal";
 import { useCTAModal } from "../../hooks/useCTAModal";
+import { useModal } from "../../Context/ModalContext";
 
 // Marketing services data
 const marketingServices = [
@@ -131,6 +132,7 @@ const successMetrics = [
 
 export default function MarketingServices({ className = "" }) {
     const { showFormModal, setShowFormModal, ctaRef } = useCTAModal();
+    const { isAnyModalOpen, openModal, closeModal } = useModal();
 
     return (
         <section 
@@ -659,7 +661,7 @@ export default function MarketingServices({ className = "" }) {
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         <button
-                            onClick={() => setShowFormModal(true)}
+                            onClick={() => { if (!isAnyModalOpen) { openModal(); setShowFormModal(true); } }}
                             className="px-10 py-4 bg-white text-orange-600 font-bold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg"
                         >
                             Start Marketing Campaign
@@ -668,7 +670,7 @@ export default function MarketingServices({ className = "" }) {
                             href="tel:+917383930301"
                             className="px-10 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-orange-600 transition-all duration-300"
                         >
-                            Call Now: +91 7383930301
+                            Call Now: +91 98765 43210
                         </a>
                     </motion.div>
                 </div>
@@ -676,7 +678,7 @@ export default function MarketingServices({ className = "" }) {
             {/* Form Modal */}
             <FormModal
                 open={showFormModal}
-                onClose={() => setShowFormModal(false)}
+                onClose={() => { closeModal(); setShowFormModal(false); }}
             />
         </section>
     );

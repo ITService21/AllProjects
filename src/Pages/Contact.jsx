@@ -20,6 +20,7 @@ function ContactUs() {
         message: ''
     });
     const [sending, setSending] = useState(false);
+    const [phoneError, setPhoneError] = useState('');
 
     const handleSchemeSelect = (scheme) => {
         setFormData({
@@ -32,12 +33,17 @@ function ContactUs() {
         formData.name.trim() &&
         formData.email.trim() &&
         formData.phone.trim() &&
+        formData.phone.length === 10 &&
         formData.message.trim();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!isValid()) {
-            toast.error('Please fill all required fields.');
+            if (formData.phone.length !== 10) {
+                toast.error('Phone number must be exactly 10 digits');
+            } else {
+                toast.error('Please fill all required fields.');
+            }
             return;
         }
         setSending(true);
@@ -75,15 +81,35 @@ function ContactUs() {
             }
         } catch {
             toast.error('Failed to send message. Please try again.');
+        } finally {
+            setSending(false);
         }
-        setSending(false);
     };
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        const { name, value } = e.target;
+        
+        // Validate phone number
+        if (name === 'phone') {
+            // Allow only digits
+            const phoneValue = value.replace(/\D/g, '');
+            setFormData({
+                ...formData,
+                phone: phoneValue
+            });
+            
+            // Validate length
+            if (phoneValue.length > 0 && phoneValue.length !== 10) {
+                setPhoneError('Phone number must be exactly 10 digits');
+            } else {
+                setPhoneError('');
+            }
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value
+            });
+        }
     };
 
     return (
@@ -164,7 +190,7 @@ function ContactUs() {
                         className="bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 text-center group cursor-pointer"
                         whileHover={{ scale: 1.05, y: -10 }}
                         transition={{ duration: 0.3 }}
-                        onClick={() => (window.location.href = "mailto:info@growstartup.com")}
+                        onClick={() => (window.location.href = "mailto:info@growstartup.in")}
                     >
                         <motion.div 
                             className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mx-auto mb-6 flex items-center justify-center"
@@ -174,7 +200,7 @@ function ContactUs() {
                             <FaEnvelope className="text-white text-2xl" />
                         </motion.div>
                         <h3 className="text-xl font-bold text-gray-800 mb-3">Email Us</h3>
-                        <p className="text-gray-600 mb-4">info@growstartup.com</p>
+                        <p className="text-gray-600 mb-4">info@growstartup.in</p>
                         <p className="text-sm text-gray-500">We respond within 2 hours</p>
                     </motion.div>
 
@@ -183,7 +209,7 @@ function ContactUs() {
                         className="bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 text-center group cursor-pointer"
                         whileHover={{ scale: 1.05, y: -10 }}
                         transition={{ duration: 0.3 }}
-                        onClick={() => window.open("https://www.google.com/maps/search/Gandhinagar+Gujarat")}
+                        onClick={() => window.open("https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1927.1926174015482!2d72.62794682776466!3d23.176595001110528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395c2bb3619f9fdf%3A0xc4be3eeb15516748!2sThe%20Landmark!5e0!3m2!1sen!2sin!4v1759582347978!5m2!1sen!2sin")}
                     >
                         <motion.div 
                             className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mx-auto mb-6 flex items-center justify-center"
@@ -193,7 +219,7 @@ function ContactUs() {
                             <FaMapMarkerAlt className="text-white text-2xl" />
                         </motion.div>
                         <h3 className="text-xl font-bold text-gray-800 mb-3">Visit Us</h3>
-                        <p className="text-gray-600 mb-4">Gandhinagar, Gujarat</p>
+                        <p className="text-gray-600 mb-4">B1/606, The landmark, Sector 6 (Kudasan), Gandhinagar, Gujarat 382419</p>
                         <p className="text-sm text-gray-500">Schedule a meeting with us</p>
                     </motion.div>
                 </div>
@@ -241,9 +267,16 @@ function ContactUs() {
                                         name="phone"
                                         value={formData.phone}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-orange-500 focus:outline-none transition-colors"
+                                        maxLength="10"
+                                        className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-colors ${
+                                            phoneError ? 'border-red-500 focus:border-red-500' : 'border-gray-300 focus:border-orange-500'
+                                        }`}
+                                        placeholder="10 digit mobile number"
                                         required
                                     />
+                                    {phoneError && (
+                                        <p className="text-red-500 text-xs mt-1">{phoneError}</p>
+                                    )}
                                 </div>
                                 <div>
                                     <label className="block text-sm font-semibold text-gray-700 mb-2">Company Name</label>

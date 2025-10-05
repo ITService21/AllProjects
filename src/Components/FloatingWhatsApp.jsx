@@ -9,8 +9,10 @@ export default function FloatingWhatsApp() {
     const { isAnyModalOpen, openModal, closeModal } = useModal();
 
     const handleFormModalOpen = () => {
-        openModal();
-        setShowFormModal(true);
+        if (!isAnyModalOpen) {
+            openModal();
+            setShowFormModal(true);
+        }
     };
 
     const handleFormModalClose = () => {
@@ -18,19 +20,9 @@ export default function FloatingWhatsApp() {
         setShowFormModal(false);
     };
 
-    // Don't render if any modal is open
-    if (isAnyModalOpen) {
-        return (
-            <FormModal 
-                open={showFormModal} 
-                onClose={handleFormModalClose} 
-            />
-        );
-    }
-
     return (
         <>
-            {/* Floating WhatsApp Icon - Left */}
+            {/* Floating WhatsApp Icon - Left - Always Visible */}
             <motion.a
                 href="https://wa.me/917383930301"
                 target="_blank"
@@ -45,7 +37,7 @@ export default function FloatingWhatsApp() {
                 <FaWhatsapp className="text-2xl" />
             </motion.a>
 
-            {/* Book Consultant Button - Right */}
+            {/* Book Consultant Button - Right - Always Visible */}
             <motion.button
                 onClick={handleFormModalOpen}
                 className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-base rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden"
@@ -173,7 +165,7 @@ export default function FloatingWhatsApp() {
             {/* Form Modal */}
             <FormModal 
                 open={showFormModal} 
-                onClose={() => setShowFormModal(false)} 
+                onClose={handleFormModalClose} 
             />
         </>
     );

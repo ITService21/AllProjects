@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 import FormModal from "./FormModal";
 import EligibilityChecker from "./EligibilityChecker";
 import { API_ENDPOINTS } from "../config/api";
@@ -20,7 +21,7 @@ import {
 const ServiceModal = ({ isOpen, onClose, service }) => {
     const [showBookConsultant, setShowBookConsultant] = useState(false);
     const [showEligibilityChecker, setShowEligibilityChecker] = useState(false);
-    const [hasTriggeredForm, setHasTriggeredForm] = useState(false);
+    // const [hasTriggeredForm, setHasTriggeredForm] = useState(false);
     const applicationProcessRef = useRef(null);
     const [consultantForm, setConsultantForm] = useState({
         name: '',
@@ -34,44 +35,44 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
     useEffect(() => {
         if (!isOpen) {
             setShowBookConsultant(false);
-            setHasTriggeredForm(false);
+            // setHasTriggeredForm(false);
         }
     }, [isOpen]);
 
-    // Intersection Observer to detect when Application Process comes into view
-    useEffect(() => {
-        if (!isOpen || !applicationProcessRef.current || hasTriggeredForm) return;
+    // Disabled: Auto-opening FormModal when Application Process is visible
+    // useEffect(() => {
+    //     if (!isOpen || !applicationProcessRef.current || hasTriggeredForm) return;
 
-        const currentRef = applicationProcessRef.current;
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting && !hasTriggeredForm) {
-                        console.log('🎯 Application Process section is visible - opening FormModal');
-                        setShowBookConsultant(true);
-                        setHasTriggeredForm(true);
-                    }
-                });
-            },
-            {
-                threshold: 0.3, // Trigger when 30% of the element is visible
-                rootMargin: '0px 0px -50px 0px' // Trigger a bit before it's fully visible
-            }
-        );
+    //     const currentRef = applicationProcessRef.current;
+    //     const observer = new IntersectionObserver(
+    //         (entries) => {
+    //             entries.forEach((entry) => {
+    //                 if (entry.isIntersecting && !hasTriggeredForm) {
+    //                     console.log('🎯 Application Process section is visible - opening FormModal');
+    //                     setShowBookConsultant(true);
+    //                     setHasTriggeredForm(true);
+    //                 }
+    //             });
+    //         },
+    //         {
+    //             threshold: 0.3, // Trigger when 30% of the element is visible
+    //             rootMargin: '0px 0px -50px 0px' // Trigger a bit before it's fully visible
+    //         }
+    //     );
 
-        observer.observe(currentRef);
+    //     observer.observe(currentRef);
 
-        return () => {
-            if (currentRef) {
-                observer.unobserve(currentRef);
-            }
-        };
-    }, [isOpen, hasTriggeredForm]);
+    //     return () => {
+    //         if (currentRef) {
+    //             observer.unobserve(currentRef);
+    //         }
+    //     };
+    // }, [isOpen, hasTriggeredForm]);
 
     const handleConsultantSubmit = async (e) => {
         e.preventDefault();
         try {
-            await fetch(API_ENDPOINTS.SEND_FORM_MAIL, {
+            const res = await fetch(API_ENDPOINTS.SEND_FORM_MAIL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -80,11 +81,15 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
                     fields: consultantForm
                 })
             });
-            alert('Consultation request submitted successfully! We will contact you soon.');
-            setShowBookConsultant(false);
-            setConsultantForm({ name: '', email: '', phone: '', service: service?.name || '', message: '' });
+            if (res.ok) {
+                toast.success('Consultation request submitted successfully! We will contact you soon.');
+                setShowBookConsultant(false);
+                setConsultantForm({ name: '', email: '', phone: '', service: service?.name || '', message: '' });
+            } else {
+                toast.error('Failed to submit request. Please try again later.');
+            }
         } catch {
-            alert('Failed to submit request. Please try again later.');
+            toast.error('Failed to submit request. Please try again later.');
         }
     };
 
