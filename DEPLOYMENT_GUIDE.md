@@ -1,110 +1,77 @@
-# Deployment Guide - Fix 404 Errors on Refresh
+# 🚀 Deployment Guide for SMTP Configuration
 
-## Problem
-When you refresh any page except the home page (like `/about-us/overview` or `/services/funding`), you get a 404 error. This happens because the server tries to find a physical file at that path, but in a React SPA, all routes are handled by the client-side router.
+## Environment Variables Setup
 
-## Solution
-I've added configuration files for different hosting platforms to handle client-side routing properly.
+Your application now uses environment variables for SMTP configuration. In production, you need to set these variables on your hosting platform.
 
-## Files Added
+### Required Environment Variables:
 
-### 1. `public/_redirects` (for Netlify)
-```
-/*    /index.html   200
-```
-
-### 2. `vercel.json` (for Vercel)
-```json
-{
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
-}
+```bash
+VITE_SMTP_HOST=smtp.gmail.com
+VITE_SMTP_PORT=465
+VITE_SMTP_SECURE=true
+VITE_SMTP_USER=info@growstartup.in
+VITE_SMTP_PASS=xifqiymbqdawyyao
+VITE_SMTP_TO=info@growstartup.in
 ```
 
-### 3. `public/.htaccess` (for Apache servers)
-```
-Options -MultiViews
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.html [QSA,L]
-```
-
-### 4. `nginx.conf` (for Nginx servers)
-```
-server {
-    listen 80;
-    server_name localhost;
-    root /usr/share/nginx/html;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-```
-
-### 5. Updated `vite.config.js`
-Added proper build configuration and server settings.
-
-## Deployment Instructions
-
-### For Netlify:
-1. Build your project: `npm run build`
-2. Deploy the `dist` folder to Netlify
-3. The `_redirects` file will automatically handle routing
+## 📋 Deployment Steps by Platform:
 
 ### For Vercel:
-1. Connect your GitHub repository to Vercel
-2. The `vercel.json` file will automatically handle routing
-3. Deploy with: `vercel --prod`
+1. Go to your project on Vercel Dashboard
+2. Go to Settings → Environment Variables
+3. Add each variable (name and value)
+4. Make sure to select "Production" environment
+5. Redeploy your application
 
-### For Apache (cPanel/Shared Hosting):
-1. Build your project: `npm run build`
-2. Upload the `dist` folder contents to your public_html directory
-3. The `.htaccess` file will handle routing
+### For Netlify:
+1. Go to Site settings → Build & deploy → Environment
+2. Click "Edit variables"
+3. Add each variable
+4. Trigger a new deployment
 
-### For Nginx:
-1. Build your project: `npm run build`
-2. Copy the `dist` folder contents to your web server directory
-3. Use the provided `nginx.conf` configuration
+### For VPS/Custom Server:
+1. Create `.env` file on your server:
+   ```bash
+   nano /path/to/your/app/.env
+   ```
+2. Paste the environment variables
+3. Rebuild your application:
+   ```bash
+   npm run build
+   ```
+4. Restart your application
 
-### For Other Hosting Providers:
-Most modern hosting providers support SPA routing. Check their documentation for:
-- "Single Page Application" support
-- "Client-side routing" configuration
-- "History API fallback" settings
-
-## Testing
-After deployment:
-1. Visit your website
-2. Navigate to any page (e.g., `/about-us/overview`)
-3. Refresh the page - it should work without 404 errors
-4. Test all your routes to ensure they work properly
-
-## Build Commands
-```bash
-# Install dependencies
-npm install
-
-# Build for production
-npm run build
-
-# Preview the build locally
-npm run preview
+### For Docker:
+Add to your `docker-compose.yml`:
+```yaml
+environment:
+  - VITE_SMTP_HOST=smtp.gmail.com
+  - VITE_SMTP_PORT=465
+  - VITE_SMTP_SECURE=true
+  - VITE_SMTP_USER=info@growstartup.in
+  - VITE_SMTP_PASS=xifqiymbqdawyyao
+  - VITE_SMTP_TO=info@growstartup.in
 ```
 
-## Troubleshooting
-If you still get 404 errors:
-1. Ensure the configuration file for your hosting platform is present
-2. Check that your hosting provider supports the configuration
-3. Verify that the build files are in the correct directory
-4. Contact your hosting provider's support for SPA routing assistance
+## ⚠️ Important Notes:
 
-## Notes
-- The error you saw (`404: NOT_FOUND Code: NOT_FOUND ID: bom1::gbzx2-1757853902816-f0e43dc3cdea`) is typical of Vercel/Netlify when SPA routing isn't configured
-- These configuration files ensure that all routes are redirected to `index.html`, allowing React Router to handle the routing
-- The files are safe to include in your repository and won't affect local development
+1. **Vite Environment Variables**: Vite requires `VITE_` prefix for client-side variables
+2. **Build Time**: Environment variables are embedded at build time, so you must rebuild after changing them
+3. **Security**: Never commit `.env` file to Git (it's already in `.gitignore`)
+4. **Fallback Values**: The app has fallback values, but they should match production values
+
+## 🔍 Troubleshooting:
+
+If emails aren't sending in production:
+1. Check if environment variables are set correctly
+2. Rebuild the application
+3. Check browser console for SMTP config (temporarily add `console.log(SMTP_CONFIG)`)
+4. Verify Gmail settings allow less secure apps or use App Password
+
+## 📧 Gmail App Password Setup:
+1. Go to Google Account → Security
+2. Enable 2-Step Verification
+3. Go to "App passwords"
+4. Generate a new app password for "Mail"
+5. Use this password in `VITE_SMTP_PASS`

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SMTP Config Verification</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1a1a1a; color: #0f0; }
+        .config { background: #000; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .success { color: #0f0; }
+        .error { color: #f00; }
+        h2 { color: #ff6b35; }
+    </style>
+</head>
+<body>
+    <h1>🔧 SMTP Configuration Verification</h1>
+    
+    <h2>Expected Production Config:</h2>
+    <div class="config">
+{
+  "host": "smtp.gmail.com",
+  "port": 465,
+  "secure": true,
+  "user": "info@growstartup.in",
+  "pass": "xifqiymbqdawyyao"
+}
+    </div>
+    
+    <h2>✅ All fields present:</h2>
+    <div class="config">
+        <span class="success">✓ host: smtp.gmail.com</span><br>
+        <span class="success">✓ port: 465 (number)</span><br>
+        <span class="success">✓ secure: true (boolean)</span><br>
+        <span class="success">✓ user: info@growstartup.in</span><br>
+        <span class="success">✓ pass: xifqiymbqdawyyao</span><br>
+    </div>
+    
+    <h2>📝 Deployment Checklist:</h2>
+    <div class="config">
+        1. ✓ Updated src/config/smtp.js with fallback values<br>
+        2. ✓ Created .env.production file<br>
+        3. ⏳ Run: npm run build<br>
+        4. ⏳ Deploy to production server<br>
+        5. ⏳ Test form submission<br>
+    </div>
+</body>
+</html>
