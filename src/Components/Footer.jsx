@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { API_ENDPOINTS } from "../config/api";
-import { SMTP_CONFIG, SMTP_TO_EMAIL } from "../config/smtp";
 import {
     FaFacebookF,
     FaInstagram,
@@ -31,11 +30,10 @@ export default function Footer() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    smtp: SMTP_CONFIG,
-                    to: SMTP_TO_EMAIL,
+                    to: "info@growstartup.in",
                     subject: "Newsletter signup",
                     fields: {
-                        email: email
+                        Email: email
                     }
                 })
             });

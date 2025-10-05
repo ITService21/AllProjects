@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import FormModal from "./FormModal";
 import EligibilityChecker from "./EligibilityChecker";
 import { API_ENDPOINTS } from "../config/api";
-import { SMTP_CONFIG, SMTP_TO_EMAIL } from "../config/smtp";
 import { 
     FaTimes, 
     FaExternalLinkAlt, 
@@ -76,8 +75,7 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    smtp: SMTP_CONFIG,
-                    to: SMTP_TO_EMAIL,
+                    to: "info@growstartup.in",
                     subject: `Book Consultant - ${service?.name}`,
                     fields: consultantForm
                 })

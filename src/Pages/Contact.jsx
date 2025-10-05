@@ -4,7 +4,6 @@ import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaWhatsapp, FaLinkedin
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { API_ENDPOINTS } from "../config/api";
-import { SMTP_CONFIG, SMTP_TO_EMAIL } from "../config/smtp";
 
 const SERVICE_SCHEMES = [
     "ARTHA", "SURAKSHA", "NISHTHA", "UTTHAN", "PRAGATI", "DISHA"
@@ -47,8 +46,7 @@ function ContactUs() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    smtp: SMTP_CONFIG,
-                    to: SMTP_TO_EMAIL,
+                    to: "info@growstartup.in",
                     subject: "Contact Form Submission",
                     fields: {
                         Name: formData.name,
