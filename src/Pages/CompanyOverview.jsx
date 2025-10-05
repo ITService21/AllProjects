@@ -28,7 +28,7 @@ const myData = {
     stats: [
         { label: "Successful Projects", value: 2500 },
         { label: "Happy Clients", value: 1800 },
-        { label: "Years of Experience", value: 1 },
+        { label: "Years of Experience", value: 5 },
         { label: "Team Members", value: 50 },
         { label: "Cities Served", value: 25 },
         { label: "Funding Raised (Cr)", value: 150 }

@@ -10,7 +10,7 @@ function CounterSection() {
         <div className="mx-auto relative flex flex-col justify-center w-[80vw] sm:w-[250px] h-[280px] rounded-lg bg-[#ffea62] group overflow-hidden">
           <div className="transition-all duration-300 group-hover:mb-32">
             <div className="text-4xl font-bold text-[#272727]">
-              <Counter targetNumber={1} duration={1000} className="counter" />
+              <Counter targetNumber={5} duration={1000} className="counter" />
             </div>
             <div className="text-[#000000]">Years of Expertise</div>
           </div>

@@ -516,7 +516,7 @@ export default function AllServices({ className = "" }) {
                         {
                             icon: "🎯",
                             title: "Expert Team",
-                            description: "1+ years of combined experience in MSME consulting and business development"
+                            description: "5+ years of combined experience in MSME consulting and business development"
                         },
                         {
                             icon: "⚡",

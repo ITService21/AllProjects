@@ -7,6 +7,7 @@ import Select from "react-select";
 import PropTypes from "prop-types";
 import { useModal } from "../Context/ModalContext";
 import { API_ENDPOINTS } from "../config/api";
+import { SMTP_CONFIG, SMTP_TO_EMAIL } from "../config/smtp";
 
 const PARTNERSHIP_TYPES = [
     "Strategic Partner", "Technology Partner", "Financial Partner", "Government Partner", "Industry Partner"
@@ -90,14 +91,8 @@ export default function PartnerModal({ open, onClose }) {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    smtp: {
-                        host: "mail.piwebtechnology.com",
-                        port: 587,
-                        secure: false,
-                        user: "admin@piwebtechnology.com",
-                        pass: "751821@Ss"
-                    },
-                    to: "admin@piwebtechnology.com",
+                    smtp: SMTP_CONFIG,
+                    to: SMTP_TO_EMAIL,
                     subject: "Partnership Inquiry - " + formData.companyName,
                     fields: {
                         "Company Name": formData.companyName,

@@ -6,6 +6,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useModal } from "../Context/ModalContext";
 import { API_ENDPOINTS } from "../config/api";
+import { SMTP_CONFIG, SMTP_TO_EMAIL } from "../config/smtp";
 
 const SERVICE_SCHEMES = [
     "ARTHA", "SURAKSHA", "NISHTHA", "UTTHAN", "PRAGATI", "DISHA"
@@ -55,14 +56,8 @@ export default function FormModal({ open, onClose, onDismissPermanently }) {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    smtp: {
-                        host: "mail.piwebtechnology.com",
-                        port: 587,
-                        secure: false,
-                        user: "admin@piwebtechnology.com",
-                        pass: "751821@Ss"
-                    },
-                    to: "admin@piwebtechnology.com",
+                    smtp: SMTP_CONFIG,
+                    to: SMTP_TO_EMAIL,
                     subject: "Consultant Booking Request",
                     fields: {
                         Name: formData.name,

@@ -6,7 +6,8 @@ const getApiBaseUrl = () => {
     
     // Try HTTPS first, fallback to HTTP
     if (isProduction) {
-        return 'https://194.164.150.8:5000';
+        return 'http://194.164.150.8:5000';
+        // return 'https://194.164.150.8:5000';
     }
     
     return 'http://194.164.150.8:5000';
