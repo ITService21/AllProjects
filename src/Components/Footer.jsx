@@ -122,12 +122,12 @@ export default function Footer() {
                 <div>
                     <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
                     <ul className="space-y-2 text-gray-400 text-sm">
-                        <li><Link to="/" className="hover:text-indigo-400 transition-colors">Home</Link></li>
-                        <li><Link to="/about-us/overview" className="hover:text-indigo-400 transition-colors">About Us</Link></li>
-                        <li><Link to="/services/all" className="hover:text-indigo-400 transition-colors">Services</Link></li>
+                        <li><Link to="/" className="hover:text-indigo-400 transition-colors" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Home</Link></li>
+                        <li><Link to="/about-us/overview" className="hover:text-indigo-400 transition-colors" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>About Us</Link></li>
+                        <li><Link to="/services/all" className="hover:text-indigo-400 transition-colors" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Services</Link></li>
                         {/* <li><Link to="/about-us/certifications" className="hover:text-indigo-400 transition-colors">Certifications</Link></li> */}
                         {/* <li><Link to="/about-us/partners" className="hover:text-indigo-400 transition-colors">Partners</Link></li> */}
-                        <li><Link to="/contact-us" className="hover:text-indigo-400 transition-colors">Contact Us</Link></li>
+                        <li><Link to="/contact-us" className="hover:text-indigo-400 transition-colors" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Contact Us</Link></li>
                     </ul>
                 </div>
 
@@ -135,10 +135,10 @@ export default function Footer() {
                 <div>
                     <h3 className="text-lg font-semibold mb-4">Our Services</h3>
                     <ul className="space-y-2 text-gray-400 text-sm">
-                        <li><Link to="/services/funding" className="hover:text-indigo-400 transition-colors">Funding Consultant</Link></li>
-                        <li><Link to="/services/certificate" className="hover:text-indigo-400 transition-colors">Certificate Consultant</Link></li>
-                        <li><Link to="/services/marketing" className="hover:text-indigo-400 transition-colors">Marketing Services</Link></li>
-                        <li><Link to="/services/legal" className="hover:text-indigo-400 transition-colors">Legal Services</Link></li>
+                        <li><Link to="/services/funding" className="hover:text-indigo-400 transition-colors" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Funding Consultant</Link></li>
+                        <li><Link to="/services/certificate" className="hover:text-indigo-400 transition-colors" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Certificate Consultant</Link></li>
+                        <li><Link to="/services/marketing" className="hover:text-indigo-400 transition-colors" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Marketing Services</Link></li>
+                        <li><Link to="/services/legal" className="hover:text-indigo-400 transition-colors" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Legal Services</Link></li>
                     </ul>
                 </div>
 
@@ -146,13 +146,13 @@ export default function Footer() {
                 <div>
                     <h3 className="text-lg font-semibold mb-4">Resources</h3>
                     <ul className="space-y-2 text-gray-400 text-sm">
-                        <li><Link to="/blog" className="hover:text-indigo-400 transition-colors">Blog</Link></li>
-                        <li><Link to="/gallery/albums" className="hover:text-indigo-400 transition-colors">Gallery</Link></li>
+                        <li><Link to="/blog" className="hover:text-indigo-400 transition-colors" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Blog</Link></li>
+                        <li><Link to="/gallery/albums" className="hover:text-indigo-400 transition-colors" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Gallery</Link></li>
                         {/* <li><Link to="/gallery/videos" className="hover:text-indigo-400 transition-colors">Videos</Link></li> */}
                         {/* <li><Link to="/about-us/mission-vision" className="hover:text-indigo-400 transition-colors">Mission & Vision</Link></li> */}
                         {/* <li><Link to="/about-us/ourteam" className="hover:text-indigo-400 transition-colors">Our Team</Link></li> */}
-                        <li><Link to="/about-us/certifications" className="hover:text-indigo-400 transition-colors">Certifications</Link></li>
-                        <li><Link to="/about-us/partners" className="hover:text-indigo-400 transition-colors">Partners</Link></li>
+                        <li><Link to="/about-us/certifications" className="hover:text-indigo-400 transition-colors" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Certifications</Link></li>
+                        <li><Link to="/about-us/partners" className="hover:text-indigo-400 transition-colors" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Partners</Link></li>
                     </ul>
                 </div>
 

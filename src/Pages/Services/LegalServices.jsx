@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
-import FormModal from "../../Components/FormModal";
 import { useCTAModal } from "../../hooks/useCTAModal";
 import { useModal } from "../../Context/ModalContext";
 
@@ -152,8 +151,8 @@ const processSteps = [
 ];
 
 export default function LegalServices({ className = "" }) {
-    const { showFormModal, setShowFormModal, ctaRef } = useCTAModal();
-    const { isAnyModalOpen, openModal, closeModal } = useModal();
+    const { ctaRef } = useCTAModal();
+    const { isAnyModalOpen, openFormModal } = useModal();
 
     return (
         <section 
@@ -685,7 +684,7 @@ export default function LegalServices({ className = "" }) {
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         <motion.button
-                            onClick={() => { if (!isAnyModalOpen) { openModal(); setShowFormModal(true); } }}
+                            onClick={() => { if (!isAnyModalOpen) { openFormModal(); } }}
                             className="px-10 py-4 bg-white text-orange-600 font-bold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg"
                             whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(255,255,255,0.3)" }}
                             whileTap={{ scale: 0.95 }}
@@ -703,12 +702,6 @@ export default function LegalServices({ className = "" }) {
                     </motion.div>
                 </div>
             </motion.div>
-
-            {/* Form Modal */}
-            <FormModal
-                open={showFormModal}
-                onClose={() => { closeModal(); setShowFormModal(false); }}
-            />
         </section>
     );
 }

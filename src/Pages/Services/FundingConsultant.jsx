@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import { useModal } from "../../Context/ModalContext";
-import FormModal from "../../Components/FormModal";
 import { useCTAModal } from "../../hooks/useCTAModal";
 
 // Funding services data
@@ -94,8 +93,8 @@ const successStories = [
 ];
 
 export default function FundingConsultant({ className = "" }) {
-    const { showFormModal, setShowFormModal, ctaRef } = useCTAModal();
-    const { isAnyModalOpen, openModal, closeModal } = useModal();
+    const { ctaRef } = useCTAModal();
+    const { isAnyModalOpen, openFormModal } = useModal();
 
     return (
         <section 
@@ -642,8 +641,7 @@ export default function FundingConsultant({ className = "" }) {
                         <button
                             onClick={() => { 
                                 if (!isAnyModalOpen) {
-                                    openModal();
-                                    setShowFormModal(true);
+                                    openFormModal();
                                 }
                             }}
                             className="px-10 py-4 bg-white text-orange-600 font-bold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg"
@@ -659,15 +657,6 @@ export default function FundingConsultant({ className = "" }) {
                     </motion.div>
                 </div>
             </motion.div>
-
-            {/* Form Modal */}
-            <FormModal
-                open={showFormModal}
-                onClose={() => {
-                    closeModal();
-                    setShowFormModal(false);
-                }}
-            />
         </section>
     );
 }

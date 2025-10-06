@@ -7,14 +7,12 @@ import { HamburgerButton } from "./ui-elements/HamburgerButton/HamburgerButton";
 import { MenuLinks } from "./ui-elements/MenuLinks/MenuLinks";
 import { MobileMenu } from "./ui-elements/MobileMenu/MobileMenu";
 import { NavbarLinks } from "./../Data/navbar-links.js";
-import FormModal from "./FormModal";
 import { useModal } from "../Context/ModalContext";
 
 function Navbar() {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showFormModal, setShowFormModal] = useState(false);
-  const { openModal, closeModal, isAnyModalOpen } = useModal();
+  const { openFormModal, isAnyModalOpen } = useModal();
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
@@ -96,8 +94,7 @@ function Navbar() {
               <motion.button
                 onClick={() => {
                   if (!isAnyModalOpen) {
-                    openModal();
-                    setShowFormModal(true);
+                    openFormModal();
                   }
                 }}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-sm font-semibold rounded-full text-white bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -129,22 +126,12 @@ function Navbar() {
               onClose={() => setIsMobileMenuOpen(false)}
               onGetStarted={() => {
                 if (!isAnyModalOpen) {
-                  openModal();
-                  setShowFormModal(true);
+                  openFormModal();
                 }
               }}
             />
           )}
         </AnimatePresence>
-
-        {/* Form Modal */}
-        <FormModal
-          open={showFormModal}
-          onClose={() => {
-            closeModal();
-            setShowFormModal(false);
-          }}
-        />
       </motion.nav>
     </div>
   );

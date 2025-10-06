@@ -1,8 +1,9 @@
 import { SubLinksBox } from "./LinkSubItems";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 
 export const MenuLinks = ({ menuLinks }) => {
   const navigate = useNavigate();
@@ -51,6 +52,8 @@ export const MenuLinks = ({ menuLinks }) => {
                   handleDropdownToggle(index);
                 } else if (menuLink?.link) {
                   navigate(menuLink.link);
+                  // Scroll to top when navigating
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
               }}
             >
@@ -119,4 +122,8 @@ export const MenuLinks = ({ menuLinks }) => {
       ))}
     </ul>
   );
+};
+
+MenuLinks.propTypes = {
+  menuLinks: PropTypes.array.isRequired,
 };

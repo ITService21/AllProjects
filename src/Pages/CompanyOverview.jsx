@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import PropTypes from "prop-types";
-import FormModal from "../Components/FormModal";
 import { useModal } from "../Context/ModalContext";
 
 
@@ -109,8 +108,7 @@ const myData = {
 };
 
 export default function CompanyOverview({ data = myData, onContactClick = null, className = "" }) {
-    const [showFormModal, setShowFormModal] = useState(false);
-    const { isAnyModalOpen } = useModal();
+    const { isAnyModalOpen, openFormModal } = useModal();
     
     // Simple animation variants - content is visible by default
     const fadeUp = { 
@@ -227,7 +225,7 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
     const handleContact = (e) => {
         if (typeof onContactClick === "function") return onContactClick(e);
         if (!isAnyModalOpen) {
-            setShowFormModal(true);
+            openFormModal();
         }
     };
 
@@ -836,12 +834,6 @@ export default function CompanyOverview({ data = myData, onContactClick = null, 
                 </motion.div>
             </div>
             </motion.div>
-
-            {/* Form Modal */}
-            <FormModal
-                open={showFormModal}
-                onClose={() => setShowFormModal(false)}
-            />
         </section>
     );
 }

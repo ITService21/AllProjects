@@ -1,23 +1,14 @@
 import { motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
-import { useState } from "react";
-import FormModal from "./FormModal";
 import { useModal } from "../Context/ModalContext";
 
 export default function FloatingWhatsApp() {
-    const [showFormModal, setShowFormModal] = useState(false);
-    const { isAnyModalOpen, openModal, closeModal } = useModal();
+    const { isAnyModalOpen, openFormModal } = useModal();
 
     const handleFormModalOpen = () => {
         if (!isAnyModalOpen) {
-            openModal();
-            setShowFormModal(true);
+            openFormModal();
         }
-    };
-
-    const handleFormModalClose = () => {
-        closeModal();
-        setShowFormModal(false);
     };
 
     return (
@@ -161,12 +152,6 @@ export default function FloatingWhatsApp() {
                     </motion.span>
                 </span>
             </motion.button>
-
-            {/* Form Modal */}
-            <FormModal 
-                open={showFormModal} 
-                onClose={handleFormModalClose} 
-            />
         </>
     );
 }

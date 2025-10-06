@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
-import FormModal from "../../Components/FormModal";
 import { useCTAModal } from "../../hooks/useCTAModal";
 import { useModal } from "../../Context/ModalContext";
 
@@ -141,8 +140,8 @@ const servicesData = [
 ];
 
 export default function AllServices({ className = "" }) {
-    const { showFormModal, setShowFormModal, ctaRef } = useCTAModal();
-    const { isAnyModalOpen, openModal, closeModal } = useModal();
+    const { ctaRef } = useCTAModal();
+    const { isAnyModalOpen, openFormModal } = useModal();
 
     return (
         <section 
@@ -591,7 +590,7 @@ export default function AllServices({ className = "" }) {
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         <button
-                            onClick={() => { if (!isAnyModalOpen) { openModal(); setShowFormModal(true); } }}
+                            onClick={() => { if (!isAnyModalOpen) { openFormModal(); } }}
                             className="px-10 py-4 bg-white text-orange-600 font-bold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg"
                         >
                             Get Started Today
@@ -605,12 +604,6 @@ export default function AllServices({ className = "" }) {
                     </motion.div>
                 </div>
             </motion.div>
-
-            {/* Form Modal */}
-            <FormModal
-                open={showFormModal}
-                onClose={() => { closeModal(); setShowFormModal(false); }}
-            />
         </section>
     );
 }

@@ -18,10 +18,9 @@ const formatIndianCurrency = (num) => {
 };
 
 // Options for ReactSelect dropdowns
-const GENDER_OPTIONS = [
-  { value: 'Male', label: 'Male' },
-  { value: 'Female', label: 'Female' },
-  { value: 'Other', label: 'Other' }
+const FUNDING_TYPE_OPTIONS = [
+  { value: 'loan', label: 'Loan' },
+  { value: 'grant', label: 'Grant' }
 ];
 
 const EDUCATION_OPTIONS = [
@@ -32,61 +31,44 @@ const EDUCATION_OPTIONS = [
   { value: 'Post Graduate', label: 'Post Graduate' }
 ];
 
-const CATEGORY_OPTIONS = [
-  { value: 'General', label: 'General' },
-  { value: 'SC', label: 'SC' },
-  { value: 'ST', label: 'ST' },
-  { value: 'OBC', label: 'OBC' },
-  { value: 'Women', label: 'Women' }
-];
-
 const BUSINESS_TYPE_OPTIONS = [
   { value: 'Manufacturing', label: 'Manufacturing' },
   { value: 'Trading', label: 'Trading' },
-  { value: 'Service', label: 'Service' }
+  { value: 'Service', label: 'Service' },
+  { value: 'Agriculture', label: 'Agriculture' },
+  { value: 'Technology', label: 'Technology' }
 ];
 
 const BUSINESS_REGISTRATION_OPTIONS = [
   { value: 'MSME', label: 'MSME' },
-  { value: 'Company', label: 'Company' },
+  { value: 'Private Limited', label: 'Private Limited' },
   { value: 'LLP', label: 'LLP' },
+  { value: 'ROF', label: 'ROF (Registrar of Firms)' },
   { value: 'Partnership', label: 'Partnership' },
+  { value: 'Proprietorship', label: 'Proprietorship' },
   { value: 'None', label: 'None' }
 ];
 
-const YES_NO_OPTIONS = [
-  { value: 'true', label: 'Yes' },
-  { value: 'false', label: 'No' }
-];
-
 const EligibilityChecker = ({ isOpen, onClose }) => {
+  const [fundingType, setFundingType] = useState(''); // 'loan' or 'grant'
   const [formData, setFormData] = useState({
     // Personal Information
     age: '',
-    gender: '',
     education: '',
-    familyIncome: '',
-    category: '', // General, SC, ST, OBC, Women
     
     // Business Information
-    businessType: '', // Manufacturing, Trading, Service
-    businessExperience: '',
-    currentBusiness: false,
+    businessType: '',
     businessRegistration: '',
+    registrationDate: '', // For Startup India (within 2 years check)
     annualTurnover: '',
+    projectCost: '',
     
     // Financial Information
     creditScore: '',
-    existingLoans: false,
-    collateral: false,
-    projectCost: '',
     
     // Additional Information
-    innovation: false,
-    technology: false,
-    export: false,
-    employment: '',
-    location: ''
+    employment: '', // Number of jobs created
+    hasInnovativeIdea: false
   });
 
   const [eligibilityResults, setEligibilityResults] = useState(null);
@@ -97,6 +79,39 @@ const EligibilityChecker = ({ isOpen, onClose }) => {
       ...prev,
       [field]: value
     }));
+  };
+
+  // Format number with Indian comma separators for display
+  const formatNumberWithCommas = (num) => {
+    if (!num) return '';
+    const numStr = num.toString().replace(/,/g, ''); // Remove existing commas
+    if (isNaN(numStr)) return num;
+    
+    const parts = numStr.split('.');
+    const integerPart = parts[0];
+    const decimalPart = parts[1] ? '.' + parts[1] : '';
+    
+    const lastThree = integerPart.substring(integerPart.length - 3);
+    const otherNumbers = integerPart.substring(0, integerPart.length - 3);
+    
+    if (otherNumbers !== '') {
+      return otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + ',' + lastThree + decimalPart;
+    } else {
+      return lastThree + decimalPart;
+    }
+  };
+
+  // Handle amount input with comma formatting
+  const handleAmountChange = (field, displayValue) => {
+    // Remove commas to get the actual number
+    const numericValue = displayValue.replace(/,/g, '');
+    
+    if (numericValue === '' || !isNaN(numericValue)) {
+      setFormData(prev => ({
+        ...prev,
+        [field]: numericValue === '' ? '' : parseInt(numericValue)
+      }));
+    }
   };
 
   const checkEligibility = () => {
@@ -111,72 +126,67 @@ const EligibilityChecker = ({ isOpen, onClose }) => {
   };
 
   const calculateEligibility = (data) => {
-    const schemes = {
-      'PMEGP Loan': {
+    const schemes = {};
+    
+    // Determine which schemes to check based on funding type
+    if (fundingType === 'loan') {
+      schemes['PMEGP Loan'] = {
         eligible: false,
         amount: 0,
         reasons: [],
         requirements: []
-      },
-      'MUDRA Loan': {
+      };
+      schemes['MUDRA Loan'] = {
         eligible: false,
         amount: 0,
         reasons: [],
         requirements: []
-      },
-      'Startup India Seed Fund': {
+      };
+      schemes['Startup India Seed Fund'] = {
         eligible: false,
         amount: 0,
         reasons: [],
         requirements: []
-      },
-      'NAIFF Scheme': {
+      };
+      schemes['NAIFF Scheme'] = {
         eligible: false,
         amount: 0,
         reasons: [],
         requirements: []
-      },
-      'Government Grants': {
+      };
+    } else if (fundingType === 'grant') {
+      schemes['Government Grants for MSMEs'] = {
         eligible: false,
         amount: 0,
         reasons: [],
         requirements: []
-      },
-      'Venture Capital': {
+      };
+      schemes['Venture Capital'] = {
         eligible: false,
         amount: 0,
         reasons: [],
         requirements: []
-      }
-    };
+      };
+    }
 
     // PMEGP Loan Eligibility
-    if (data.age >= 18 && data.age <= 40 && 
-        data.familyIncome <= 150000 && 
-        data.education !== 'Below 8th' &&
-        !data.currentBusiness) {
+    if (fundingType === 'loan' && data.age >= 18 && data.age <= 40 && 
+        data.education !== 'Below 8th') {
       schemes['PMEGP Loan'].eligible = true;
-      schemes['PMEGP Loan'].amount = Math.min(parseInt(data.projectCost) * 0.35, 2500000);
-      schemes['PMEGP Loan'].reasons.push('Meets age, income, and education criteria');
-      schemes['PMEGP Loan'].requirements.push('Complete project report', 'Training completion', 'Bank account');
-    } else {
+      schemes['PMEGP Loan'].amount = Math.min(parseInt(data.projectCost) * 0.90, 5000000);
+      schemes['PMEGP Loan'].reasons.push('Meets age and education criteria');
+      schemes['PMEGP Loan'].requirements.push('Project report', 'Training certificate', 'Bank account');
+    } else if (fundingType === 'loan') {
       if (data.age < 18 || data.age > 40) {
         schemes['PMEGP Loan'].reasons.push('Age must be between 18-40 years');
-      }
-      if (data.familyIncome > 150000) {
-        schemes['PMEGP Loan'].reasons.push('Family income should not exceed ₹1.5 lakh');
       }
       if (data.education === 'Below 8th') {
         schemes['PMEGP Loan'].reasons.push('Minimum 8th standard education required');
       }
-      if (data.currentBusiness) {
-        schemes['PMEGP Loan'].reasons.push('Should be a first-generation entrepreneur');
-      }
     }
 
     // MUDRA Loan Eligibility
-    if (data.age >= 18 && data.age <= 65 && 
-        data.businessExperience >= 6 && 
+    if (fundingType === 'loan' && data.age >= 18 && data.age <= 65 && 
         data.creditScore >= 650) {
       schemes['MUDRA Loan'].eligible = true;
       if (data.annualTurnover < 50000) {
@@ -186,103 +196,82 @@ const EligibilityChecker = ({ isOpen, onClose }) => {
       } else {
         schemes['MUDRA Loan'].amount = 1000000; // Tarun
       }
-      schemes['MUDRA Loan'].reasons.push('Meets age, experience, and credit criteria');
+      schemes['MUDRA Loan'].reasons.push('Meets age and credit criteria');
       schemes['MUDRA Loan'].requirements.push('Business registration', 'Bank statements', 'ITR');
-    } else {
+    } else if (fundingType === 'loan') {
       if (data.age < 18 || data.age > 65) {
         schemes['MUDRA Loan'].reasons.push('Age must be between 18-65 years');
       }
-      if (data.businessExperience < 6) {
-        schemes['MUDRA Loan'].reasons.push('Minimum 6 months business experience required');
-      }
       if (data.creditScore < 650) {
-        schemes['MUDRA Loan'].reasons.push('Good credit history required');
+        schemes['MUDRA Loan'].reasons.push('Credit score of 650 or higher required');
       }
     }
 
     // Startup India Seed Fund Eligibility
-    if (data.age >= 18 && data.age <= 40 && 
-        data.innovation && data.technology && 
-        data.businessRegistration === 'Company' && 
-        data.annualTurnover < 100000000) {
+    const isWithin2Years = data.registrationDate ? 
+      (new Date() - new Date(data.registrationDate)) / (1000 * 60 * 60 * 24 * 365) <= 2 : false;
+    
+    if (fundingType === 'loan' && data.age >= 18 && data.age <= 40 && 
+        (data.businessRegistration === 'Private Limited' || data.businessRegistration === 'LLP' || data.businessRegistration === 'ROF') && 
+        isWithin2Years &&
+        data.annualTurnover < 1000000000) {
       schemes['Startup India Seed Fund'].eligible = true;
-      schemes['Startup India Seed Fund'].amount = Math.min(parseInt(data.projectCost) * 0.5, 10000000);
-      schemes['Startup India Seed Fund'].reasons.push('Meets startup and innovation criteria');
-      schemes['Startup India Seed Fund'].requirements.push('Startup India registration', 'Innovation certificate', 'Business plan');
-    } else {
-      if (!data.innovation) {
-        schemes['Startup India Seed Fund'].reasons.push('Innovative business idea required');
+      schemes['Startup India Seed Fund'].amount = 5000000; // Up to ₹50 lakh
+      schemes['Startup India Seed Fund'].reasons.push('Meets startup registration and turnover criteria');
+      schemes['Startup India Seed Fund'].requirements.push('Startup India registration', 'Business plan');
+    } else if (fundingType === 'loan') {
+      if (data.age < 18 || data.age > 40) {
+        schemes['Startup India Seed Fund'].reasons.push('Age must be between 18-40 years');
       }
-      if (!data.technology) {
-        schemes['Startup India Seed Fund'].reasons.push('Technology-based solution required');
+      if (data.businessRegistration !== 'Private Limited' && data.businessRegistration !== 'LLP' && data.businessRegistration !== 'ROF') {
+        schemes['Startup India Seed Fund'].reasons.push('Must be registered as Private Limited, LLP, or ROF');
       }
-      if (data.businessRegistration !== 'Company') {
-        schemes['Startup India Seed Fund'].reasons.push('Company registration required');
+      if (!isWithin2Years) {
+        schemes['Startup India Seed Fund'].reasons.push('Business must be registered within the last 2 years');
       }
-      if (data.annualTurnover >= 100000000) {
-        schemes['Startup India Seed Fund'].reasons.push('Turnover should not exceed ₹100 crore');
+      if (data.annualTurnover >= 1000000000) {
+        schemes['Startup India Seed Fund'].reasons.push('Annual turnover should be less than ₹100 crore');
       }
     }
 
-    // NAIFF Scheme Eligibility
-    if (data.technology && data.innovation && 
-        data.businessExperience >= 12 && 
-        data.annualTurnover > 0) {
+    // NAIFF Scheme Eligibility (National Agriculture Infra Financing Facility)
+    if (fundingType === 'loan' && 
+        (data.businessType === 'Agriculture' || data.businessType === 'Manufacturing')) {
       schemes['NAIFF Scheme'].eligible = true;
-      schemes['NAIFF Scheme'].amount = Math.min(parseInt(data.projectCost) * 0.4, 20000000);
-      schemes['NAIFF Scheme'].reasons.push('Meets technology and innovation criteria');
-      schemes['NAIFF Scheme'].requirements.push('Technology documentation', 'Business model', 'Financial projections');
-    } else {
-      if (!data.technology) {
-        schemes['NAIFF Scheme'].reasons.push('Technology-based business required');
-      }
-      if (!data.innovation) {
-        schemes['NAIFF Scheme'].reasons.push('Innovation in emerging technologies required');
-      }
-      if (data.businessExperience < 12) {
-        schemes['NAIFF Scheme'].reasons.push('Minimum 1 year of operations required');
-      }
+      schemes['NAIFF Scheme'].amount = Math.min(parseInt(data.projectCost) * 0.90, 20000000);
+      schemes['NAIFF Scheme'].reasons.push('Suitable for post-harvest management and viable farming assets');
+      schemes['NAIFF Scheme'].requirements.push('Business model', 'Financial projections');
+    } else if (fundingType === 'loan') {
+      schemes['NAIFF Scheme'].reasons.push('Suitable for Agriculture and Manufacturing sectors only');
     }
 
-    // Government Grants Eligibility
-    if (data.businessRegistration === 'MSME' && 
-        data.innovation && 
+    // Government Grants for MSMEs Eligibility
+    if (fundingType === 'grant' && 
+        data.businessRegistration === 'MSME' && 
+        data.hasInnovativeIdea && 
         data.employment >= 5) {
-      schemes['Government Grants'].eligible = true;
-      schemes['Government Grants'].amount = Math.min(parseInt(data.projectCost) * 0.75, 5000000);
-      schemes['Government Grants'].reasons.push('Meets MSME and innovation criteria');
-      schemes['Government Grants'].requirements.push('MSME registration', 'Project proposal', 'Innovation certificate');
-    } else {
+      schemes['Government Grants for MSMEs'].eligible = true;
+      schemes['Government Grants for MSMEs'].amount = Math.min(parseInt(data.projectCost) * 0.75, 30000000);
+      schemes['Government Grants for MSMEs'].reasons.push('Meets MSME, innovation, and employment criteria');
+      schemes['Government Grants for MSMEs'].requirements.push('MSME registration', 'Project proposal');
+    } else if (fundingType === 'grant') {
       if (data.businessRegistration !== 'MSME') {
-        schemes['Government Grants'].reasons.push('MSME registration required');
+        schemes['Government Grants for MSMEs'].reasons.push('MSME registration required');
       }
-      if (!data.innovation) {
-        schemes['Government Grants'].reasons.push('Innovation in product/process required');
+      if (!data.hasInnovativeIdea) {
+        schemes['Government Grants for MSMEs'].reasons.push('Should have an innovative idea or want to start there own business with new ways');
       }
       if (data.employment < 5) {
-        schemes['Government Grants'].reasons.push('Employment generation potential required');
+        schemes['Government Grants for MSMEs'].reasons.push('Must provide employment to at least 5 people');
       }
     }
 
     // Venture Capital Eligibility
-    if (data.annualTurnover > 10000000 && 
-        data.technology && 
-        data.innovation && 
-        data.creditScore >= 700) {
+    if (fundingType === 'grant') {
       schemes['Venture Capital'].eligible = true;
-      schemes['Venture Capital'].amount = Math.min(parseInt(data.projectCost) * 0.3, 50000000);
-      schemes['Venture Capital'].reasons.push('Meets high-growth and technology criteria');
-      schemes['Venture Capital'].requirements.push('Pitch deck', 'Financial model', 'Market analysis');
-    } else {
-      if (data.annualTurnover <= 10000000) {
-        schemes['Venture Capital'].reasons.push('High revenue potential required');
-      }
-      if (!data.technology) {
-        schemes['Venture Capital'].reasons.push('Technology differentiation required');
-      }
-      if (data.creditScore < 700) {
-        schemes['Venture Capital'].reasons.push('Excellent credit history required');
-      }
+      schemes['Venture Capital'].amount = 200000000; // Up to ₹200 crore
+      schemes['Venture Capital'].reasons.push('Sector agnostic funding available for eligible businesses');
+      schemes['Venture Capital'].requirements.push('Pitch deck', 'Financial model', 'Market analysis', 'Business plan', 'Team profile');
     }
 
     return schemes;
@@ -317,6 +306,27 @@ const EligibilityChecker = ({ isOpen, onClose }) => {
 
           {!eligibilityResults ? (
             <div className="space-y-6">
+              {/* Funding Type Selection */}
+              <div className="pb-[20px] mb-[30px] bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-lg border-2 border-orange-200">
+                <h3 className="text-lg font-semibold mb-3 text-gray-800">Select Funding Type</h3>
+                <Select
+                  value={FUNDING_TYPE_OPTIONS.find(opt => opt.value === fundingType)}
+                  onChange={(selectedOption) => setFundingType(selectedOption ? selectedOption.value : '')}
+                  options={FUNDING_TYPE_OPTIONS}
+                  placeholder="Choose Loan or Grant"
+                  isClearable
+                  className="react-select-container"
+                  classNamePrefix="react-select"
+                />
+                <p className="text-sm text-gray-600 mt-2">
+                  {fundingType === 'loan' ? 'Loans: PMEGP, MUDRA, Startup India Seed Fund, NAIFF' : 
+                   fundingType === 'grant' ? 'Grants: Government Grants for MSMEs, Venture Capital' : 
+                   'Please select a funding type to see relevant schemes'}
+                </p>
+              </div>
+
+              {fundingType && (
+                <>
               {/* Personal Information */}
               <div className="bg-gray-50 p-4 rounded-lg">
                 <h3 className="text-lg font-semibold mb-4 text-gray-800">Personal Information</h3>
@@ -331,52 +341,20 @@ const EligibilityChecker = ({ isOpen, onClose }) => {
                       placeholder="Enter your age"
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
-                    <Select
-                      value={GENDER_OPTIONS.find(opt => opt.value === formData.gender)}
-                      onChange={(selectedOption) => handleInputChange('gender', selectedOption ? selectedOption.value : '')}
-                      options={GENDER_OPTIONS}
-                      placeholder="Select Gender"
-                      isClearable
-                      className="react-select-container"
-                      classNamePrefix="react-select"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Education</label>
-                    <Select
-                      value={EDUCATION_OPTIONS.find(opt => opt.value === formData.education)}
-                      onChange={(selectedOption) => handleInputChange('education', selectedOption ? selectedOption.value : '')}
-                      options={EDUCATION_OPTIONS}
-                      placeholder="Select Education"
-                      isClearable
-                      className="react-select-container"
-                      classNamePrefix="react-select"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Family Income (₹)</label>
-                    <input
-                      type="number"
-                      value={formData.familyIncome}
-                      onChange={(e) => handleInputChange('familyIncome', parseInt(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                      placeholder="Annual family income"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                    <Select
-                      value={CATEGORY_OPTIONS.find(opt => opt.value === formData.category)}
-                      onChange={(selectedOption) => handleInputChange('category', selectedOption ? selectedOption.value : '')}
-                      options={CATEGORY_OPTIONS}
-                      placeholder="Select Category"
-                      isClearable
-                      className="react-select-container"
-                      classNamePrefix="react-select"
-                    />
-                  </div>
+                  {fundingType === 'loan' && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Education</label>
+                      <Select
+                        value={EDUCATION_OPTIONS.find(opt => opt.value === formData.education)}
+                        onChange={(selectedOption) => handleInputChange('education', selectedOption ? selectedOption.value : '')}
+                        options={EDUCATION_OPTIONS}
+                        placeholder="Select Education"
+                        isClearable
+                        className="react-select-container"
+                        classNamePrefix="react-select"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -384,40 +362,20 @@ const EligibilityChecker = ({ isOpen, onClose }) => {
               <div className="bg-gray-50 p-4 rounded-lg">
                 <h3 className="text-lg font-semibold mb-4 text-gray-800">Business Information</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Business Type</label>
-                    <Select
-                      value={BUSINESS_TYPE_OPTIONS.find(opt => opt.value === formData.businessType)}
-                      onChange={(selectedOption) => handleInputChange('businessType', selectedOption ? selectedOption.value : '')}
-                      options={BUSINESS_TYPE_OPTIONS}
-                      placeholder="Select Business Type"
-                      isClearable
-                      className="react-select-container"
-                      classNamePrefix="react-select"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Business Experience (months)</label>
-                    <input
-                      type="number"
-                      value={formData.businessExperience}
-                      onChange={(e) => handleInputChange('businessExperience', parseInt(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                      placeholder="Months of experience"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Current Business</label>
-                    <Select
-                      value={YES_NO_OPTIONS.find(opt => opt.value === String(formData.currentBusiness))}
-                      onChange={(selectedOption) => handleInputChange('currentBusiness', selectedOption ? selectedOption.value === 'true' : false)}
-                      options={YES_NO_OPTIONS}
-                      placeholder="Select"
-                      isClearable
-                      className="react-select-container"
-                      classNamePrefix="react-select"
-                    />
-                  </div>
+                  {fundingType === 'loan' && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Business Type</label>
+                      <Select
+                        value={BUSINESS_TYPE_OPTIONS.find(opt => opt.value === formData.businessType)}
+                        onChange={(selectedOption) => handleInputChange('businessType', selectedOption ? selectedOption.value : '')}
+                        options={BUSINESS_TYPE_OPTIONS}
+                        placeholder="Select Business Type"
+                        isClearable
+                        className="react-select-container"
+                        classNamePrefix="react-select"
+                      />
+                    </div>
+                  )}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Business Registration</label>
                     <Select
@@ -430,122 +388,93 @@ const EligibilityChecker = ({ isOpen, onClose }) => {
                       classNamePrefix="react-select"
                     />
                   </div>
+                  {fundingType === 'loan' && (formData.businessRegistration === 'Private Limited' || formData.businessRegistration === 'LLP' || formData.businessRegistration === 'ROF') && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Business Registration Date</label>
+                      <input
+                        type="date"
+                        value={formData.registrationDate}
+                        onChange={(e) => handleInputChange('registrationDate', e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">Required for Startup India Seed Fund</p>
+                    </div>
+                  )}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Annual Turnover (₹)</label>
                     <input
-                      type="number"
-                      value={formData.annualTurnover}
-                      onChange={(e) => handleInputChange('annualTurnover', parseInt(e.target.value))}
+                      type="text"
+                      value={formatNumberWithCommas(formData.annualTurnover)}
+                      onChange={(e) => handleAmountChange('annualTurnover', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                      placeholder="Annual turnover"
+                      placeholder="e.g., 50,00,000"
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Project Cost (₹)</label>
                     <input
-                      type="number"
-                      value={formData.projectCost}
-                      onChange={(e) => handleInputChange('projectCost', parseInt(e.target.value))}
+                      type="text"
+                      value={formatNumberWithCommas(formData.projectCost)}
+                      onChange={(e) => handleAmountChange('projectCost', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                      placeholder="Total project cost"
+                      placeholder="e.g., 50,00,000"
                     />
                   </div>
+                  {fundingType === 'grant' && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Employment Generation</label>
+                      <input
+                        type="number"
+                        value={formData.employment}
+                        onChange={(e) => handleInputChange('employment', parseInt(e.target.value))}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        placeholder="Number of jobs to be created"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* Financial Information */}
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="text-lg font-semibold mb-4 text-gray-800">Financial Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Credit Score</label>
-                    <input
-                      type="number"
-                      value={formData.creditScore}
-                      onChange={(e) => handleInputChange('creditScore', parseInt(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                      placeholder="Credit score (300-900)"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Existing Loans</label>
-                    <Select
-                      value={YES_NO_OPTIONS.find(opt => opt.value === String(formData.existingLoans))}
-                      onChange={(selectedOption) => handleInputChange('existingLoans', selectedOption ? selectedOption.value === 'true' : false)}
-                      options={YES_NO_OPTIONS}
-                      placeholder="Select"
-                      isClearable
-                      className="react-select-container"
-                      classNamePrefix="react-select"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Collateral Available</label>
-                    <Select
-                      value={YES_NO_OPTIONS.find(opt => opt.value === String(formData.collateral))}
-                      onChange={(selectedOption) => handleInputChange('collateral', selectedOption ? selectedOption.value === 'true' : false)}
-                      options={YES_NO_OPTIONS}
-                      placeholder="Select"
-                      isClearable
-                      className="react-select-container"
-                      classNamePrefix="react-select"
-                    />
+              {fundingType === 'loan' && (
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-800">Financial Information</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Credit Score (Optional)</label>
+                      <input
+                        type="number"
+                        value={formData.creditScore}
+                        onChange={(e) => handleInputChange('creditScore', parseInt(e.target.value))}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+                        placeholder="Credit score (300-900)"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">Required for MUDRA Loan (650+)</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* Additional Information */}
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="text-lg font-semibold mb-4 text-gray-800">Additional Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="innovation"
-                      checked={formData.innovation}
-                      onChange={(e) => handleInputChange('innovation', e.target.checked)}
-                      className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
-                    />
-                    <label htmlFor="innovation" className="text-sm font-medium text-gray-700">
-                      Innovative Business Idea
-                    </label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="technology"
-                      checked={formData.technology}
-                      onChange={(e) => handleInputChange('technology', e.target.checked)}
-                      className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
-                    />
-                    <label htmlFor="technology" className="text-sm font-medium text-gray-700">
-                      Technology-based Solution
-                    </label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="export"
-                      checked={formData.export}
-                      onChange={(e) => handleInputChange('export', e.target.checked)}
-                      className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
-                    />
-                    <label htmlFor="export" className="text-sm font-medium text-gray-700">
-                      Export Potential
-                    </label>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Employment Generation</label>
-                    <input
-                      type="number"
-                      value={formData.employment}
-                      onChange={(e) => handleInputChange('employment', parseInt(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-                      placeholder="Number of jobs to be created"
-                    />
+              {fundingType === 'grant' && (
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-800">Additional Information</h3>
+                  <div className="grid grid-cols-1 gap-4">
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id="hasInnovativeIdea"
+                        checked={formData.hasInnovativeIdea}
+                        onChange={(e) => handleInputChange('hasInnovativeIdea', e.target.checked)}
+                        className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
+                      />
+                      <label htmlFor="hasInnovativeIdea" className="text-sm font-medium text-gray-700">
+                        Innovative Business Idea or Starting Business with New Ways
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* Check Eligibility Button */}
               <div className="text-center pb-[24px]">
@@ -557,6 +486,8 @@ const EligibilityChecker = ({ isOpen, onClose }) => {
                   {isChecking ? 'Checking Eligibility...' : 'Check Eligibility'}
                 </button>
               </div>
+              </>
+              )}
             </div>
           ) : (
             <div className="space-y-6">

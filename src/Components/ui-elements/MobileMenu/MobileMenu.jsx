@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
-import { useModal } from "../../../Context/ModalContext";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import PropTypes from "prop-types";
 
 export const MobileMenu = ({ menuLinks, onClose, onGetStarted }) => {
   const [expandedLinkId, setExpandedLinkId] = useState(null);
-  const { openModal } = useModal();
 
   const onMenuItemClick = (index) => {
     if (expandedLinkId === index) {
@@ -78,7 +77,10 @@ export const MobileMenu = ({ menuLinks, onClose, onGetStarted }) => {
                           <Link
                             to={record?.link}
                             className="text-gray-800 font-semibold hover:text-orange-600 transition-colors"
-                            onClick={onClose}
+                            onClick={() => {
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                              onClose();
+                            }}
                           >
                             {record?.name}
                           </Link>
@@ -123,7 +125,10 @@ export const MobileMenu = ({ menuLinks, onClose, onGetStarted }) => {
                                 <Link
                                   to={subLink?.link}
                                   className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gradient-to-r hover:from-orange-50 hover:to-red-50 transition-all duration-300 group"
-                                  onClick={onClose}
+                                  onClick={() => {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    onClose();
+                                  }}
                                 >
                                   {Icon2 && (
                                     <motion.div
@@ -175,4 +180,10 @@ export const MobileMenu = ({ menuLinks, onClose, onGetStarted }) => {
 
     </motion.div>
   );
+};
+
+MobileMenu.propTypes = {
+  menuLinks: PropTypes.array.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onGetStarted: PropTypes.func,
 };

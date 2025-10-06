@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 export const SubLinksBox = ({ subLinks, onLinkClick }) => {
   const [activeLink, setActiveLink] = useState(null);
   
   const handleLinkClick = (index) => {
     setActiveLink(index);
+    // Scroll to top when navigating
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(() => {
       if (onLinkClick) onLinkClick();
     }, 100);
@@ -132,4 +135,9 @@ export const SubLinksBox = ({ subLinks, onLinkClick }) => {
       </div>
     </motion.div>
   );
+};
+
+SubLinksBox.propTypes = {
+  subLinks: PropTypes.array.isRequired,
+  onLinkClick: PropTypes.func,
 };

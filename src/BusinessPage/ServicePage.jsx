@@ -1,18 +1,16 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import ServiceModal from "../Components/ServiceModal";
-import FormModal from "../Components/FormModal";
 import serviceDetails from "../Data/ServiceDetails";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useModal } from "../Context/ModalContext";
 const ServicePage = () => {
   const navigate = useNavigate();
-  const { isAnyModalOpen, openModal, closeModal } = useModal();
+  const { isAnyModalOpen, openFormModal } = useModal();
   const [activeCategory, setActiveCategory] = useState(0);
   const [selectedService, setSelectedService] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showBookConsultant, setShowBookConsultant] = useState(false);
 
   const handleServiceClick = (serviceName) => {
     const serviceDetail = serviceDetails[serviceName];
@@ -726,8 +724,7 @@ const ServicePage = () => {
                 <button
                   onClick={() => { 
                     if (!isAnyModalOpen) {
-                      openModal();
-                      setShowBookConsultant(true);
+                      openFormModal();
                     }
                   }}
                   className="px-10 py-5 bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white font-bold rounded-full shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 relative overflow-hidden"
@@ -762,14 +759,6 @@ const ServicePage = () => {
         service={selectedService}
       />
 
-      {/* Form Modal */}
-      <FormModal
-        open={showBookConsultant}
-        onClose={() => {
-          closeModal();
-          setShowBookConsultant(false);
-        }}
-      />
     </div>
   );
 };
