@@ -246,21 +246,21 @@ const EligibilityChecker = ({ isOpen, onClose }) => {
     }
 
     // Government Grants for MSMEs Eligibility
+    // data.hasInnovativeIdea && 
     if (fundingType === 'grant' && 
         data.businessRegistration === 'MSME' && 
-        data.hasInnovativeIdea && 
         data.employment >= 5) {
       schemes['Government Grants for MSMEs'].eligible = true;
       schemes['Government Grants for MSMEs'].amount = Math.min(parseInt(data.projectCost) * 0.75, 30000000);
-      schemes['Government Grants for MSMEs'].reasons.push('Meets MSME, innovation, and employment criteria');
+      schemes['Government Grants for MSMEs'].reasons.push('Meets MSME, and employment criteria');
       schemes['Government Grants for MSMEs'].requirements.push('MSME registration', 'Project proposal');
     } else if (fundingType === 'grant') {
       if (data.businessRegistration !== 'MSME') {
         schemes['Government Grants for MSMEs'].reasons.push('MSME registration required');
       }
-      if (!data.hasInnovativeIdea) {
-        schemes['Government Grants for MSMEs'].reasons.push('Should have an innovative idea or want to start there own business with new ways');
-      }
+      // if (!data.hasInnovativeIdea) {
+      //   schemes['Government Grants for MSMEs'].reasons.push('It would be great if you have an innovative idea.');
+      // }
       if (data.employment < 5) {
         schemes['Government Grants for MSMEs'].reasons.push('Must provide employment to at least 5 people');
       }
