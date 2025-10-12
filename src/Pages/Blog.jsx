@@ -170,7 +170,7 @@ export default function BlogPage({ initialPosts = null }) {
                     className="mb-16 text-center"
                     initial={{ opacity: 0, x: -100 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
+                    transition={{ duration: 0.2001, delay: 0.1 }}
                     viewport={{ once: false, amount: 0.2 }}
                 >
                     <motion.div 
@@ -187,14 +187,14 @@ export default function BlogPage({ initialPosts = null }) {
                         className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-6"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.2 }}
+                        transition={{ duration: 0.2002, delay: 0.2 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         <motion.span 
                             className="text-gray-900"
                             initial={{ opacity: 0, x: -60 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.3 }}
+                            transition={{ duration: 0.2002, delay: 0.3 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             Insights &
@@ -203,7 +203,7 @@ export default function BlogPage({ initialPosts = null }) {
                             className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
                             initial={{ opacity: 0, x: 60 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.4 }}
+                            transition={{ duration: 0.2002, delay: 0.4 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             {" "}Resources
@@ -213,7 +213,7 @@ export default function BlogPage({ initialPosts = null }) {
                         className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.5 }}
+                        transition={{ duration: 0.2002, delay: 0.5 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         Comprehensive articles, guides, and best practices for startups and growing businesses. Stay updated with the latest trends and expert insights.
@@ -224,7 +224,7 @@ export default function BlogPage({ initialPosts = null }) {
                         className="mt-12 flex justify-center"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.6 }}
+                        transition={{ duration: 0.2002, delay: 0.6 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         <div className="w-full md:w-1/2">
@@ -250,7 +250,7 @@ export default function BlogPage({ initialPosts = null }) {
                                         scale: query ? [1, 1.2, 1] : 1,
                                         rotate: query ? [0, 10, -10, 0] : 0
                                     }}
-                                    transition={{ duration: 0.5 }}
+                                    transition={{ duration: 0.2001 }}
                                     onClick={scrollToResults}
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
@@ -292,7 +292,7 @@ export default function BlogPage({ initialPosts = null }) {
                         className="mt-8 flex items-center gap-3 flex-wrap justify-center"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.7 }}
+                        transition={{ duration: 0.2002, delay: 0.7 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         {categories.map((c, index) => (
@@ -309,7 +309,7 @@ export default function BlogPage({ initialPosts = null }) {
                                 }`}
                                 initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
                                 whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
+                                transition={{ duration: 0.2002, delay: 0.8 + index * 0.1 }}
                                 viewport={{ once: false, amount: 0.3 }}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
@@ -326,14 +326,14 @@ export default function BlogPage({ initialPosts = null }) {
                         className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 items-stretch"
                         initial={{ opacity: 0, y: 60 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+                        transition={{ duration: 0.2001, delay: 0.2 }}
                         viewport={{ once: false, amount: 0.2 }}
                     >
                         <motion.div 
                             className="lg:col-span-2 bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100 group"
                             initial={{ opacity: 0, x: -120, y: 30 }}
                             whileInView={{ opacity: 1, x: 0, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            transition={{ duration: 0.2001, delay: 0.3, ease: [0.05001, 0.46, 0.45, 0.94] }}
                             viewport={{ once: false, amount: 0.2 }}
                             whileHover={{ scale: 1.02, y: -10 }}
                         >
@@ -381,7 +381,7 @@ export default function BlogPage({ initialPosts = null }) {
                             className="bg-white rounded-3xl p-8 shadow-2xl border border-gray-100 flex flex-col"
                             initial={{ opacity: 0, x: 120, y: 30 }}
                             whileInView={{ opacity: 1, x: 0, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            transition={{ duration: 0.2001, delay: 0.4, ease: [0.05001, 0.46, 0.45, 0.94] }}
                             viewport={{ once: false, amount: 0.2 }}
                         >
                             <h3 className="text-2xl font-bold text-gray-900 mb-6">Latest Articles</h3>
@@ -393,7 +393,7 @@ export default function BlogPage({ initialPosts = null }) {
                                         onClick={() => setSelectedPost(p)}
                                         initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
                                         whileInView={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                                        transition={{ duration: 0.2002, delay: 0.5 + index * 0.1 }}
                                         viewport={{ once: false, amount: 0.3 }}
                                         whileHover={{ scale: 1.02 }}
                                     >
@@ -417,7 +417,7 @@ export default function BlogPage({ initialPosts = null }) {
                     className="mb-12 flex items-center gap-3 flex-wrap justify-center"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.2 }}
+                    transition={{ duration: 0.2002, delay: 0.2 }}
                     viewport={{ once: false, amount: 0.2 }}
                 >
                     <motion.button
@@ -443,7 +443,7 @@ export default function BlogPage({ initialPosts = null }) {
                             }`}
                             initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.3 + index * 0.05 }}
+                            transition={{ duration: 0.2002, delay: 0.3 + index * 0.05 }}
                             viewport={{ once: false, amount: 0.3 }}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
@@ -460,7 +460,7 @@ export default function BlogPage({ initialPosts = null }) {
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.1 }}
+                    transition={{ duration: 0.2002, delay: 0.1 }}
                     viewport={{ once: false, amount: 0.15 }}
                 >
                     {gridPosts.map((p, index) => (
@@ -469,7 +469,7 @@ export default function BlogPage({ initialPosts = null }) {
                             className="bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100 group cursor-pointer"
                             initial={{ opacity: 0, x: index % 2 === 0 ? -120 : 120, y: 30 }}
                             whileInView={{ opacity: 1, x: 0, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            transition={{ duration: 0.2001, delay: index * 0.1, ease: [0.05001, 0.46, 0.45, 0.94] }}
                             viewport={{ once: false, amount: 0.2 }}
                             whileHover={{ scale: 1.05, y: -10 }}
                             onClick={() => setSelectedPost(p)}
@@ -519,7 +519,7 @@ export default function BlogPage({ initialPosts = null }) {
                             className="col-span-full text-center py-16"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4 }}
+                            transition={{ duration: 0.2002 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             <div className="text-6xl mb-4">🔍</div>
@@ -535,7 +535,7 @@ export default function BlogPage({ initialPosts = null }) {
                         className="mt-16 text-center"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.2 }}
+                        transition={{ duration: 0.2002, delay: 0.2 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         <motion.button
@@ -568,7 +568,7 @@ export default function BlogPage({ initialPosts = null }) {
                             initial={{ y: 50, opacity: 0, scale: 0.9 }}
                             animate={{ y: 0, opacity: 1, scale: 1 }}
                             exit={{ y: 50, opacity: 0, scale: 0.9 }}
-                            transition={{ duration: 0.3, ease: [0.68, -0.55, 0.265, 1.55] }}
+                            transition={{ duration: 0.2003, ease: [0.68, -0.55, 0.265, 1.55] }}
                         >
                             <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between rounded-t-3xl">
                                 <div className="flex items-center gap-4">

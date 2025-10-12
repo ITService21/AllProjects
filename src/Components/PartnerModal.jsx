@@ -166,7 +166,7 @@ export default function PartnerModal({ open, onClose }) {
     // Modal animation
     const modalVariants = {
         hidden: { opacity: 0, y: -40, scale: 0.95 },
-        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.3 } },
+        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.2003 } },
         exit: { opacity: 0, y: 40, scale: 0.95, transition: { duration: 0.2 } }
     };
 
@@ -186,7 +186,7 @@ export default function PartnerModal({ open, onClose }) {
                     initial={{ scale: 0.95, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0.95, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2003 }}
                     style={{ border: "2px solid #F85710" }}
                 >
                     {/* Close Button */}

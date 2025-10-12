@@ -245,7 +245,7 @@ export default function Videos({ className = "" }) {
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.1 }}
                     variants={fadeUp}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.2004 }}
                 >
                     <motion.div 
                         className="text-8xl mb-6"
@@ -273,7 +273,7 @@ export default function Videos({ className = "" }) {
                         className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8"
                         initial={{ opacity: 1, y: 0 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                        transition={{ duration: 0.2004, delay: 0.2 }}
                         viewport={{ once: true, amount: 0.1 }}
                     >
                         Watch our comprehensive video content covering MSME registration, funding strategies, success stories, and expert insights to help your business grow.
@@ -286,7 +286,7 @@ export default function Videos({ className = "" }) {
                 className="relative z-10 mb-12 flex items-center gap-3 flex-wrap justify-center"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={{ duration: 0.2004, delay: 0.4 }}
             >
                 {categories.map((category, index) => (
                     <motion.button
@@ -299,7 +299,7 @@ export default function Videos({ className = "" }) {
                         }`}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3, delay: 0.6 + index * 0.05 }}
+                        transition={{ duration: 0.2003, delay: 0.6 + index * 0.05 }}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
@@ -314,7 +314,7 @@ export default function Videos({ className = "" }) {
                     className="relative z-10 mb-16"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
+                    transition={{ duration: 0.2004, delay: 0.8 }}
                 >
                     <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Featured Videos</h2>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -324,7 +324,7 @@ export default function Videos({ className = "" }) {
                                 className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group cursor-pointer"
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 1.0 + index * 0.1 }}
+                                transition={{ duration: 0.2004, delay: 1.0 + index * 0.1 }}
                                 whileHover={{ scale: 1.02, y: -5 }}
                                 onClick={() => setSelectedVideo(video)}
                             >
@@ -394,13 +394,13 @@ export default function Videos({ className = "" }) {
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.1 }}
                         variants={index % 2 === 0 ? slideLeft : slideRight}
-                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                        transition={{ duration: 0.2004, delay: index * 0.1 }}
                         className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group cursor-pointer"
                         whileHover={{ 
                             scale: 1.05, 
                             y: -10,
                             transition: { 
-                                duration: 0.3, 
+                                duration: 0.2003, 
                                 ease: [0.68, -0.55, 0.265, 1.55]
                             }
                         }}
@@ -486,7 +486,7 @@ export default function Videos({ className = "" }) {
                         initial={{ y: 50, opacity: 0, scale: 0.9 }}
                         animate={{ y: 0, opacity: 1, scale: 1 }}
                         exit={{ y: 50, opacity: 0, scale: 0.9 }}
-                        transition={{ duration: 0.3, ease: [0.68, -0.55, 0.265, 1.55] }}
+                        transition={{ duration: 0.2003, ease: [0.68, -0.55, 0.265, 1.55] }}
                     >
                         {/* Modal Header */}
                         <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between rounded-t-3xl">

@@ -168,7 +168,7 @@ export default function Albums({ className = "" }) {
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.1 }}
                     variants={fadeUp}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.2004 }}
                 >
                     <motion.div 
                         className="text-8xl mb-6"
@@ -196,7 +196,7 @@ export default function Albums({ className = "" }) {
                         className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8"
                         initial={{ opacity: 1, y: 0 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                        transition={{ duration: 0.2004, delay: 0.2 }}
                         viewport={{ once: true, amount: 0.1 }}
                     >
                         Explore our collection of photos showcasing our journey, success stories, events, and the vibrant MSME ecosystem we&apos;re building in Gandhinagar.
@@ -214,13 +214,13 @@ export default function Albums({ className = "" }) {
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.1 }}
                         variants={index % 2 === 0 ? slideLeft : slideRight}
-                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                        transition={{ duration: 0.2004, delay: index * 0.1 }}
                         className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group"
                         whileHover={{ 
                             scale: 1.05, 
                             y: -10,
                             transition: { 
-                                duration: 0.3, 
+                                duration: 0.2003, 
                                 ease: [0.68, -0.55, 0.265, 1.55]
                             }
                         }}

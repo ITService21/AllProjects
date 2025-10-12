@@ -398,7 +398,7 @@ const ServicePage = () => {
             className="text-center mb-16 relative"
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.2001, delay: 0.1 }}
             viewport={{ once: false, amount: 0.2 }}
         >
           {/* Decorative Elements */}
@@ -407,7 +407,7 @@ const ServicePage = () => {
           <motion.div
             className="relative inline-block -mt-[10px] md:mt-0"
             whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2003 }}
           >
             <h2
               className="text-4xl flex gap-[10px] md:gap-[14px] lg:gap-[18px] text-normal md:text-6xl lg:text-7xl font-extrabold mb-6 relative"
@@ -417,7 +417,7 @@ const ServicePage = () => {
                 className="text-gray-800"
                 initial={{ opacity: 0, x: -80 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
+                transition={{ duration: 0.2002, delay: 0.2 }}
                 viewport={{ once: false, amount: 0.3 }}
               >
                 Our
@@ -426,7 +426,7 @@ const ServicePage = () => {
                 className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent animate-gradient"
                 initial={{ opacity: 0, x: 80 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
+                transition={{ duration: 0.2002, delay: 0.3 }}
                 viewport={{ once: false, amount: 0.3 }}
               >
                 Services
@@ -451,7 +451,7 @@ const ServicePage = () => {
             className="flex flex-wrap justify-center gap-4"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
+            transition={{ duration: 0.2002, delay: 0.3 }}
             viewport={{ once: false, amount: 0.3 }}
           >
             {[
@@ -471,7 +471,7 @@ const ServicePage = () => {
                   }}
                   initial={{ opacity: 0, x: isEven ? -60 : 60, y: 20 }}
                   whileInView={{ opacity: 1, x: 0, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                  transition={{ duration: 0.2002, delay: 0.4 + index * 0.1 }}
                   viewport={{ once: false, amount: 0.3 }}
                   style={{ fontFamily: "Poppins, sans-serif" }}
                 >
@@ -491,7 +491,7 @@ const ServicePage = () => {
           className="flex flex-wrap justify-center gap-4 mb-12"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.2001, delay: 0.2 }}
           viewport={{ once: false, amount: 0.3 }}
         >
           {serviceCategories.map((category, index) => {
@@ -508,7 +508,7 @@ const ServicePage = () => {
                 style={{ fontFamily: "Poppins, sans-serif" }}
                 initial={{ opacity: 0, x: isEven ? -80 : 80, scale: 0.9 }}
                 whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                transition={{ duration: 0.2002, delay: 0.3 + index * 0.1 }}
                 viewport={{ once: false, amount: 0.3 }}
                 whileHover={{ scale: 1.05, y: -2 }}
               >
@@ -524,7 +524,7 @@ const ServicePage = () => {
           key={activeCategory}
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          transition={{ duration: 0.2002, delay: 0.1 }}
           viewport={{ once: false, amount: 0.3 }}
           className="mb-12"
         >
@@ -550,7 +550,7 @@ const ServicePage = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          transition={{ duration: 0.2002, delay: 0.1 }}
           viewport={{ once: false, amount: 0.15 }}
         >
           {serviceCategories[activeCategory].services.map((service, index) => {
@@ -569,15 +569,15 @@ const ServicePage = () => {
                   y: 0
                 }}
                 transition={{ 
-                  duration: 0.5, 
+                  duration: 0.2001, 
                   delay: index * 0.1,
-                  ease: [0.25, 0.46, 0.45, 0.94]
+                  ease: [0.05001, 0.46, 0.45, 0.94]
                 }}
                 viewport={{ once: false, amount: 0.2 }}
                 whileHover={{
                   scale: 1.05,
                   y: -5,
-                  transition: { duration: 0.3, ease: "easeOut" },
+                  transition: { duration: 0.2003, ease: "easeOut" },
                 }}
                 className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
               >
@@ -674,7 +674,7 @@ const ServicePage = () => {
             className="mt-16 relative overflow-hidden"
             initial={{ opacity: 0, y: 60, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.2004, delay: 0.1 }}
             viewport={{ once: false, amount: 0.2 }}
         >
           {/* Animated Background */}

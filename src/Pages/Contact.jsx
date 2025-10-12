@@ -155,7 +155,7 @@ function ContactUs() {
                         className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                        transition={{ duration: 0.2004, delay: 0.2 }}
                     >
                         Get in touch with our expert team for comprehensive business solutions
                     </motion.p>
@@ -170,13 +170,13 @@ function ContactUs() {
                     <motion.div
                         className="bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 text-center group cursor-pointer"
                         whileHover={{ scale: 1.05, y: -10 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.2003 }}
                         onClick={() => (window.location.href = "tel:+917383930301")}
                     >
                         <motion.div 
                             className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mx-auto mb-6 flex items-center justify-center"
                             whileHover={{ rotate: 360 }}
-                            transition={{ duration: 0.6 }}
+                            transition={{ duration: 0.2004 }}
                         >
                             <FaPhoneAlt className="text-white text-2xl" />
                         </motion.div>
@@ -189,13 +189,13 @@ function ContactUs() {
                     <motion.div
                         className="bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 text-center group cursor-pointer"
                         whileHover={{ scale: 1.05, y: -10 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.2003 }}
                         onClick={() => (window.location.href = "mailto:info@growstartup.in")}
                     >
                         <motion.div 
                             className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mx-auto mb-6 flex items-center justify-center"
                             whileHover={{ rotate: 360 }}
-                            transition={{ duration: 0.6 }}
+                            transition={{ duration: 0.2004 }}
                         >
                             <FaEnvelope className="text-white text-2xl" />
                         </motion.div>
@@ -208,13 +208,13 @@ function ContactUs() {
                     <motion.div
                         className="bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 text-center group cursor-pointer"
                         whileHover={{ scale: 1.05, y: -10 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.2003 }}
                         onClick={() => window.open("https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1927.1926174015482!2d72.62794682776466!3d23.176595001110528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395c2bb3619f9fdf%3A0xc4be3eeb15516748!2sThe%20Landmark!5e0!3m2!1sen!2sin!4v1759582347978!5m2!1sen!2sin")}
                     >
                         <motion.div 
                             className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mx-auto mb-6 flex items-center justify-center"
                             whileHover={{ rotate: 360 }}
-                            transition={{ duration: 0.6 }}
+                            transition={{ duration: 0.2004 }}
                         >
                             <FaMapMarkerAlt className="text-white text-2xl" />
                         </motion.div>
@@ -231,7 +231,7 @@ function ContactUs() {
                         className="bg-white p-8 rounded-3xl shadow-2xl border border-gray-100"
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6 }}
+                        transition={{ duration: 0.2004 }}
                     >
                         <h2 className="text-3xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
                         <form onSubmit={handleSubmit} className="space-y-6">
@@ -350,7 +350,7 @@ function ContactUs() {
                         className="space-y-8"
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                        transition={{ duration: 0.2004, delay: 0.2 }}
                     >
                         <div className="bg-gradient-to-br from-orange-50 to-red-50 p-8 rounded-3xl border border-orange-100">
                             <h3 className="text-2xl font-bold text-gray-800 mb-6">Why Choose Us?</h3>
@@ -423,7 +423,7 @@ function ContactUs() {
                     className="mt-16"
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
+                    transition={{ duration: 0.2004, delay: 0.4 }}
                 >
                     <h3 className="text-3xl font-bold text-gray-800 text-center mb-8">Find Us</h3>
                     <div className="bg-white p-4 rounded-3xl shadow-2xl border border-gray-100">

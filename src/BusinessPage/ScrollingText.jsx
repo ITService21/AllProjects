@@ -124,7 +124,7 @@ const ScrollingText = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.2001 }}
         >
           <motion.div
             className="inline-flex items-center gap-2 sm:gap-4 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm px-4 py-2 sm:px-8 sm:py-4 rounded-2xl border border-white/20 shadow-xl"

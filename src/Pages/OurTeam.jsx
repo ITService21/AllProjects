@@ -31,7 +31,7 @@ const TeamSection = () => {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: false, amount: 0.3 }}
-                        transition={{ duration: 0.6, delay: idx * 0.2 }}
+                        transition={{ duration: 0.2004, delay: idx * 0.2 }}
                         whileHover={{ scale: 1.08 }}
                     >
                         <img

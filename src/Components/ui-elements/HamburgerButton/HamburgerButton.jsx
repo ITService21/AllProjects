@@ -9,13 +9,13 @@ export const HamburgerButton = ({ isOpen, onClick }) => {
       whileTap={{ scale: 0.95 }}
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.2003 }}
     >
       {/* Animated Background */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-xl"
         animate={{ opacity: isOpen ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.2003 }}
       />
       
       {/* Hamburger Lines */}
@@ -26,7 +26,7 @@ export const HamburgerButton = ({ isOpen, onClick }) => {
             rotate: isOpen ? 45 : 0,
             y: isOpen ? 8 : 0,
           }}
-          transition={{ duration: 0.3, ease: [0.68, -0.55, 0.265, 1.55] }}
+          transition={{ duration: 0.2003, ease: [0.68, -0.55, 0.265, 1.55] }}
         />
         <motion.span
           className="absolute top-3 left-0 w-6 h-0.5 bg-white rounded-full"
@@ -34,7 +34,7 @@ export const HamburgerButton = ({ isOpen, onClick }) => {
             opacity: isOpen ? 0 : 1,
             x: isOpen ? -20 : 0,
           }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2003 }}
         />
         <motion.span
           className="absolute top-5 left-0 w-6 h-0.5 bg-white rounded-full"
@@ -42,7 +42,7 @@ export const HamburgerButton = ({ isOpen, onClick }) => {
             rotate: isOpen ? -45 : 0,
             y: isOpen ? -8 : 0,
           }}
-          transition={{ duration: 0.3, ease: [0.68, -0.55, 0.265, 1.55] }}
+          transition={{ duration: 0.2003, ease: [0.68, -0.55, 0.265, 1.55] }}
         />
       </div>
       
@@ -53,7 +53,7 @@ export const HamburgerButton = ({ isOpen, onClick }) => {
           scale: isOpen ? [1, 1.2, 1] : 1,
           opacity: isOpen ? [0.5, 0, 0.5] : 0,
         }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.2004 }}
       />
     </motion.button>
   );

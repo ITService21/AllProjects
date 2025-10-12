@@ -152,7 +152,7 @@ const Overview = () => {
           className="text-center mb-16 relative"
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.2001, delay: 0.1 }}
           viewport={{ once: false, amount: 0.2 }}
         >
           {/* Decorative Elements */}
@@ -161,14 +161,14 @@ const Overview = () => {
           <motion.div
             className="relative inline-block"
             whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2003 }}
           >
             <h2 className="text-5xl flex gap-[10px] md:gap-[14px] lg:gap-[18px] text-normal md:text-6xl lg:text-7xl font-black mb-6 relative" style={{fontFamily: 'Montserrat, sans-serif'}}>
               <motion.span 
                 className="text-gray-800 block"
                 initial={{ opacity: 0, x: -80 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
+                transition={{ duration: 0.2002, delay: 0.2 }}
                 viewport={{ once: false, amount: 0.3 }}
               >
                 About
@@ -182,7 +182,7 @@ const Overview = () => {
                   scale: [1, 1.1, 1, 1.05, 1]
                 }}
                 transition={{ 
-                  duration: 0.4, 
+                  duration: 0.2002, 
                   delay: 0.3,
                   scale: {
                     duration: 2,
@@ -206,7 +206,7 @@ const Overview = () => {
             className="max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
+            transition={{ duration: 0.2002, delay: 0.2 }}
             viewport={{ once: false, amount: 0.3 }}
           >
             <p className="text-2xl md:text-3xl text-gray-800 leading-relaxed mb-6 font-bold" style={{fontFamily: 'Inter, sans-serif'}}>
@@ -225,7 +225,7 @@ const Overview = () => {
                     ]
                   }}
                   transition={{ 
-                    duration: 0.3,
+                    duration: 0.2003,
                     delay: 0.4,
                     textShadow: {
                       duration: 2,
@@ -252,7 +252,7 @@ const Overview = () => {
               style={{fontFamily: 'Inter, sans-serif'}}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 }}
+              transition={{ duration: 0.2002, delay: 0.3 }}
               viewport={{ once: false, amount: 0.3 }}
             >
               From launching startups to scaling established businesses, we serve entrepreneurs at every stage.
@@ -265,7 +265,7 @@ const Overview = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          transition={{ duration: 0.2002, delay: 0.1 }}
           viewport={{ once: false, amount: 0.15 }}
         >
           {services.map((service, index) => {
@@ -284,15 +284,15 @@ const Overview = () => {
                   y: 0
                 }}
                 transition={{ 
-                  duration: 0.5, 
+                  duration: 0.2001, 
                   delay: index * 0.1,
-                  ease: [0.25, 0.46, 0.45, 0.94]
+                  ease: [0.05001, 0.46, 0.45, 0.94]
                 }}
                 viewport={{ once: false, amount: 0.2 }}
                 whileHover={{ 
                   scale: 1.05,
                   y: -10,
-                  transition: { duration: 0.3, ease: "easeOut" }
+                  transition: { duration: 0.2003, ease: "easeOut" }
                 }}
                 className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:shadow-3xl transition-all duration-500 group relative overflow-hidden cursor-pointer"
               >
@@ -447,7 +447,7 @@ const Overview = () => {
           style={{backgroundColor: '#111827'}}
           initial={{ opacity: 0, y: 60, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.2004, delay: 0.1, ease: [0.05001, 0.46, 0.45, 0.94] }}
           viewport={{ once: false, amount: 0.2 }}
          >
           {/* Enhanced Background Effects */}

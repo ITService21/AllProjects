@@ -167,7 +167,7 @@ export const CardHoverEffect = ({ children, className = "" }) => {
       whileInView={{ 
         opacity: 1, 
         y: 0,
-        transition: { duration: 0.5 }
+        transition: { duration: 0.2001 }
       }}
       viewport={{ once: true }}
     >
@@ -185,7 +185,7 @@ export const TextReveal = ({ children, delay = 0 }) => {
         opacity: 1, 
         y: 0,
         transition: { 
-          duration: 0.6, 
+          duration: 0.2004, 
           delay: delay,
           ease: "easeOut"
         }
@@ -212,7 +212,7 @@ export const AnimatedButton = ({ children, className = "", ...props }) => {
       whileInView={{ 
         opacity: 1, 
         y: 0,
-        transition: { duration: 0.5 }
+        transition: { duration: 0.2001 }
       }}
       viewport={{ once: true }}
       {...props}
@@ -253,7 +253,7 @@ export const ImageReveal = ({ children, className = "" }) => {
         opacity: 1, 
         scale: 1,
         transition: { 
-          duration: 0.6,
+          duration: 0.2004,
           ease: "easeOut"
         }
       }}
@@ -294,7 +294,7 @@ export const AnimatedCounter = ({ end, duration = 2, className = "" }) => {
       whileInView={{ 
         opacity: 1, 
         scale: 1,
-        transition: { duration: 0.5 }
+        transition: { duration: 0.2001 }
       }}
       viewport={{ once: true }}
       onViewportEnter={() => setIsVisible(true)}
@@ -360,7 +360,7 @@ export const SlideIn = ({ children, direction = "left", className = "" }) => {
         y: 0, 
         opacity: 1,
         transition: { 
-          duration: 0.6,
+          duration: 0.2004,
           ease: "easeOut"
         }
       }}
@@ -404,7 +404,7 @@ export const StaggerItem = ({ children, className = "" }) => {
         visible: { 
           opacity: 1, 
           y: 0,
-          transition: { duration: 0.5 }
+          transition: { duration: 0.2001 }
         },
       }}
     >

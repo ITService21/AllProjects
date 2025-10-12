@@ -73,11 +73,11 @@ const FAQ = () => {
   const questionVariants = {
     closed: {
       rotate: 0,
-      transition: { duration: 0.3 },
+      transition: { duration: 0.2003 },
     },
     open: {
       rotate: 45,
-      transition: { duration: 0.3 },
+      transition: { duration: 0.2003 },
     },
   };
 
@@ -207,7 +207,7 @@ const FAQ = () => {
           className="text-center mb-16"
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.2001, delay: 0.1 }}
           viewport={{ once: false, amount: 0.2 }}
         >
           <h2
@@ -219,7 +219,7 @@ const FAQ = () => {
                 className="text-gray-800"
                 initial={{ opacity: 0, x: -80 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
+                transition={{ duration: 0.2002, delay: 0.2 }}
                 viewport={{ once: false, amount: 0.3 }}
               >
                 Frequently Asked
@@ -228,7 +228,7 @@ const FAQ = () => {
                 className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
                 initial={{ opacity: 0, x: 80 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
+                transition={{ duration: 0.2002, delay: 0.3 }}
                 viewport={{ once: false, amount: 0.3 }}
               >
                 Questions
@@ -241,7 +241,7 @@ const FAQ = () => {
             style={{ fontFamily: "Inter, sans-serif" }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.4 }}
+            transition={{ duration: 0.2002, delay: 0.4 }}
             viewport={{ once: false, amount: 0.3 }}
           >
             Find answers to common questions about our MSME and startup services
@@ -253,7 +253,7 @@ const FAQ = () => {
           className="space-y-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+          transition={{ duration: 0.2002, delay: 0.1 }}
           viewport={{ once: false, amount: 0.15 }}
         >
           {faqData.map((faq, index) => {
@@ -263,9 +263,9 @@ const FAQ = () => {
                 key={index}
                 initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{ duration: 0.2001, delay: index * 0.1, ease: [0.05001, 0.46, 0.45, 0.94] }}
                 viewport={{ once: false, amount: 0.2 }}
-                whileHover={{ scale: 1.01, y: -3, transition: { duration: 0.3 } }}
+                whileHover={{ scale: 1.01, y: -3, transition: { duration: 0.2003 } }}
                 className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300"
               >
               <motion.button
@@ -295,7 +295,7 @@ const FAQ = () => {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    transition={{ duration: 0.2003, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
                     <div className="px-6 pb-6">
@@ -303,7 +303,7 @@ const FAQ = () => {
                         className="border-t border-gray-100 pt-4"
                         initial={{ y: -20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.3, delay: 0.1 }}
+                        transition={{ duration: 0.2003, delay: 0.1 }}
                       >
                         <p
                           className="text-gray-600 leading-relaxed"
@@ -326,23 +326,23 @@ const FAQ = () => {
           className="text-center mt-16"
           initial={{ opacity: 0, y: 60, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.2001, delay: 0.2 }}
           viewport={{ once: false, amount: 0.2 }}
         >
           <motion.div
             className="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-8 border border-orange-100"
             initial={{ opacity: 0, x: -80 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
+            transition={{ duration: 0.2002, delay: 0.3 }}
             viewport={{ once: false, amount: 0.3 }}
-            whileHover={{ scale: 1.02, y: -3, transition: { duration: 0.3 } }}
+            whileHover={{ scale: 1.02, y: -3, transition: { duration: 0.2003 } }}
           >
             <motion.h3
               className="text-2xl md:text-3xl font-bold text-gray-800 mb-4"
               style={{ fontFamily: "Outfit, sans-serif" }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.4 }}
+              transition={{ duration: 0.2002, delay: 0.4 }}
               viewport={{ once: false, amount: 0.3 }}
             >
               Still have questions?
@@ -352,7 +352,7 @@ const FAQ = () => {
               style={{ fontFamily: "Inter, sans-serif" }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.5 }}
+              transition={{ duration: 0.2002, delay: 0.5 }}
               viewport={{ once: false, amount: 0.3 }}
             >
               Our expert team is here to help you with any queries about our
@@ -363,9 +363,9 @@ const FAQ = () => {
               style={{ fontFamily: "Inter, sans-serif" }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.6 }}
+              transition={{ duration: 0.2002, delay: 0.6 }}
               viewport={{ once: false, amount: 0.3 }}
-              whileHover={{ scale: 1.02, y: -2, transition: { duration: 0.3 } }}
+              whileHover={{ scale: 1.02, y: -2, transition: { duration: 0.2003 } }}
               whileTap={{ scale: 0.98 }}
               onClick={() => navigate('/contact-us')}
             >

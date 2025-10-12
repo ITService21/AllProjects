@@ -313,21 +313,21 @@ export default function CertificateConsultant({ className = "" }) {
                 className="relative z-10 text-center mb-16"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
+                transition={{ duration: 0.2002, delay: 0.1 }}
                 viewport={{ once: false, amount: 0.15 }}
             >
                 <motion.div
                     className="text-center"
                     initial={{ opacity: 0, x: -100 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
+                    transition={{ duration: 0.2001, delay: 0.2 }}
                     viewport={{ once: false, amount: 0.2 }}
                 >
                     <motion.div 
                         className="text-6xl sm:text-8xl mb-6"
                         initial={{ opacity: 0, scale: 0.5 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
+                        transition={{ duration: 0.2004, delay: 0.3 }}
                         viewport={{ once: false, amount: 0.3 }}
                         animate={{ 
                             rotate: [0, 5, -5, 0],
@@ -341,14 +341,14 @@ export default function CertificateConsultant({ className = "" }) {
                         className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-6"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.4 }}
+                        transition={{ duration: 0.2002, delay: 0.4 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         <motion.span 
                             className="text-gray-900"
                             initial={{ opacity: 0, x: -60 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.5 }}
+                            transition={{ duration: 0.2002, delay: 0.5 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             Certificate &amp;
@@ -357,7 +357,7 @@ export default function CertificateConsultant({ className = "" }) {
                             className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
                             initial={{ opacity: 0, x: 60 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.6 }}
+                            transition={{ duration: 0.2002, delay: 0.6 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             {" "}Compliance
@@ -367,7 +367,7 @@ export default function CertificateConsultant({ className = "" }) {
                             className="text-gray-900"
                             initial={{ opacity: 0, x: -40 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.7 }}
+                            transition={{ duration: 0.2002, delay: 0.7 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             Services
@@ -378,7 +378,7 @@ export default function CertificateConsultant({ className = "" }) {
                         className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.8 }}
+                        transition={{ duration: 0.2002, delay: 0.8 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         Enhance your business credibility and compliance with our comprehensive certification services. From MSME registration to quality certifications, we ensure your business meets all regulatory requirements.
@@ -391,7 +391,7 @@ export default function CertificateConsultant({ className = "" }) {
                 className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 mb-16"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
+                transition={{ duration: 0.2002, delay: 0.1 }}
                 viewport={{ once: false, amount: 0.15 }}
             >
                 {certificateServices.map((service, index) => {
@@ -401,13 +401,13 @@ export default function CertificateConsultant({ className = "" }) {
                             key={index}
                             initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
                             whileInView={{ opacity: 1, x: 0, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            transition={{ duration: 0.2001, delay: 0.2 + index * 0.1, ease: [0.05001, 0.46, 0.45, 0.94] }}
                             viewport={{ once: false, amount: 0.2 }}
                             className="relative bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 overflow-hidden group"
                             whileHover={{ 
                                 scale: 1.02, 
                                 y: -5,
-                                transition: { duration: 0.3 }
+                                transition: { duration: 0.2003 }
                             }}
                         >
                         <div className="relative z-10">
@@ -459,21 +459,21 @@ export default function CertificateConsultant({ className = "" }) {
                 className="relative z-10 mb-16"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
+                transition={{ duration: 0.2002, delay: 0.1 }}
                 viewport={{ once: false, amount: 0.15 }}
             >
                 <motion.div
                     className="text-center mb-12"
                     initial={{ opacity: 0, x: -100 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
+                    transition={{ duration: 0.2001, delay: 0.2 }}
                     viewport={{ once: false, amount: 0.2 }}
                 >
                     <motion.h2 
                         className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.3 }}
+                        transition={{ duration: 0.2002, delay: 0.3 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         Benefits of Certification
@@ -482,7 +482,7 @@ export default function CertificateConsultant({ className = "" }) {
                         className="text-lg text-gray-600 max-w-3xl mx-auto"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.4 }}
+                        transition={{ duration: 0.2002, delay: 0.4 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         Certification brings numerous advantages to your business, from improved credibility to better market access
@@ -493,7 +493,7 @@ export default function CertificateConsultant({ className = "" }) {
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.3 }}
+                    transition={{ duration: 0.2002, delay: 0.3 }}
                     viewport={{ once: false, amount: 0.15 }}
                 >
                     {certificationBenefits.map((benefit, index) => {
@@ -503,13 +503,13 @@ export default function CertificateConsultant({ className = "" }) {
                                 key={index}
                                 initial={{ opacity: 0, x: isEven ? -120 : 120, y: 30 }}
                                 whileInView={{ opacity: 1, x: 0, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                transition={{ duration: 0.2001, delay: 0.4 + index * 0.1, ease: [0.05001, 0.46, 0.45, 0.94] }}
                                 viewport={{ once: false, amount: 0.2 }}
                                 className="text-center p-6 bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl border border-orange-100"
                                 whileHover={{ 
                                     scale: 1.02, 
                                     y: -3,
-                                    transition: { duration: 0.3 }
+                                    transition: { duration: 0.2003 }
                                 }}
                             >
                                 <div className="text-4xl mb-4">{benefit.icon}</div>
@@ -526,21 +526,21 @@ export default function CertificateConsultant({ className = "" }) {
                 className="relative z-10 mb-16"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
+                transition={{ duration: 0.2002, delay: 0.1 }}
                 viewport={{ once: false, amount: 0.15 }}
             >
                 <motion.div
                     className="text-center mb-12"
                     initial={{ opacity: 0, x: -100 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
+                    transition={{ duration: 0.2001, delay: 0.2 }}
                     viewport={{ once: false, amount: 0.2 }}
                 >
                     <motion.h2 
                         className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.3 }}
+                        transition={{ duration: 0.2002, delay: 0.3 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         Certification Process
@@ -549,7 +549,7 @@ export default function CertificateConsultant({ className = "" }) {
                         className="text-lg text-gray-600 max-w-3xl mx-auto"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.4 }}
+                        transition={{ duration: 0.2002, delay: 0.4 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         Our systematic approach ensures smooth certification process from start to finish
@@ -560,7 +560,7 @@ export default function CertificateConsultant({ className = "" }) {
                     className="grid grid-cols-1 md:grid-cols-5 gap-6"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.3 }}
+                    transition={{ duration: 0.2002, delay: 0.3 }}
                     viewport={{ once: false, amount: 0.15 }}
                 >
                     {processSteps.map((step, index) => {
@@ -570,13 +570,13 @@ export default function CertificateConsultant({ className = "" }) {
                                 key={index}
                                 initial={{ opacity: 0, x: isEven ? -80 : 80, y: 30 }}
                                 whileInView={{ opacity: 1, x: 0, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.4 + index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                transition={{ duration: 0.2001, delay: 0.4 + index * 0.1, ease: [0.05001, 0.46, 0.45, 0.94] }}
                                 viewport={{ once: false, amount: 0.2 }}
                                 className="text-center"
                                 whileHover={{ 
                                     scale: 1.05, 
                                     y: -5,
-                                    transition: { duration: 0.3 }
+                                    transition: { duration: 0.2003 }
                                 }}
                             >
                                 <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-xl font-bold">
@@ -596,7 +596,7 @@ export default function CertificateConsultant({ className = "" }) {
                 className="relative bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 rounded-3xl p-12 text-center text-white overflow-hidden"
                 initial={{ opacity: 0, y: 60, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                transition={{ duration: 0.2004, delay: 0.1 }}
                 viewport={{ once: false, amount: 0.2 }}
             >
                 {/* Simple background elements for performance */}
@@ -627,7 +627,7 @@ export default function CertificateConsultant({ className = "" }) {
                         className="text-4xl sm:text-5xl font-bold mb-6"
                         initial={{ opacity: 0, x: -80 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+                        transition={{ duration: 0.2001, delay: 0.2 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         Get Your Business Certified Today
@@ -636,7 +636,7 @@ export default function CertificateConsultant({ className = "" }) {
                         className="text-xl mb-8 opacity-90 max-w-3xl mx-auto"
                         initial={{ opacity: 0, x: 80 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
+                        transition={{ duration: 0.2001, delay: 0.3 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         Enhance your business credibility and unlock new opportunities with our comprehensive certification services. Our expert team will guide you through every step of the process.
@@ -645,7 +645,7 @@ export default function CertificateConsultant({ className = "" }) {
                         className="flex flex-col sm:flex-row gap-6 justify-center"
                         initial={{ opacity: 0, y: 40 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
+                        transition={{ duration: 0.2001, delay: 0.4 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         <button

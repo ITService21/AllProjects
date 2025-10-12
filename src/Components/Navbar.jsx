@@ -24,7 +24,7 @@ function Navbar() {
         className="absolute inset-0 w-full h-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.2001 }}
       >
         {/* Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900" />
@@ -63,7 +63,7 @@ function Navbar() {
         className="fixed top-0 left-0 w-full z-50 bg-gray-900 shadow-2xl border-b border-white/10 transition-all duration-300"
         initial={{ y: 0 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.68, -0.55, 0.265, 1.55] }}
+        transition={{ duration: 0.2004, ease: [0.68, -0.55, 0.265, 1.55] }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16 md:h-18 lg:h-20">
@@ -89,7 +89,7 @@ function Navbar() {
               className="hidden lg:block"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.2004, delay: 0.3 }}
             >
               <motion.button
                 onClick={() => {

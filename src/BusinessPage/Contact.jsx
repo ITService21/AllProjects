@@ -176,7 +176,7 @@ const ContactSection = () => {
                     className="text-center mb-16"
                     initial={{ opacity: 0, x: -100 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
+                    transition={{ duration: 0.2001, delay: 0.1 }}
                     viewport={{ once: false, amount: 0.2 }}
                 >
                     <h2
@@ -187,7 +187,7 @@ const ContactSection = () => {
                             className="text-gray-800 block"
                             initial={{ opacity: 0, x: -80 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.2 }}
+                            transition={{ duration: 0.2002, delay: 0.2 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             Get In
@@ -196,7 +196,7 @@ const ContactSection = () => {
                             className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent block"
                             initial={{ opacity: 0, x: 80 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.3 }}
+                            transition={{ duration: 0.2002, delay: 0.3 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             Touch
@@ -208,7 +208,7 @@ const ContactSection = () => {
                         style={{fontFamily: 'Inter, sans-serif'}}
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.4 }}
+                        transition={{ duration: 0.2002, delay: 0.4 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         Ready to transform your business? Let&apos;s discuss how we can help you achieve your goals.
@@ -219,7 +219,7 @@ const ContactSection = () => {
                 className="grid lg:grid-cols-2 gap-12"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
+                transition={{ duration: 0.2002, delay: 0.1 }}
                 viewport={{ once: false, amount: 0.15 }}
             >
                 {/* Left Content - Slides from Left */}
@@ -227,13 +227,13 @@ const ContactSection = () => {
                         className="space-y-8"
                         initial={{ opacity: 0, x: -120, y: 30 }}
                         whileInView={{ opacity: 1, x: 0, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        transition={{ duration: 0.2001, delay: 0.2, ease: [0.05001, 0.46, 0.45, 0.94] }}
                         viewport={{ once: false, amount: 0.2 }}
                     >
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.3 }}
+                            transition={{ duration: 0.2002, delay: 0.3 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             <h3 className="text-3xl md:text-4xl font-black mb-6" style={{color: '#000000', fontFamily: 'Outfit, sans-serif'}}>
@@ -272,10 +272,10 @@ const ContactSection = () => {
                                         <motion.div
                                             key={index}
                                             className="bg-white rounded-xl p-4 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 group cursor-pointer relative overflow-hidden"
-                                            whileHover={{ scale: 1.02, y: -3, transition: { duration: 0.3 } }}
+                                            whileHover={{ scale: 1.02, y: -3, transition: { duration: 0.2003 } }}
                                             initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60, y: 30 }}
                                             whileInView={{ opacity: 1, x: 0, y: 0 }}
-                                            transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                                            transition={{ duration: 0.2002, delay: 0.4 + index * 0.1 }}
                                             viewport={{ once: false, amount: 0.3 }}
                                         >
                                             <div className="relative z-10 text-center">
@@ -300,7 +300,7 @@ const ContactSection = () => {
                                     className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
                                     initial={{ opacity: 0, y: 30 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.4, delay: 0.5 }}
+                                    transition={{ duration: 0.2002, delay: 0.5 }}
                                     viewport={{ once: false, amount: 0.3 }}
                                 >
                                     {[
@@ -328,10 +328,10 @@ const ContactSection = () => {
                                         <motion.div
                                             key={index}
                                             className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-4 border border-orange-100 hover:border-orange-200 transition-all duration-300 group"
-                                            whileHover={{ scale: 1.02, y: -2, transition: { duration: 0.3 } }}
+                                            whileHover={{ scale: 1.02, y: -2, transition: { duration: 0.2003 } }}
                                             initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
                                             whileInView={{ opacity: 1, x: 0 }}
-                                            transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+                                            transition={{ duration: 0.2002, delay: 0.6 + index * 0.1 }}
                                             viewport={{ once: false, amount: 0.3 }}
                                         >
                                             <div className="text-center">
@@ -409,9 +409,9 @@ const ContactSection = () => {
                     className="bg-white rounded-3xl p-8 shadow-2xl border border-gray-100 relative overflow-hidden"
                     initial={{ opacity: 0, x: 120, y: 30 }}
                     whileInView={{ opacity: 1, x: 0, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    transition={{ duration: 0.2001, delay: 0.3, ease: [0.05001, 0.46, 0.45, 0.94] }}
                     viewport={{ once: false, amount: 0.2 }}
-                    whileHover={{ scale: 1.01, y: -3, transition: { duration: 0.3 } }}
+                    whileHover={{ scale: 1.01, y: -3, transition: { duration: 0.2003 } }}
                 >
                     <div className="relative z-10">
                         <motion.h3 
@@ -419,7 +419,7 @@ const ContactSection = () => {
                             style={{color: '#000000', fontFamily: 'Outfit, sans-serif'}}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 0.4 }}
+                            transition={{ duration: 0.2002, delay: 0.4 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             Send Us a Message
@@ -436,7 +436,7 @@ const ContactSection = () => {
                                                 key={field.name}
                                                 initial={{ opacity: 0, x: 30 }}
                                                 whileInView={{ opacity: 1, x: 0 }}
-                                                transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                                                transition={{ duration: 0.2002, delay: 0.5 + index * 0.1 }}
                                                 viewport={{ once: false, amount: 0.3 }}
                                             >
                                                 <label className="block text-gray-700 text-sm font-semibold mb-2" style={{fontFamily: 'Inter, sans-serif'}}>
@@ -465,7 +465,7 @@ const ContactSection = () => {
                                         <motion.div
                                             initial={{ opacity: 0, x: 30 }}
                                             whileInView={{ opacity: 1, x: 0 }}
-                                            transition={{ duration: 0.4, delay: 0.9 }}
+                                            transition={{ duration: 0.2002, delay: 0.9 }}
                                             viewport={{ once: false, amount: 0.3 }}
                                         >
                                             <label className="block text-gray-700 text-sm font-semibold mb-2" style={{fontFamily: 'Inter, sans-serif'}}>
@@ -492,7 +492,7 @@ const ContactSection = () => {
                                         <motion.div
                                             initial={{ opacity: 0, x: 30 }}
                                             whileInView={{ opacity: 1, x: 0 }}
-                                            transition={{ duration: 0.4, delay: 1.0 }}
+                                            transition={{ duration: 0.2002, delay: 1.0 }}
                                             viewport={{ once: false, amount: 0.3 }}
                                         >
                                             <label className="block text-gray-700 text-sm font-semibold mb-2" style={{fontFamily: 'Inter, sans-serif'}}>
@@ -511,13 +511,13 @@ const ContactSection = () => {
                         <motion.button
                             type="submit"
                             disabled={sending}
-                            whileHover={{ scale: sending ? 1 : 1.02, y: sending ? 0 : -2, transition: { duration: 0.3 } }}
+                            whileHover={{ scale: sending ? 1 : 1.02, y: sending ? 0 : -2, transition: { duration: 0.2003 } }}
                             whileTap={{ scale: sending ? 1 : 0.98 }}
                             className="w-full py-4 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-xl shadow-lg transition-all duration-300 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                             style={{fontFamily: 'Inter, sans-serif'}}
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: 1.1 }}
+                            transition={{ duration: 0.2002, delay: 1.1 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             {sending ? 'Sending...' : 'Send Message →'}

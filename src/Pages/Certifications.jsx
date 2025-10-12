@@ -87,7 +87,7 @@ export default function Certifications({ className = "" }) {
                 className="relative z-10 flex flex-col items-center justify-center text-center min-h-[60vh]"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.2004, delay: 0.2 }}
                 viewport={{ once: false, amount: 0.3 }}
             >
                 <motion.div
@@ -152,7 +152,7 @@ export default function Certifications({ className = "" }) {
                         className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-6 relative"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.5 }}
+                        transition={{ duration: 0.2004, delay: 0.5 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         <span className="bg-gradient-to-r from-gray-700 via-gray-500 to-gray-600 bg-clip-text text-transparent relative">
@@ -195,7 +195,7 @@ export default function Certifications({ className = "" }) {
                         className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-medium"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.7 }}
+                        transition={{ duration: 0.2004, delay: 0.7 }}
                         viewport={{ once: false, amount: 0.3 }}
                     >
                         Our professional certifications and industry awards will be displayed here shortly. Stay tuned!
@@ -206,7 +206,7 @@ export default function Certifications({ className = "" }) {
                         className="mt-10 inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-orange-100 via-orange-50 to-red-100 border-2 border-orange-300 rounded-full shadow-lg relative overflow-hidden"
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
+                        transition={{ duration: 0.2004, delay: 0.8 }}
                         viewport={{ once: false, amount: 0.3 }}
                         whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(251, 146, 60, 0.3)" }}
                     >

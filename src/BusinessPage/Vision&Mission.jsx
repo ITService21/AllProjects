@@ -128,7 +128,7 @@ function VisionMission() {
                     className="text-center mb-16"
                     initial={{ opacity: 0, x: -100 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
+                    transition={{ duration: 0.2001, delay: 0.1 }}
                     viewport={{ once: false, amount: 0.2 }}
                 >
                     <h2 
@@ -139,7 +139,7 @@ function VisionMission() {
                             className="text-gray-800 block"
                             initial={{ opacity: 0, x: -80 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.2 }}
+                            transition={{ duration: 0.2002, delay: 0.2 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             Our
@@ -148,7 +148,7 @@ function VisionMission() {
                             className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent block"
                             initial={{ opacity: 0, x: 80 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.3 }}
+                            transition={{ duration: 0.2002, delay: 0.3 }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
                             Mission & Vision
@@ -159,7 +159,7 @@ function VisionMission() {
                         className="w-32 h-1 mx-auto bg-gradient-to-r from-orange-500 to-red-500 rounded-full"
                         initial={{ scaleX: 0 }}
                         whileInView={{ scaleX: 1 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
+                        transition={{ duration: 0.2001, delay: 0.4 }}
                         viewport={{ once: false, amount: 0.3 }}
                     />
                 </motion.div>
@@ -169,16 +169,16 @@ function VisionMission() {
                     className="grid grid-cols-1 lg:grid-cols-2 gap-8"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.1 }}
+                    transition={{ duration: 0.2002, delay: 0.1 }}
                     viewport={{ once: false, amount: 0.15 }}
                 >
                     {/* Mission Card - Slides from Left */}
             <motion.div
                         initial={{ opacity: 0, x: -120, y: 30 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        transition={{ duration: 0.2001, delay: 0.2, ease: [0.05001, 0.46, 0.45, 0.94] }}
                         viewport={{ once: false, amount: 0.2 }}
-                        whileHover={{ scale: 1.02, y: -5, transition: { duration: 0.3 } }}
+                        whileHover={{ scale: 1.02, y: -5, transition: { duration: 0.2003 } }}
                         className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden cursor-pointer"
                     >
                         <div className="relative z-10">
@@ -191,7 +191,7 @@ function VisionMission() {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: 0.3 }}
+                                transition={{ duration: 0.2002, delay: 0.3 }}
                                 viewport={{ once: false, amount: 0.3 }}
                             >
                                 <h3 className="text-2xl md:text-3xl font-black mb-4" style={{color: '#000000', fontFamily: 'Outfit, sans-serif'}}>
@@ -212,9 +212,9 @@ function VisionMission() {
             <motion.div
                         initial={{ opacity: 0, x: 120, y: 30 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        transition={{ duration: 0.2001, delay: 0.3, ease: [0.05001, 0.46, 0.45, 0.94] }}
                         viewport={{ once: false, amount: 0.2 }}
-                        whileHover={{ scale: 1.02, y: -5, transition: { duration: 0.3 } }}
+                        whileHover={{ scale: 1.02, y: -5, transition: { duration: 0.2003 } }}
                         className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden cursor-pointer"
                     >
                         <div className="relative z-10">
@@ -227,7 +227,7 @@ function VisionMission() {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: 0.4 }}
+                                transition={{ duration: 0.2002, delay: 0.4 }}
                                 viewport={{ once: false, amount: 0.3 }}
                             >
                                 <h3 className="text-2xl md:text-3xl font-black mb-4" style={{color: '#000000', fontFamily: 'Outfit, sans-serif'}}>

@@ -12,7 +12,7 @@ export const CompanyLogo = () => {
           whileHover={{ 
             scale: 1.1,
             rotate: [0, -5, 5, 0],
-            transition: { duration: 0.6 }
+            transition: { duration: 0.2004 }
           }}
           animate={{
             boxShadow: [

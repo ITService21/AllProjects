@@ -21,7 +21,7 @@ export const MobileMenu = ({ menuLinks, onClose, onGetStarted }) => {
       initial={{ opacity: 0, y: -20, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -20, scale: 0.95 }}
-      transition={{ duration: 0.3, ease: [0.68, -0.55, 0.265, 1.55] }}
+      transition={{ duration: 0.2003, ease: [0.68, -0.55, 0.265, 1.55] }}
     >
       {/* Header */}
       <div className="px-6 py-4 bg-gradient-to-r from-orange-500/10 to-red-500/10 border-b border-gray-200/50">
@@ -50,7 +50,7 @@ export const MobileMenu = ({ menuLinks, onClose, onGetStarted }) => {
                 key={record.name}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
+                transition={{ duration: 0.2003, delay: index * 0.1 }}
               >
                 <motion.li
                   className="mx-2 my-1"
@@ -94,7 +94,7 @@ export const MobileMenu = ({ menuLinks, onClose, onGetStarted }) => {
                       {hasSubLinks && (
                         <motion.div
                           animate={{ rotate: expandedLinkId === index ? 180 : 0 }}
-                          transition={{ duration: 0.3 }}
+                          transition={{ duration: 0.2003 }}
                         >
                           <ChevronDownIcon className="w-5 h-5 text-gray-500" />
                         </motion.div>
@@ -109,7 +109,7 @@ export const MobileMenu = ({ menuLinks, onClose, onGetStarted }) => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.2003 }}
                         className="overflow-hidden"
                       >
                         <div className="ml-6 mt-2 space-y-1">
