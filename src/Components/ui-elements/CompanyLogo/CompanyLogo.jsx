@@ -8,7 +8,7 @@ export const CompanyLogo = () => {
       <div className="relative mr-3 sm:mr-4">
         {/* Circular Logo - Responsive sizing */}
         <motion.div 
-          className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 rounded-full overflow-hidden border-2 border-orange-500 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+          className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-[70px] xl:h-[70px] rounded-full overflow-hidden border-2 border-orange-500 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105"
           whileHover={{ 
             scale: 1.1,
             rotate: [0, -5, 5, 0],
@@ -30,7 +30,7 @@ export const CompanyLogo = () => {
           }}
         >
           <img 
-            src="/image/logo.jpg" 
+            src="/image/logo.png" 
             className="w-full h-full object-cover" 
             alt="Grow Startup Logo"
           />

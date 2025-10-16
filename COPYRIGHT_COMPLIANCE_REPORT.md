@@ -40,7 +40,7 @@ This project has been thoroughly audited for copyright compliance. **NO COPYRIGH
 **Location:** `/public/image/`, `/public/OurTeam/`, `/public/Patner/`, `/public/Destination/`
 
 **Status:** These appear to be original/owned images:
-- `logo.jpg` - Company logo (owned)
+- `logo.png` - Company logo (owned)
 - `banner1.jpg`, `b1.jpg`, `b2.jpg` - Business images
 - Team photos in `/OurTeam/` - Original photos
 - Partner/destination images - Original photos

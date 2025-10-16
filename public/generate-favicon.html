@@ -61,7 +61,7 @@
 <body>
     <div class="container">
         <h1>🎨 Favicon Generator</h1>
-        <p>Generate circular favicon files from logo.jpg</p>
+        <p>Generate circular favicon files from logo.png</p>
         
         <div class="instructions">
             <strong>Instructions:</strong>
@@ -107,10 +107,10 @@
             };
             
             img.onerror = function() {
-                document.getElementById('status').innerHTML = '<p style="color:red;">❌ Error loading logo.jpg. Make sure the file exists in public/image/logo.jpg</p>';
+                document.getElementById('status').innerHTML = '<p style="color:red;">❌ Error loading logo.png. Make sure the file exists in public/image/logo.png</p>';
             };
             
-            img.src = '/image/logo.jpg';
+            img.src = '/image/logo.png';
         }
 
         function drawCircularImage(canvas, img) {

@@ -2,7 +2,7 @@
 🔄 FAVICON NOT SHOWING? CLEAR YOUR CACHE!
 ==========================================
 
-Your favicon has been updated to use logo.jpg
+Your favicon has been updated to use logo.png
 
 To see it, do a HARD REFRESH:
 
