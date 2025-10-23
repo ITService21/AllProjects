@@ -172,16 +172,13 @@ export default function Footer() {
                     <div className="mt-4">
                         <h4 className="text-md font-semibold mb-3">Follow Us</h4>
                         <div className="flex space-x-3">
-                            <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition">
+                            <a href="https://www.facebook.com/profile.php?id=61581848345735" target="_blank" rel="noopener noreferrer" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition" aria-label="Facebook">
                                 <FaFacebookF />
                             </a>
-                            <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition">
+                            <a href="https://www.instagram.com/growstartup_advisors?utm_source=qr" target="_blank" rel="noopener noreferrer" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition" aria-label="Instagram">
                                 <FaInstagram />
                             </a>
-                            <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition">
-                                <FaTwitter />
-                            </a>
-                            <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition">
+                            <a href="https://www.linkedin.com/company/growstartup-advisors/" target="_blank" rel="noopener noreferrer" className="bg-gray-700 p-2 rounded-full hover:bg-indigo-500 transition" aria-label="LinkedIn">
                                 <FaLinkedinIn />
                             </a>
                         </div>

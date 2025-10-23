@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaWhatsapp, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaWhatsapp, FaLinkedin, FaFacebook, FaInstagram } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { API_ENDPOINTS } from "../config/api";
@@ -390,26 +390,46 @@ function ContactUs() {
                             <h3 className="text-2xl font-bold text-gray-800 mb-6">Follow Us</h3>
                             <div className="flex gap-4">
                                 <motion.a
-                                    href="#"
+                                    href="https://www.facebook.com/profile.php?id=61581848345735"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white"
                                     whileHover={{ scale: 1.1, rotate: 5 }}
                                     whileTap={{ scale: 0.9 }}
+                                    aria-label="Facebook"
+                                >
+                                    <FaFacebook className="text-lg" />
+                                </motion.a>
+                                <motion.a
+                                    href="https://www.instagram.com/growstartup_advisors?utm_source=qr"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white"
+                                    whileHover={{ scale: 1.1, rotate: 5 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    aria-label="Instagram"
+                                >
+                                    <FaInstagram className="text-lg" />
+                                </motion.a>
+                                <motion.a
+                                    href="https://www.linkedin.com/company/growstartup-advisors/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white"
+                                    whileHover={{ scale: 1.1, rotate: 5 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    aria-label="LinkedIn"
                                 >
                                     <FaLinkedin className="text-lg" />
                                 </motion.a>
                                 <motion.a
-                                    href="#"
+                                    href="https://wa.me/917383930301"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white"
                                     whileHover={{ scale: 1.1, rotate: 5 }}
                                     whileTap={{ scale: 0.9 }}
-                                >
-                                    <FaTwitter className="text-lg" />
-                                </motion.a>
-                                <motion.a
-                                    href="#"
-                                    className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white"
-                                    whileHover={{ scale: 1.1, rotate: 5 }}
-                                    whileTap={{ scale: 0.9 }}
+                                    aria-label="WhatsApp"
                                 >
                                     <FaWhatsapp className="text-lg" />
                                 </motion.a>
